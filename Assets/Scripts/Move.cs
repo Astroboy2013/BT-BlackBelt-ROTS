@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,11 +7,11 @@ public class Move : MonoBehaviour
 {
     public Rigidbody rb;
 
-    public float UpForce = 5000f;
-    public float DownForce = 5000f;
-    public float rotationalForce = 1f;
+    public float yawForce;
+    public float pitchForce;
 
-    private float rotationBuffer = 0f;
+    private float yawBuffer = 0f;
+    private float pitchBuffer = 0f;
 
 
     // Start is called before the first frame update
@@ -22,34 +23,28 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        //transform.rotation = Quaternion.Euler(0, transform.rotation.y, planeRotation);
-        Debug.Log(transform.rotation.y);
+        Debug.Log(yawBuffer);
         //Tilt Left
         if (Input.GetKey(KeyCode.A))
         {
-            rotationBuffer += rotationalForce;
-            transform.Rotate(new Vector3(0f, -rotationBuffer, 0f) * Time.deltaTime);
+            yawBuffer -= yawForce;
         }
         //Tilt Right
         if (Input.GetKey(KeyCode.D))
         {
-            rotationBuffer += rotationalForce;
-            transform.Rotate(new Vector3(0f, rotationBuffer, 0f) * Time.deltaTime);
+            yawBuffer += yawForce;
         }
 
 
         //Tilt Up
         if (Input.GetKey(KeyCode.S))
         {
-            transform.Rotate(Vector3.left * 10f * Time.deltaTime);
-            rb.AddForce(transform.up * UpForce * Time.deltaTime);
+            pitchBuffer += pitchForce;
         }
         //Tilt Down
         if (Input.GetKey(KeyCode.W))
         {
-            transform.Rotate(-Vector3.left * 10f * Time.deltaTime);
-            rb.AddForce(-transform.up * DownForce * Time.deltaTime);
+            pitchBuffer -= pitchForce;
         }
         //Roll Counter clockwise
         if (Input.GetKey(KeyCode.Q))
@@ -66,5 +61,7 @@ public class Move : MonoBehaviour
         {
             rb.AddForce(transform.forward * 50f);
         }
+
+        transform.eulerAngles = new Vector3(pitchBuffer / 1.5f, yawBuffer, 0);
     }
 }
