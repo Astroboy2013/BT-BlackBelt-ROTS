@@ -59,9 +59,23 @@ public class Move : MonoBehaviour
         //Boosts Forward
         if (Input.GetKey(KeyCode.Space))
         {
-            rb.AddForce(transform.forward * 50f);
+            rb.AddForce(transform.forward * 30f);
         }
 
-        transform.eulerAngles = new Vector3(pitchBuffer / 1.5f, yawBuffer, 0);
+        pitchBuffer = pitchBuffer * 0.999f;
+        transform.eulerAngles = new Vector3(pitchBuffer, yawBuffer, 0);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "ground")
+        {
+            Explode();
+        }
+    }
+
+    void Explode()
+    {
+
     }
 }
