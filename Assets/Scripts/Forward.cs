@@ -8,7 +8,7 @@ public class Forward : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Invoke("destroyMissile", 10f);
     }
 
     // Update is called once per frame
@@ -18,6 +18,11 @@ public class Forward : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision collision)
+    {
+        Destroy(gameObject);
+    }
+   
+    void destroyMissile()
     {
         Destroy(gameObject);
     }

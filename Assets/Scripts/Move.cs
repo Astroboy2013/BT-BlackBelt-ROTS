@@ -46,16 +46,6 @@ public class Move : MonoBehaviour
         {
             pitchBuffer -= pitchForce;
         }
-        //Roll Counter clockwise
-        if (Input.GetKey(KeyCode.Q))
-        {
-            transform.Rotate(new Vector3(0, 0, 10) * Time.deltaTime);
-        }
-        //Roll Clockwise
-        if (Input.GetKey(KeyCode.E))
-        {
-            transform.Rotate(new Vector3(0, 0, -10) * Time.deltaTime);
-        }
         //Boosts Forward
         if (Input.GetKey(KeyCode.Space))
         {
@@ -76,6 +66,6 @@ public class Move : MonoBehaviour
 
     void Explode()
     {
-
+        gameObject.SetActive(false);
     }
 }
