@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Move : MonoBehaviour
+public class playerBehaviour : MonoBehaviour
 {
     public Rigidbody rb;
 
     public float yawForce;
     public float pitchForce;
+    public setExplosionAt explosionManager;
 
     private float yawBuffer = 0f;
     private float pitchBuffer = 0f;
@@ -58,7 +59,11 @@ public class Move : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "ground")
+        if (collision.gameObject.tag == "ground" || collision.gameObject.tag == "enemy")
+        {
+            Explode();
+        }
+        if (collision.gameObject.tag == "missile") //This is temporary
         {
             Explode();
         }
@@ -67,5 +72,6 @@ public class Move : MonoBehaviour
     void Explode()
     {
         gameObject.SetActive(false);
+        explosionManager.explodeAt(gameObject.transform.position);
     }
 }

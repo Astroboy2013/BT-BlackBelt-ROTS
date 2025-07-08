@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fire : MonoBehaviour
+public class EnemyFire : MonoBehaviour
 {
     public GameObject missilePrefab;
 
@@ -22,7 +22,7 @@ public class Fire : MonoBehaviour
             timer -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && timer <= 0)
+        if (timer <= 0)
         {
             GameObject newMissile = Instantiate(missilePrefab, new Vector3(transform.position.x, transform.position.y - 3, transform.position.z), transform.rotation);
             newMissile.transform.parent = null;
@@ -30,6 +30,4 @@ public class Fire : MonoBehaviour
             timer = time;
         }
     }
-
-    //https://www.youtube.com/watch?v=adgeiUNlajY&embeds_referring_euri=https%3A%2F%2Fwww.bing.com%2F&embeds_referring_origin=https%3A%2F%2Fwww.bing.com&source_ve_path=MTM5MTE3LDEzOTExNywxMzkxMTcsMTM5MTE3LDEzOTExNywyODY2Ng
 }
