@@ -5,11 +5,19 @@ using UnityEngine;
 
 public class playerBehaviour : MonoBehaviour
 {
+    [Header("External Scripts")]
     public Rigidbody rb;
+    public setExplosionAt explosionManager;
 
+    [Header("Force Strengths")]
     public float yawForce;
     public float pitchForce;
-    public setExplosionAt explosionManager;
+    public float constantForwardForce = 30f;
+    public float boostForce = 60f;
+    public float totalForce;
+
+    [Header("Other")]
+    public bool reverseTiltcontrol = false;
 
     private float yawBuffer = 0f;
     private float pitchBuffer = 0f;
@@ -24,7 +32,7 @@ public class playerBehaviour : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(yawBuffer);
+        ///ROTATION CODE
         //Tilt Left
         if (Input.GetKey(KeyCode.A))
         {
@@ -35,26 +43,46 @@ public class playerBehaviour : MonoBehaviour
         {
             yawBuffer += yawForce;
         }
-
-
         //Tilt Up
         if (Input.GetKey(KeyCode.S))
         {
-            pitchBuffer += pitchForce;
+            if (reverseTiltcontrol)
+            {
+                pitchBuffer -= pitchForce;
+            }
+            else
+            {
+                pitchBuffer += pitchForce;
+            }
         }
         //Tilt Down
         if (Input.GetKey(KeyCode.W))
         {
-            pitchBuffer -= pitchForce;
+            if (reverseTiltcontrol)
+            {
+                pitchBuffer += pitchForce;
+            }
+            else
+            {
+                pitchBuffer -= pitchForce;
+            }
         }
-        //Boosts Forward
-        if (Input.GetKey(KeyCode.Space))
-        {
-            rb.AddForce(transform.forward * 30f);
-        }
-
+        
         pitchBuffer = pitchBuffer * 0.999f;
         transform.eulerAngles = new Vector3(pitchBuffer, yawBuffer, 0);
+
+
+        ///FORCE CODE
+        //Boosts Forward
+        totalForce = constantForwardForce;
+        
+        if (Input.GetKey(KeyCode.Space))
+        {
+            totalForce += boostForce;
+        }
+        
+        //rb.AddForce(transform.forward * totalForce);
+        rb.velocity = transform.forward * totalForce;
     }
 
     private void OnCollisionEnter(Collision collision)
