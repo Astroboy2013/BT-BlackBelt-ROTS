@@ -16,6 +16,6 @@ public class enemyBehaviour : MonoBehaviour
     void Update()
     {
         gameObject.transform.LookAt(player.transform);
-        rb.AddForce(transform.forward * 30f);
+        rb.velocity = transform.forward * 50f;
     }
 }

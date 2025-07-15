@@ -67,10 +67,9 @@ public class playerBehaviour : MonoBehaviour
                 pitchBuffer -= pitchForce;
             }
         }
-        
-        pitchBuffer = pitchBuffer * 0.999f;
-        transform.eulerAngles = new Vector3(pitchBuffer, yawBuffer, 0);
 
+            pitchBuffer = pitchBuffer * 0.999f;
+            transform.eulerAngles = new Vector3(pitchBuffer, yawBuffer, 0);
 
         ///FORCE CODE
         //Boosts Forward
@@ -81,8 +80,12 @@ public class playerBehaviour : MonoBehaviour
             totalForce += boostForce;
         }
         
-        //rb.AddForce(transform.forward * totalForce);
         rb.velocity = transform.forward * totalForce;
+
+        if (transform.position.y > 500)
+        {
+            pitchBuffer = 90f;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

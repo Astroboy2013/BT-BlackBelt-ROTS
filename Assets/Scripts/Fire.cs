@@ -29,14 +29,21 @@ public class Fire : MonoBehaviour
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 10000f))
+            if (Physics.Raycast(ray, out hit, 100000f))
             {
                 Debug.Log("Hit: " + hit.collider.name);
                 Debug.DrawLine(ray.origin, hit.point, Color.red); // Visible in Scene view
             }
 
 
-            Missile newMissile = Instantiate(missilePrefab, new Vector3(transform.position.x, transform.position.y - 3, transform.position.z), transform.rotation);
+            Vector3 missileSpawnPos = new Vector3(transform.position.x, transform.position.y - 3, transform.position.z);
+            Vector3 targetDirection = (hit.point - missileSpawnPos).normalized;
+
+
+            Quaternion targetDirectionRot = Quaternion.LookRotation(targetDirection);
+
+
+            Missile newMissile = Instantiate(missilePrefab, missileSpawnPos, targetDirectionRot); ; 
             newMissile.additionalForce = parentCode.totalForce;
 
             timer = time;
