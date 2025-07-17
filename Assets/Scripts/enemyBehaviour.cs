@@ -6,16 +6,26 @@ public class enemyBehaviour : MonoBehaviour
 {
     public GameObject player;
     public Rigidbody rb;
+
+    [Header("Dev Options")]
+    public bool hasAI;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.LookAt(player.transform);
-        rb.velocity = transform.forward * 50f;
+        if (player != null)
+        {
+            if (hasAI)
+            {
+                gameObject.transform.LookAt(player.transform);
+                rb.velocity = transform.forward * 30f;
+            }
+        }
     }
 }

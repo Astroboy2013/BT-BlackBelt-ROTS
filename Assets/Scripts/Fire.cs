@@ -28,16 +28,20 @@ public class Fire : MonoBehaviour
         {
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             RaycastHit hit;
+            Vector3 targetDirection;
+            Vector3 missileSpawnPos = new Vector3(transform.position.x, transform.position.y - 3, transform.position.z);
 
             if (Physics.Raycast(ray, out hit, 100000f))
             {
                 Debug.Log("Hit: " + hit.collider.name);
-                Debug.DrawLine(ray.origin, hit.point, Color.red); // Visible in Scene view
+                Debug.DrawLine(ray.origin, hit.point, Color.red, 2f); // Visible in Scene view
+                
+                targetDirection = (hit.point - missileSpawnPos).normalized;
             }
-
-
-            Vector3 missileSpawnPos = new Vector3(transform.position.x, transform.position.y - 3, transform.position.z);
-            Vector3 targetDirection = (hit.point - missileSpawnPos).normalized;
+            else
+            {
+                targetDirection = transform.forward;
+            }
 
 
             Quaternion targetDirectionRot = Quaternion.LookRotation(targetDirection);
@@ -50,5 +54,5 @@ public class Fire : MonoBehaviour
         }
     }
 
-    //https://www.youtube.com/watch?v=adgeiUNlajY&embeds_referring_euri=https%3A%2F%2Fwww.bing.com%2F&embeds_referring_origin=https%3A%2F%2Fwww.bing.com&source_ve_path=MTM5MTE3LDEzOTExNywxMzkxMTcsMTM5MTE3LDEzOTExNywyODY2Ng
+   
 }
