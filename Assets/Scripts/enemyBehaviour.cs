@@ -25,6 +25,8 @@ public class enemyBehaviour : MonoBehaviour
             {
                 gameObject.transform.LookAt(player.transform);
                 rb.velocity = transform.forward * 30f;
+            } else {
+                rb.isKinematic = true;
             }
         }
     }

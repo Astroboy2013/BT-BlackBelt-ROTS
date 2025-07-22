@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fire : MonoBehaviour
+public class fire : MonoBehaviour
 {
-    public Missile missilePrefab;
+    public missile missilePrefab;
     public float time;
     
     private playerBehaviour parentCode;
@@ -47,7 +47,7 @@ public class Fire : MonoBehaviour
             Quaternion targetDirectionRot = Quaternion.LookRotation(targetDirection);
 
 
-            Missile newMissile = Instantiate(missilePrefab, missileSpawnPos, targetDirectionRot); ; 
+            missile newMissile = Instantiate(missilePrefab, missileSpawnPos, targetDirectionRot); ; 
             newMissile.additionalForce = parentCode.totalForce;
 
             timer = time;

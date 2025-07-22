@@ -204,6 +204,8 @@ GameObject:
   - component: {fileID: 6976300156392042595}
   - component: {fileID: 989556399241595653}
   - component: {fileID: 4059084904597260215}
+  - component: {fileID: 4059792436413375689}
+  - component: {fileID: 6504208437269446247}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -318,7 +320,7 @@ MonoBehaviour:
   constantForwardForce: 50
   boostForce: 150
   totalForce: 0
-  reverseTiltcontrol: 1
+  reverseTiltcontrol: 0
 --- !u!114 &4059084904597260215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +335,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missilePrefab: {fileID: 451534549390141338, guid: ac9b85c487661d44da30ee01bb179ac2, type: 3}
   time: 0.5
+--- !u!114 &4059792436413375689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6774272277974316553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ccdebc6a122d34895142db24240cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScript: {fileID: 989556399241595653}
+  enemyScript: {fileID: 0}
+  maxHealth: 20
+  isEnemy: 0
+--- !u!114 &6504208437269446247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6774272277974316553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ccdebc6a122d34895142db24240cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScript: {fileID: 0}
+  enemyScript: {fileID: 0}
+  maxHealth: 20
+  isEnemy: 0
 --- !u!1 &7697245658709983207
 GameObject:
   m_ObjectHideFlags: 0

@@ -100,7 +100,7 @@ public class playerBehaviour : MonoBehaviour
         }
     }
 
-    void Explode()
+    public void Explode()
     {
         gameObject.SetActive(false);
         explosionManager.explodeAt(gameObject.transform.position);
