@@ -562,7 +562,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   rb: {fileID: 3083382815824131557}
-  explosionManager: {fileID: 0}
   hasAI: 0
 --- !u!114 &3991934856581187050
 MonoBehaviour:
@@ -576,9 +575,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63ccdebc6a122d34895142db24240cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerScript: {fileID: 0}
-  enemyScript: {fileID: -7156839463956713374}
-  maxHealth: 20
+  explosionManager: {fileID: 0}
+  maxHealth: 5
   isEnemy: 1
 --- !u!1 &8575034606213667808
 GameObject:

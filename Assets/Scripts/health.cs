@@ -9,12 +9,22 @@ public class health: MonoBehaviour
 
     public int maxHealth = 20;
     public bool isEnemy;
+    public Color defaultColour;
+    public Color damagedColour;
 
     private int currentHealth = 0;
+    private Material currentMaterial;
+
 
     private void Start()
     {
         currentHealth = maxHealth;
+
+        if (isEnemy && gameObject.tag == "dummy")
+        {
+            currentMaterial = GetComponent<MeshRenderer>().material;
+            SetDefaultColour();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -24,6 +34,7 @@ public class health: MonoBehaviour
             if (collision.gameObject.tag == "player missile")
             {
                 currentHealth--;
+                SetDamageColour();
 
                 if (currentHealth < 1)
                 {
@@ -51,4 +62,17 @@ public class health: MonoBehaviour
         gameObject.SetActive(false);
         explosionManager.explodeAt(gameObject.transform.position);
     }
+
+    private void SetDefaultColour()
+    {
+        currentMaterial.color = defaultColour;
+    }
+
+    private void SetDamageColour()
+    {
+        currentMaterial.color = damagedColour;
+
+        Invoke("SetDefaultColour", 0.5f);
+    }
+
 }
