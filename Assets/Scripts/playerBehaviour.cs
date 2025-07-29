@@ -2,12 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class playerBehaviour : MonoBehaviour
 {
     [Header("External Scripts")]
     public Rigidbody rb;
     public setExplosionAt explosionManager;
+    public TMP_Text healthNumber;
+    public health healthScript;
 
     [Header("Force Strengths")]
     public float yawForce;
@@ -86,15 +89,13 @@ public class playerBehaviour : MonoBehaviour
         {
             pitchBuffer = 90f;
         }
+
+        healthNumber.text = healthScript.currentHealth.ToString();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "ground" || collision.gameObject.tag == "enemy")
-        {
-            Explode();
-        }
-        if (collision.gameObject.tag == "missile") //This is temporary
         {
             Explode();
         }

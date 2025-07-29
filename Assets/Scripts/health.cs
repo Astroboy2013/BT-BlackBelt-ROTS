@@ -12,7 +12,7 @@ public class health: MonoBehaviour
     public Color defaultColour;
     public Color damagedColour;
 
-    private int currentHealth = 0;
+    public int currentHealth = 0;
     private Material currentMaterial;
 
 

@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class spawner : MonoBehaviour
 {
     public GameObject enemy;
+    public TMP_Text enemyCountText;
 
     private int enemyCount;
     private Vector3 spawnLocation;
@@ -20,4 +22,9 @@ public class spawner : MonoBehaviour
             Instantiate(enemy, spawnLocation, Quaternion.identity);
         }
     }
+    void Update()
+    {
+        enemyCountText.text = "Enemies Left: " + enemyCount.ToString();
+    }
+
 }
