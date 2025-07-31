@@ -11,6 +11,7 @@ public class health: MonoBehaviour
     public bool isEnemy;
     public Color defaultColour;
     public Color damagedColour;
+    public spawner spawnScript;
 
     public int currentHealth = 0;
     private Material currentMaterial;
@@ -59,6 +60,7 @@ public class health: MonoBehaviour
 
     private void Explode()
     {
+        spawnScript.curEnemyCount--;
         gameObject.SetActive(false);
         explosionManager.explodeAt(gameObject.transform.position);
     }

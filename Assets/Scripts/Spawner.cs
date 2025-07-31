@@ -7,24 +7,39 @@ public class spawner : MonoBehaviour
 {
     public GameObject enemy;
     public TMP_Text enemyCountText;
+    public List<Transform> spawnLocations;
 
     private int enemyCount;
     private Vector3 spawnLocation;
+    public int curEnemyCount;
 
+    
     // Start is called before the first frame update
     void Start()
     {
-        enemyCount = Random.Range(10, 20);
+        GameObject[] foundSpawnLocations;
+        foundSpawnLocations = GameObject.FindGameObjectsWithTag("enemySpawn");
 
-        for (int enemies = 0; enemies < enemyCount; enemies++)
+        foreach (GameObject obj in foundSpawnLocations)
         {
-            spawnLocation = new Vector3(Random.Range(0, 1000), 100, Random.Range(0, 1000));
-            Instantiate(enemy, spawnLocation, Quaternion.identity);
+            spawnLocations.Add(obj.transform);
+        }
+
+
+
+        enemyCount = Random.Range(10, 20);
+        curEnemyCount = enemyCount;
+
+        for (int enemies = 0; enemies < spawnLocations.Count; enemies++)
+        {
+            //int randomIndex = Random.Range(0, spawnLocations.Count);
+            //spawnLocation = new Vector3(Random.Range(0, 1000), 100, Random.Range(0, 1000));
+            Instantiate(enemy, spawnLocations[enemies].position, Quaternion.identity);
         }
     }
     void Update()
     {
-        enemyCountText.text = "Enemies Left: " + enemyCount.ToString();
+        enemyCountText.text = "Enemies Left: " + curEnemyCount.ToString();
     }
 
 }
