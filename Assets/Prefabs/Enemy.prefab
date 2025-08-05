@@ -547,6 +547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missilePrefab: {fileID: 9145021199509371004, guid: ab2afebe47fc39944b6e96d7f3366758, type: 3}
+  hasAI: 0
   time: 1
 --- !u!114 &-7156839463956713374
 MonoBehaviour:
@@ -578,6 +579,10 @@ MonoBehaviour:
   explosionManager: {fileID: 0}
   maxHealth: 5
   isEnemy: 1
+  defaultColour: {r: 0, g: 0, b: 0, a: 0}
+  damagedColour: {r: 0, g: 0, b: 0, a: 0}
+  spawnScript: {fileID: 0}
+  currentHealth: 0
 --- !u!1 &8575034606213667808
 GameObject:
   m_ObjectHideFlags: 0

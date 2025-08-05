@@ -13,8 +13,8 @@ public class fire : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        parentCode = GetComponent<playerBehaviour>();   
-    }
+        parentCode = GetComponent<playerBehaviour>();
+}
 
     // Update is called once per frame
     void Update()
@@ -43,11 +43,9 @@ public class fire : MonoBehaviour
                 targetDirection = transform.forward;
             }
 
-
             Quaternion targetDirectionRot = Quaternion.LookRotation(targetDirection);
 
-
-            missile newMissile = Instantiate(missilePrefab, missileSpawnPos, targetDirectionRot); ; 
+            missile newMissile = Instantiate(missilePrefab, missileSpawnPos, targetDirectionRot);
             newMissile.additionalForce = parentCode.totalForce;
 
             timer = time;

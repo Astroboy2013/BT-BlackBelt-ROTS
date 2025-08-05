@@ -5,7 +5,7 @@ using UnityEngine;
 public class missile : MonoBehaviour
 {
     public Rigidbody rb;
-    public float initialForce = 50f;
+    public float initialForce;
 
     public float additionalForce;
 

@@ -314,6 +314,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 2486680678851863555}
   explosionManager: {fileID: 0}
+  healthNumber: {fileID: 0}
+  healthScript: {fileID: 0}
   yawForce: 2
   pitchForce: 2
   constantForwardForce: 50
@@ -350,7 +352,9 @@ MonoBehaviour:
   maxHealth: 5
   isEnemy: 0
   defaultColour: {r: 0, g: 0, b: 0, a: 0}
-  damagedColour: {r: 0, g: 0, b: 0, a: 0}
+  damagedColour: {r: 1, g: 0, b: 0, a: 0}
+  spawnScript: {fileID: 0}
+  currentHealth: 0
 --- !u!1 &7697245658709983207
 GameObject:
   m_ObjectHideFlags: 0

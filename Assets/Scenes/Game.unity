@@ -653,7 +653,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 408.6, y: 36.9}
+  m_AnchoredPosition: {x: 408.6001, y: 36.899902}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &258745972
@@ -939,7 +939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed584839e47891649988cf3f53664a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 1048299895}
+  enemy: {fileID: 8315383081915650354, guid: 3da24710fa2e0f1489ec20a5b3f3c94e, type: 3}
   enemyCountText: {fileID: 1392908771}
   spawnLocations: []
   curEnemyCount: 0
@@ -1133,7 +1133,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Search
+  m_text: Tutorial
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 357a2dc764923574685a5fd94142a806, type: 2}
   m_sharedMaterial: {fileID: -1085828613158138377, guid: 357a2dc764923574685a5fd94142a806, type: 2}
@@ -3114,6 +3114,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 989556399241595653, guid: b102a11946bbf3f448dd905415622adc, type: 3}
+      propertyPath: yawForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 989556399241595653, guid: b102a11946bbf3f448dd905415622adc, type: 3}
+      propertyPath: pitchForce
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 989556399241595653, guid: b102a11946bbf3f448dd905415622adc, type: 3}
       propertyPath: healthNumber
       value: 

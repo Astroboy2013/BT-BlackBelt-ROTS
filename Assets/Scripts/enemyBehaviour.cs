@@ -21,9 +21,9 @@ public class enemyBehaviour : MonoBehaviour
     {
         if (player != null)
         {
+            gameObject.transform.LookAt(player.transform);
             if (hasAI)
             {
-                gameObject.transform.LookAt(player.transform);
                 rb.velocity = transform.forward * 30f;
             } else {
                 rb.isKinematic = true;

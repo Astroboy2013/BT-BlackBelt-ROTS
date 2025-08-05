@@ -18,6 +18,8 @@ public class playerBehaviour : MonoBehaviour
     public float constantForwardForce = 30f;
     public float boostForce = 60f;
     public float totalForce;
+    public float angularAcceleration = 0.1f;
+    public float maxAngularAcceleration = 2f;
 
     [Header("Other")]
     public bool reverseTiltcontrol = false;
@@ -25,11 +27,20 @@ public class playerBehaviour : MonoBehaviour
     private float yawBuffer = 0f;
     private float pitchBuffer = 0f;
 
+    private float yawPositiveTimeBuffer;
+    private float yawNegativeTimeBuffer;
+    private float pitchPositiveTimeBuffer;
+    private float pitchNegativeTimeBuffer;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        yawPositiveTimeBuffer = 0.01f;
+        yawNegativeTimeBuffer = 0.01f;
+        pitchPositiveTimeBuffer = 0.01f;
+        pitchNegativeTimeBuffer = 0.01f;
     }
 
     // Update is called once per frame
@@ -37,41 +48,80 @@ public class playerBehaviour : MonoBehaviour
     {
         ///ROTATION CODE
         //Tilt Left
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            yawBuffer -= yawForce;
+            yawBuffer -= yawForce * (yawNegativeTimeBuffer * yawNegativeTimeBuffer);
+            yawNegativeTimeBuffer += angularAcceleration;
         }
+        else if (Input.GetKeyUp(KeyCode.A)) 
+        {
+            yawNegativeTimeBuffer = 0f;
+        }
+
         //Tilt Right
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D))
         {
-            yawBuffer += yawForce;
+            yawBuffer += yawForce * (yawPositiveTimeBuffer * yawPositiveTimeBuffer);
+            yawPositiveTimeBuffer += angularAcceleration;
         }
+        else if (Input.GetKeyUp(KeyCode.D))
+        {
+            yawPositiveTimeBuffer = 0f;
+        }
+
         //Tilt Up
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             if (reverseTiltcontrol)
             {
-                pitchBuffer -= pitchForce;
+                pitchBuffer -= pitchForce * (pitchPositiveTimeBuffer * pitchPositiveTimeBuffer);
+                pitchNegativeTimeBuffer += angularAcceleration;
             }
             else
             {
-                pitchBuffer += pitchForce;
+                pitchBuffer += pitchForce * (pitchNegativeTimeBuffer * pitchNegativeTimeBuffer);
+                pitchPositiveTimeBuffer += angularAcceleration;
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.S))
+        {
+            if (reverseTiltcontrol)
+            {
+                pitchNegativeTimeBuffer = 0f;
+            }
+            else
+            {
+                pitchPositiveTimeBuffer = 0f;
             }
         }
         //Tilt Down
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             if (reverseTiltcontrol)
             {
-                pitchBuffer += pitchForce;
+                pitchBuffer += pitchForce * (pitchNegativeTimeBuffer * pitchNegativeTimeBuffer);
+                pitchNegativeTimeBuffer += angularAcceleration;
             }
             else
             {
-                pitchBuffer -= pitchForce;
+                pitchBuffer -= pitchForce * (pitchPositiveTimeBuffer * pitchPositiveTimeBuffer);
+                pitchPositiveTimeBuffer += angularAcceleration;
             }
         }
 
-            pitchBuffer = pitchBuffer * 0.999f;
+        else if (Input.GetKeyUp(KeyCode.W))
+        {
+            if (reverseTiltcontrol)
+            {
+                pitchPositiveTimeBuffer = 0f;
+            }
+            else
+            {
+                pitchNegativeTimeBuffer = 0f;
+            }
+        }
+
+        pitchBuffer = pitchBuffer * 0.999f;
             transform.eulerAngles = new Vector3(pitchBuffer, yawBuffer, 0);
 
         ///FORCE CODE
