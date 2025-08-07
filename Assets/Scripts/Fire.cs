@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class fire : MonoBehaviour
@@ -26,31 +27,85 @@ public class fire : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && timer <= 0)
         {
-            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             RaycastHit hit;
-            Vector3 targetDirection;
-            Vector3 missileSpawnPos = new Vector3(transform.position.x, transform.position.y - 3, transform.position.z);
+            Vector3 origin = transform.position;
+            Vector3 direction = transform.forward;
+            float radius = 100.0f;
+            float maxDistance = 10f;
 
-            if (Physics.Raycast(ray, out hit, 100000f))
+            origin.y += 10;
+           
+            if (Physics.SphereCast(origin, radius, direction, out hit, maxDistance))
             {
-                Debug.Log("Hit: " + hit.collider.name);
-                Debug.DrawLine(ray.origin, hit.point, Color.red, 2f); // Visible in Scene view
-                
-                targetDirection = (hit.point - missileSpawnPos).normalized;
-            }
-            else
-            {
-                targetDirection = transform.forward;
+                Debug.Log("Hit object: " + hit.collider.name);
             }
 
-            Quaternion targetDirectionRot = Quaternion.LookRotation(targetDirection);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(origin, radius);
+            Gizmos.DrawWireSphere(origin + direction.normalized * maxDistance, radius);
+            Gizmos.DrawLine(origin, origin + direction.normalized * maxDistance);
 
-            missile newMissile = Instantiate(missilePrefab, missileSpawnPos, targetDirectionRot);
-            newMissile.additionalForce = parentCode.totalForce;
+            // Draw hit point if available
+            if (hit.point != Vector3.zero)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawSphere(hit.point, 0.2f);
+            }
+
 
             timer = time;
         }
     }
 
+    void OnDrawGizmos()
+    {
+        Vector3 origin = transform.position;
+        float radius = 10.0f;
+        Vector3 direction = transform.forward;
+        float maxDistance = 50f;
+        Vector3 lastHitPoint = Vector3.zero;
+
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(origin, radius);
+        Gizmos.DrawWireSphere(origin + direction.normalized * maxDistance, radius);
+        Gizmos.DrawLine(origin, origin + direction.normalized * maxDistance);
+
+        // Draw hit point if available
+        if (lastHitPoint != Vector3.zero)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(lastHitPoint, 0.2f);
+        }
+    }
+
+
+
+    void ShootStraight()
+    {
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+        Vector3 targetDirection;
+        Vector3 missileSpawnPos = new Vector3(transform.position.x, transform.position.y - 3, transform.position.z);
+
+        if (Physics.Raycast(ray, out hit, 100000f))
+        {
+            Debug.Log("Hit: " + hit.collider.name);
+            Debug.DrawLine(ray.origin, hit.point, Color.red, 2f); // Visible in Scene view
+
+            targetDirection = (hit.point - missileSpawnPos).normalized;
+        }
+        else
+        {
+            targetDirection = transform.forward;
+        }
+
+        Quaternion targetDirectionRot = Quaternion.LookRotation(targetDirection);
+
+        missile newMissile = Instantiate(missilePrefab, missileSpawnPos, targetDirectionRot);
+        newMissile.additionalForce = parentCode.totalForce;
+
+        timer = time;
+    }
    
 }

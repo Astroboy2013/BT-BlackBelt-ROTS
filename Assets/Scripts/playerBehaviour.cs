@@ -18,7 +18,7 @@ public class playerBehaviour : MonoBehaviour
     public float constantForwardForce = 30f;
     public float boostForce = 60f;
     public float totalForce;
-    public float angularAcceleration = 0.1f;
+    public float angularAcceleration = 1f;
     public float maxAngularAcceleration = 2f;
 
     [Header("Other")]
@@ -27,20 +27,11 @@ public class playerBehaviour : MonoBehaviour
     private float yawBuffer = 0f;
     private float pitchBuffer = 0f;
 
-    private float yawPositiveTimeBuffer;
-    private float yawNegativeTimeBuffer;
-    private float pitchPositiveTimeBuffer;
-    private float pitchNegativeTimeBuffer;
-
-
 
     // Start is called before the first frame update
     void Start()
     {
-        yawPositiveTimeBuffer = 0.01f;
-        yawNegativeTimeBuffer = 0.01f;
-        pitchPositiveTimeBuffer = 0.01f;
-        pitchNegativeTimeBuffer = 0.01f;
+
     }
 
     // Update is called once per frame
@@ -48,81 +39,45 @@ public class playerBehaviour : MonoBehaviour
     {
         ///ROTATION CODE
         //Tilt Left
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
-            yawBuffer -= yawForce * (yawNegativeTimeBuffer * yawNegativeTimeBuffer);
-            yawNegativeTimeBuffer += angularAcceleration;
-        }
-        else if (Input.GetKeyUp(KeyCode.A)) 
-        {
-            yawNegativeTimeBuffer = 0f;
+            yawBuffer -= yawForce;
         }
 
         //Tilt Right
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
-            yawBuffer += yawForce * (yawPositiveTimeBuffer * yawPositiveTimeBuffer);
-            yawPositiveTimeBuffer += angularAcceleration;
-        }
-        else if (Input.GetKeyUp(KeyCode.D))
-        {
-            yawPositiveTimeBuffer = 0f;
+            yawBuffer += yawForce;
         }
 
         //Tilt Up
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))
         {
             if (reverseTiltcontrol)
             {
-                pitchBuffer -= pitchForce * (pitchPositiveTimeBuffer * pitchPositiveTimeBuffer);
-                pitchNegativeTimeBuffer += angularAcceleration;
+                pitchBuffer -= pitchForce;
             }
             else
             {
-                pitchBuffer += pitchForce * (pitchNegativeTimeBuffer * pitchNegativeTimeBuffer);
-                pitchPositiveTimeBuffer += angularAcceleration;
+                pitchBuffer += pitchForce;
             }
         }
-        else if (Input.GetKeyUp(KeyCode.S))
-        {
-            if (reverseTiltcontrol)
-            {
-                pitchNegativeTimeBuffer = 0f;
-            }
-            else
-            {
-                pitchPositiveTimeBuffer = 0f;
-            }
-        }
+        
         //Tilt Down
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
             if (reverseTiltcontrol)
             {
-                pitchBuffer += pitchForce * (pitchNegativeTimeBuffer * pitchNegativeTimeBuffer);
-                pitchNegativeTimeBuffer += angularAcceleration;
+                pitchBuffer += pitchForce;
             }
             else
             {
-                pitchBuffer -= pitchForce * (pitchPositiveTimeBuffer * pitchPositiveTimeBuffer);
-                pitchPositiveTimeBuffer += angularAcceleration;
-            }
-        }
-
-        else if (Input.GetKeyUp(KeyCode.W))
-        {
-            if (reverseTiltcontrol)
-            {
-                pitchPositiveTimeBuffer = 0f;
-            }
-            else
-            {
-                pitchNegativeTimeBuffer = 0f;
+                pitchBuffer -= pitchForce;
             }
         }
 
         pitchBuffer = pitchBuffer * 0.999f;
-            transform.eulerAngles = new Vector3(pitchBuffer, yawBuffer, 0);
+        transform.eulerAngles = new Vector3(pitchBuffer, yawBuffer, 0);
 
         ///FORCE CODE
         //Boosts Forward
@@ -145,7 +100,7 @@ public class playerBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "ground" || collision.gameObject.tag == "enemy")
+        if (collision.gameObject.tag == "ground")
         {
             Explode();
         }

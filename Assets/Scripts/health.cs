@@ -36,26 +36,20 @@ public class health: MonoBehaviour
             {
                 currentHealth--;
                 SetDamageColour();
-
-                if (currentHealth < 1)
-                {
-                    Explode();
-
-                }
             }
         }
         else
         {
-            if (collision.gameObject.tag == "missile")
+            if (collision.gameObject.tag == "missile" || collision.gameObject.tag == "enemy")
             {
-                currentHealth--;
-
-                if (currentHealth < 1)
-                {
-                    Explode();
-                }
+                currentHealth += -5;
             }
-        }    
+        }
+        if (currentHealth < 1)
+        {
+            Explode();
+
+        }
     }
 
     private void Explode()
