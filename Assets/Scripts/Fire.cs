@@ -27,33 +27,8 @@ public class fire : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && timer <= 0)
         {
-            RaycastHit hit;
-            Vector3 origin = transform.position;
-            Vector3 direction = transform.forward;
-            float radius = 100.0f;
-            float maxDistance = 10f;
+            ShootStraight();
 
-            origin.y += 10;
-           
-            if (Physics.SphereCast(origin, radius, direction, out hit, maxDistance))
-            {
-                Debug.Log("Hit object: " + hit.collider.name);
-            }
-
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(origin, radius);
-            Gizmos.DrawWireSphere(origin + direction.normalized * maxDistance, radius);
-            Gizmos.DrawLine(origin, origin + direction.normalized * maxDistance);
-
-            // Draw hit point if available
-            if (hit.point != Vector3.zero)
-            {
-                Gizmos.color = Color.yellow;
-                Gizmos.DrawSphere(hit.point, 0.2f);
-            }
-
-
-            timer = time;
         }
     }
 
@@ -104,6 +79,11 @@ public class fire : MonoBehaviour
 
         missile newMissile = Instantiate(missilePrefab, missileSpawnPos, targetDirectionRot);
         newMissile.additionalForce = parentCode.totalForce;
+
+        if (hit.transform.gameObject.tag != null)
+        {
+            newMissile.setTarget(hit.transform);
+        }
 
         timer = time;
     }

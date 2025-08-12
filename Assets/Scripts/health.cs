@@ -26,6 +26,12 @@ public class health: MonoBehaviour
             currentMaterial = GetComponent<MeshRenderer>().material;
             SetDefaultColour();
         }
+
+        if (isEnemy)
+        {
+            GameObject otherObject = GameObject.FindGameObjectWithTag("GameController");
+            spawnScript = otherObject.GetComponent<spawner>();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -54,7 +60,10 @@ public class health: MonoBehaviour
 
     private void Explode()
     {
-        spawnScript.curEnemyCount--;
+        if (isEnemy)
+        {
+            spawnScript.curEnemyCount--;
+        }
         gameObject.SetActive(false);
         explosionManager.explodeAt(gameObject.transform.position);
     }

@@ -75,8 +75,6 @@ public class playerBehaviour : MonoBehaviour
                 pitchBuffer -= pitchForce;
             }
         }
-
-        pitchBuffer = pitchBuffer * 0.999f;
         transform.eulerAngles = new Vector3(pitchBuffer, yawBuffer, 0);
 
         ///FORCE CODE

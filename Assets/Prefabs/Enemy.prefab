@@ -580,7 +580,7 @@ MonoBehaviour:
   maxHealth: 5
   isEnemy: 1
   defaultColour: {r: 0, g: 0, b: 0, a: 0}
-  damagedColour: {r: 0, g: 0, b: 0, a: 0}
+  damagedColour: {r: 1, g: 0, b: 0, a: 0}
   spawnScript: {fileID: 0}
   currentHealth: 0
 --- !u!1 &8575034606213667808
