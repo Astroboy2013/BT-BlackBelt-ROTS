@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9015606271464538382}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: OW_Roc_Spawn_1a.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9008607680569092805}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: OW_Roc_Spawn_2a.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8070108309772456384}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: OW_Roc_Spawn_1b.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9104243103843836574}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: 2_Mains_Lods.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7860575090534396110}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: OW_Roc_Spawn_0b.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1078163691166606208}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Support_Positions.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,9 +205,9 @@ GameObject:
   - component: {fileID: 989556399241595653}
   - component: {fileID: 4059084904597260215}
   - component: {fileID: 6504208437269446247}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -321,6 +321,8 @@ MonoBehaviour:
   constantForwardForce: 50
   boostForce: 150
   totalForce: 0
+  angularAcceleration: 1
+  maxAngularAcceleration: 2
   reverseTiltcontrol: 0
 --- !u!114 &4059084904597260215
 MonoBehaviour:
@@ -366,7 +368,7 @@ GameObject:
   - component: {fileID: 3212526257308357890}
   - component: {fileID: 4914506762667702010}
   - component: {fileID: 5691434797222987731}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main_LOD0_00_low.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -448,7 +450,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3586071663901230390}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Engine_Pos_0.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +481,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1835767393207895643}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Engine_Pos_1.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,7 +514,7 @@ GameObject:
   - component: {fileID: 7942030600843867841}
   - component: {fileID: 5374288183505858349}
   - component: {fileID: 2487062734126074446}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main_LOD1_00_low.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -593,7 +595,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1796936498518324331}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: 0_Overhead_Weapon_Respawn.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -629,7 +631,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3949201442573575767}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: OW_Roc_Spawn_0a.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}

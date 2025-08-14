@@ -32,27 +32,6 @@ public class fire : MonoBehaviour
         }
     }
 
-    void OnDrawGizmos()
-    {
-        Vector3 origin = transform.position;
-        float radius = 10.0f;
-        Vector3 direction = transform.forward;
-        float maxDistance = 50f;
-        Vector3 lastHitPoint = Vector3.zero;
-
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(origin, radius);
-        Gizmos.DrawWireSphere(origin + direction.normalized * maxDistance, radius);
-        Gizmos.DrawLine(origin, origin + direction.normalized * maxDistance);
-
-        // Draw hit point if available
-        if (lastHitPoint != Vector3.zero)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(lastHitPoint, 0.2f);
-        }
-    }
 
 
 
@@ -61,7 +40,7 @@ public class fire : MonoBehaviour
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
         Vector3 targetDirection;
-        Vector3 missileSpawnPos = new Vector3(transform.position.x, transform.position.y - 3, transform.position.z);
+        Vector3 missileSpawnPos = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
 
         if (Physics.Raycast(ray, out hit, 100000f))
         {
@@ -80,7 +59,7 @@ public class fire : MonoBehaviour
         missile newMissile = Instantiate(missilePrefab, missileSpawnPos, targetDirectionRot);
         newMissile.additionalForce = parentCode.totalForce;
 
-        if (hit.transform.gameObject.tag != null)
+        if (hit.transform != null)
         {
             newMissile.setTarget(hit.transform);
         }

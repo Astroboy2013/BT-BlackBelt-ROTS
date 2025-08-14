@@ -56,6 +56,11 @@ public class health: MonoBehaviour
             Explode();
 
         }
+
+        if (collision.gameObject.tag == "ground")
+        {
+            currentHealth = 0;
+        }
     }
 
     private void Explode()

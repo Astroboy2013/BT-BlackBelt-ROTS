@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class missile : MonoBehaviour
 {
@@ -8,16 +9,23 @@ public class missile : MonoBehaviour
     public float initialForce;
     public float additionalForce;
 
-    Vector3 difference;
+    Transform followTarget;
+    Vector3 flyDirection;
     float totalForce;
+    setExplosionAt explosionManager;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("destroyMissile", 10f);
+        GameObject otherObject = GameObject.FindGameObjectWithTag("GameController");
+        explosionManager = otherObject.GetComponent<setExplosionAt>();
 
+        rb = GetComponent<Rigidbody>();
         totalForce = initialForce + additionalForce;
+        flyDirection = transform.forward;
+
+        Invoke("destroyMissile", 10f);
     }
 
     // Update is called once per frame
@@ -32,6 +40,7 @@ public class missile : MonoBehaviour
    
     void destroyMissile()
     {
+        Explode();
         Destroy(gameObject);
     }
 
@@ -39,17 +48,26 @@ public class missile : MonoBehaviour
     {
         if (target != null)
         {
-            difference = target.position - transform.position;
-        }
-        else
-        {
-            difference = transform.forward;
+            flyDirection = (target.position - transform.position).normalized;
+            followTarget = target;
         }
     }
 
     void FixedUpdate()
     {
-        rb.AddForce(difference.normalized * totalForce);
+        if (followTarget != null)
+        {
+            flyDirection = (followTarget.position - transform.position).normalized;
+        }
+        
+        rb.AddForce(flyDirection * totalForce);
+        transform.LookAt(flyDirection);
+    }
+
+    private void Explode()
+    {
+        gameObject.SetActive(false);
+        explosionManager.explodeAt(gameObject.transform.position);
     }
 
 }

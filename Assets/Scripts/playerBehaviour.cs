@@ -95,18 +95,4 @@ public class playerBehaviour : MonoBehaviour
 
         healthNumber.text = healthScript.currentHealth.ToString();
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "ground")
-        {
-            Explode();
-        }
-    }
-
-    public void Explode()
-    {
-        gameObject.SetActive(false);
-        explosionManager.explodeAt(gameObject.transform.position);
-    }
 }
