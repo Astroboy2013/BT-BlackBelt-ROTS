@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class tutorialSequenceManager : MonoBehaviour
 {
@@ -33,5 +34,13 @@ public class tutorialSequenceManager : MonoBehaviour
             skipButton.SetActive(false);
             finishButton.SetActive(true);
         }
+    }
+
+    public void skipText()
+    {
+        SceneManager.LoadScene("Tutorial Level", LoadSceneMode.Single);
+        SceneManager.sceneLoaded += (scene, mode) => {
+            SceneManager.SetActiveScene(scene);
+        };
     }
 }
