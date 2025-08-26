@@ -38,9 +38,6 @@ public class tutorialSequenceManager : MonoBehaviour
 
     public void skipText()
     {
-        SceneManager.LoadScene("Tutorial Level", LoadSceneMode.Single);
-        SceneManager.sceneLoaded += (scene, mode) => {
-            SceneManager.SetActiveScene(scene);
-        };
+        SceneManager.LoadSceneAsync("Tutorial Level");
     }
 }

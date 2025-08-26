@@ -120,10 +120,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionManager: {fileID: 0}
-  maxHealth: 20
+  maxHealth: 1
   isEnemy: 1
-  defaultColour: {r: 0, g: 0, b: 0, a: 0}
-  damagedColour: {r: 0, g: 0, b: 0, a: 0}
+  defaultColour: {r: 1, g: 0, b: 0, a: 0}
+  damagedColour: {r: 1, g: 1, b: 1, a: 0}
   spawnScript: {fileID: 0}
   currentHealth: 0
 --- !u!135 &9134870026926675147
@@ -145,5 +145,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 30
+  m_Radius: 50
   m_Center: {x: 0, y: 0, z: 0}
