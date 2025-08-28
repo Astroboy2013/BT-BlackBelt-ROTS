@@ -59,6 +59,11 @@ public class missile : MonoBehaviour
         {
             flyDirection = (followTarget.position - transform.position).normalized;
         }
+
+        if (followTarget = null)
+        {
+            flyDirection = transform.forward;
+        }
         
         rb.AddForce(flyDirection * totalForce);
         transform.LookAt(flyDirection);

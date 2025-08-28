@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class health: MonoBehaviour
 {
@@ -68,6 +69,10 @@ public class health: MonoBehaviour
         if (isEnemy)
         {
             spawnScript.curEnemyCount--;
+        }
+        else
+        {
+            SceneManager.LoadScene("Tutorial Level");
         }
         gameObject.SetActive(false);
         explosionManager.explodeAt(gameObject.transform.position);

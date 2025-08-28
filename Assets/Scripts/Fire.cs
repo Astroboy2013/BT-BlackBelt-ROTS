@@ -27,8 +27,8 @@ public class fire : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && timer <= 0)
         {
-            ShootStraight();
-
+            //ShootStraight();
+            SphereRayTrace();
         }
     }
 
@@ -65,6 +65,24 @@ public class fire : MonoBehaviour
         }
 
         timer = time;
+    }
+
+    void SphereRayTrace()
+    {
+        Vector3 origin = transform.position;
+        Vector3 direction = transform.forward;
+        float radius = 500f;
+        float maxDistance = 100000f;
+        RaycastHit hit;
+
+        if (Physics.SphereCast(origin, radius, direction, out hit, maxDistance))
+        {
+            Debug.Log("Hit: " + hit.collider.name);
+        }
+        else
+        {
+            Debug.Log("NONE");
+        }
     }
    
 }

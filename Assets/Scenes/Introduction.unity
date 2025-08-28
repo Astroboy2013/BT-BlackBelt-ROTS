@@ -264,9 +264,8 @@ MonoBehaviour:
   - In this game, you can pilot a jet fighter, although it is a really simple simulation
   - To move, you just have to use WASD, no yoke needed!
   - To shoot you just have to use your Left Mouse Button, simple as that.
-  - After this tutorial, you will be sent to a tutorial level. shoot the cubes and
-    you're off!
-  - Also, avoid the spheres, shoot it twice and its gone.
+  - You will be sent to a prototype of the game soon, shoot the cubes and the balls
+    and I guess that's it!
   - Goodbye and Good luck! Stay tuned for more content :D
   nextButton: {fileID: 2008358979}
   skipButton: {fileID: 677379604}
