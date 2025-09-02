@@ -16,13 +16,14 @@ public class health: MonoBehaviour
 
     public int currentHealth = 0;
     private Material currentMaterial;
+    public bool isColourChanging;
 
 
     private void Start()
     {
         currentHealth = maxHealth;
 
-        if (isEnemy && gameObject.tag == "dummy")
+        if (isEnemy && isColourChanging)
         {
             currentMaterial = GetComponent<MeshRenderer>().material;
             SetDefaultColour();
@@ -80,14 +81,20 @@ public class health: MonoBehaviour
 
     private void SetDefaultColour()
     {
-        currentMaterial.color = defaultColour;
+        if (isColourChanging)
+        {
+            currentMaterial.color = defaultColour;
+        }
     }
 
     private void SetDamageColour()
     {
-        currentMaterial.color = damagedColour;
+        if (isColourChanging)
+        {
+            currentMaterial.color = damagedColour;
 
-        Invoke("SetDefaultColour", 0.5f);
+            Invoke("SetDefaultColour", 0.5f);
+        }
     }
 
 }

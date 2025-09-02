@@ -11,6 +11,8 @@ public class fire : MonoBehaviour
     private playerBehaviour parentCode;
     private float timer = 0f;
 
+    missile newMissile;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +58,7 @@ public class fire : MonoBehaviour
 
         Quaternion targetDirectionRot = Quaternion.LookRotation(targetDirection);
 
-        missile newMissile = Instantiate(missilePrefab, missileSpawnPos, targetDirectionRot);
+        newMissile = Instantiate(missilePrefab, missileSpawnPos, targetDirectionRot);
         newMissile.additionalForce = parentCode.totalForce;
 
         if (hit.transform != null)
@@ -71,17 +73,39 @@ public class fire : MonoBehaviour
     {
         Vector3 origin = transform.position;
         Vector3 direction = transform.forward;
-        float radius = 500f;
-        float maxDistance = 100000f;
+        float radius = 50f;
+        float maxDistance = 50000f;
         RaycastHit hit;
+
+        Transform targetTransform = null;
+        Quaternion targetRot = Quaternion.identity;
+        Vector3 unLookRotationed = Vector3.zero;
 
         if (Physics.SphereCast(origin, radius, direction, out hit, maxDistance))
         {
             Debug.Log("Hit: " + hit.collider.name);
+
+            targetTransform = hit.transform;
+            unLookRotationed = targetTransform.position - origin; 
+            targetRot = Quaternion.LookRotation(unLookRotationed);
         }
         else
         {
             Debug.Log("NONE");
+        }
+
+        if (targetTransform != null)
+        {
+            if (hit.collider.gameObject.tag == "enemy" || hit.collider.gameObject.tag == "dummy")
+            {
+                newMissile = Instantiate(missilePrefab, origin, targetRot);
+                newMissile.setTarget(targetTransform);
+            }
+        }
+        else
+        {
+            newMissile = Instantiate(missilePrefab, origin, transform.rotation);
+
         }
     }
    

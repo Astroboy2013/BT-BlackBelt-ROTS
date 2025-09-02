@@ -986,8 +986,8 @@ MonoBehaviour:
   - {fileID: 873152588879334286, guid: eeb4e65ee2502e04a9696c437e31cd9f, type: 3}
   enemyCountText: {fileID: 1392908771}
   spawnLocations: []
-  maxEnemyCount: 10
-  minEnemyCount: 1
+  maxEnemyCount: 30
+  minEnemyCount: 10
   curEnemyCount: 0
 --- !u!1 &385224996
 GameObject:

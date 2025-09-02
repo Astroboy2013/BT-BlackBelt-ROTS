@@ -33,11 +33,20 @@ public class spawner : MonoBehaviour
 
         enemyCount = Random.Range(minEnemyCount, maxEnemyCount);
         curEnemyCount = enemyCount;
+        Vector3 randomLocation = new Vector3(Random.Range(0, 1000), Random.Range(0, 500), Random.Range(0, 1000));
 
         for (int enemies = 0; enemies < enemyCount; enemies++)
         {
-            selectedGameobject = enemy[Random.Range(0, enemy.Length)];
-            Instantiate(selectedGameobject, spawnLocations[enemies].position, Quaternion.identity);
+            if (enemyCount < foundSpawnLocations.Length)
+            {
+                selectedGameobject = enemy[Random.Range(0, enemy.Length)];
+                Instantiate(selectedGameobject, spawnLocations[enemies].position, Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(selectedGameobject, spawnLocations[enemies].position, Quaternion.identity);
+                Debug.Log("Too Many Enemies. Spawn Method 2 Activating...");
+            }
         }
     }
     void Update()
