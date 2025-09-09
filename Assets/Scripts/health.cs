@@ -12,7 +12,7 @@ public class health: MonoBehaviour
     public bool isEnemy;
     public Color defaultColour;
     public Color damagedColour;
-    public spawner spawnScript;
+    private GameManager gm;
 
     public int currentHealth = 0;
     private Material currentMaterial;
@@ -31,8 +31,8 @@ public class health: MonoBehaviour
 
         if (isEnemy)
         {
-            GameObject otherObject = GameObject.FindGameObjectWithTag("GameController");
-            spawnScript = otherObject.GetComponent<spawner>();
+            gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+            explosionManager = GameObject.Find("GameManager").GetComponent<setExplosionAt>();
         }
     }
 
@@ -69,14 +69,20 @@ public class health: MonoBehaviour
     {
         if (isEnemy)
         {
-            spawnScript.curEnemyCount--;
+            if (gm != null)
+            {
+                gm.ReduceEnemyTotalCount();
+            }
         }
         else
         {
             SceneManager.LoadScene("Tutorial Level");
         }
         gameObject.SetActive(false);
-        explosionManager.explodeAt(gameObject.transform.position);
+        if (explosionManager != null)
+        {
+            explosionManager.explodeAt(gameObject.transform.position);
+        }
     }
 
     private void SetDefaultColour()

@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class spawner : MonoBehaviour
 {
     public GameObject[] enemy;
-    public TMP_Text enemyCountText;
     public List<Transform> spawnLocations;
 
     private int enemyCount;
@@ -15,7 +14,6 @@ public class spawner : MonoBehaviour
     private GameObject selectedGameobject;
     public int maxEnemyCount;
     public int minEnemyCount;
-    public int curEnemyCount;
 
     
     // Start is called before the first frame update
@@ -29,10 +27,8 @@ public class spawner : MonoBehaviour
             spawnLocations.Add(obj.transform);
         }
 
-
-
         enemyCount = Random.Range(minEnemyCount, maxEnemyCount);
-        curEnemyCount = enemyCount;
+
         Vector3 randomOffset = new Vector3(Random.Range(-20, 20), Random.Range(-20, 20), Random.Range(-20, 20));
 
         for (int enemies = 0; enemies < enemyCount; enemies++)
@@ -45,20 +41,22 @@ public class spawner : MonoBehaviour
             else
             {
                 selectedGameobject = enemy[Random.Range(0, enemy.Length)];
-                Instantiate(selectedGameobject, spawnLocations[Random.Range(0, spawnLocations.Count)].position, Quaternion.identity);
+                Instantiate(selectedGameobject, spawnLocations[Random.Range(0, spawnLocations.Count)].position + randomOffset, Quaternion.identity);
                 Debug.Log("Too Many Enemies. Spawn Method 2 Activating...");
             }
         }
+
+        GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        
+        if (gm != null)
+        {
+            gm.totalEnemyCount = enemyCount;
+        }
+        Debug.Log(enemyCount);
     }
     void Update()
     {
-        enemyCountText.text = "Enemies Left: " + curEnemyCount.ToString();
 
-        if (curEnemyCount <= 0)
-        {
-            Debug.Log("Game shall end");
-            SceneManager.LoadSceneAsync("Win");
-        }
     }
 
 }

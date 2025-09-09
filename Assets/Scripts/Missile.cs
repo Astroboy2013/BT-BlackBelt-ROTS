@@ -46,7 +46,7 @@ public class missile : MonoBehaviour
 
     public void setTarget(Transform target)
     {
-        if (target != null)
+        if (target != null || target.gameObject.tag != "enemy" || target.gameObject.tag != "dummy")
         {
             flyDirection = (target.position - transform.position).normalized;
             followTarget = target;
