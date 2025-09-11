@@ -20,12 +20,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Ends the game when there are no enemies
-        if (totalEnemyCount <= 0)
-        {
-            Debug.Log("Game shall end");
-            SceneManager.LoadSceneAsync("Win");
-        }
+
     }
     void UpdateFirstEnemyCount()
     {
@@ -40,6 +35,14 @@ public class GameManager : MonoBehaviour
     {
         totalEnemyCount--;
         updateText(totalEnemyCount);
+        Debug.Log(totalEnemyCount);
+
+        // Ends the game when there are no enemies
+        if (totalEnemyCount <= 0)
+        {
+            Debug.Log("Game shall end");
+            SceneManager.LoadSceneAsync("Win");
+        }
     }
 
     public void updateText(int rawInt)

@@ -14,6 +14,7 @@ public class spawner : MonoBehaviour
     private GameObject selectedGameobject;
     public int maxEnemyCount;
     public int minEnemyCount;
+    public int offSetRange;
 
     
     // Start is called before the first frame update
@@ -29,19 +30,19 @@ public class spawner : MonoBehaviour
 
         enemyCount = Random.Range(minEnemyCount, maxEnemyCount);
 
-        Vector3 randomOffset = new Vector3(Random.Range(-20, 20), Random.Range(-20, 20), Random.Range(-20, 20));
+        Vector3 randomOffset = new Vector3(Random.Range(offSetRange * -1, offSetRange), Random.Range(offSetRange * -1, offSetRange), Random.Range(offSetRange * -1, offSetRange));
 
         for (int enemies = 0; enemies < enemyCount; enemies++)
         {
             if (enemyCount < spawnLocations.Count)
             {
-                selectedGameobject = enemy[Random.Range(0, enemy.Length)];
-                Instantiate(selectedGameobject, spawnLocations[enemies].position, Quaternion.identity);
+                GameObject newEnemy = Instantiate(enemy[Random.Range(0, enemy.Length)], spawnLocations[enemies].position, Quaternion.identity);
+                newEnemy.SetActive(true);
             }
             else
             {
-                selectedGameobject = enemy[Random.Range(0, enemy.Length)];
-                Instantiate(selectedGameobject, spawnLocations[Random.Range(0, spawnLocations.Count)].position + randomOffset, Quaternion.identity);
+                GameObject newEnemy = Instantiate(enemy[Random.Range(0, enemy.Length)], spawnLocations[Random.Range(0, spawnLocations.Count)].position + randomOffset, Quaternion.identity);
+                newEnemy.SetActive(true);
                 Debug.Log("Too Many Enemies. Spawn Method 2 Activating...");
             }
         }
@@ -52,11 +53,5 @@ public class spawner : MonoBehaviour
         {
             gm.totalEnemyCount = enemyCount;
         }
-        Debug.Log(enemyCount);
-    }
-    void Update()
-    {
-
-    }
-
+    } 
 }

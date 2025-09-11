@@ -988,6 +988,7 @@ MonoBehaviour:
   spawnLocations: []
   maxEnemyCount: 30
   minEnemyCount: 10
+  offSetRange: 100
 --- !u!114 &338151286
 MonoBehaviour:
   m_ObjectHideFlags: 0

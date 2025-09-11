@@ -10,7 +10,7 @@ public class playerBehaviour : MonoBehaviour
     public Rigidbody rb;
     public setExplosionAt explosionManager;
     public TMP_Text healthNumber;
-    public health healthScript;
+    public Health healthScript;
 
     [Header("Force Strengths")]
     public float yawForce;

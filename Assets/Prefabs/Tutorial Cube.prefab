@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4778268339147991191}
   - component: {fileID: 2956744813771336560}
   - component: {fileID: 2319172900310856245}
-  - component: {fileID: 9134870026926675147}
   m_Layer: 0
   m_Name: Tutorial Cube
   m_TagString: dummy
@@ -124,26 +123,5 @@ MonoBehaviour:
   isEnemy: 1
   defaultColour: {r: 1, g: 0, b: 0, a: 0}
   damagedColour: {r: 1, g: 1, b: 1, a: 0}
-  spawnScript: {fileID: 0}
   currentHealth: 0
---- !u!135 &9134870026926675147
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4742017274620646836}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 50
-  m_Center: {x: 0, y: 0, z: 0}
+  isColourChanging: 0
