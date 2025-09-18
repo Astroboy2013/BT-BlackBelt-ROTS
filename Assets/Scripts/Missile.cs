@@ -24,6 +24,7 @@ public class missile : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         totalForce = initialForce + additionalForce;
         flyDirection = transform.forward;
+        followTarget = null;
 
         Invoke("destroyMissile", 10f);
     }
@@ -58,11 +59,6 @@ public class missile : MonoBehaviour
         if (followTarget != null)
         {
             flyDirection = (followTarget.position - transform.position).normalized;
-        }
-
-        if (followTarget = null)
-        {
-            flyDirection = transform.forward;
         }
         
         rb.AddForce(flyDirection * totalForce);
