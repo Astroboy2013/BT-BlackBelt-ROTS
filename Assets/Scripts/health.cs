@@ -9,37 +9,16 @@ public class Health: MonoBehaviour
     public setExplosionAt explosionManager;
 
     public int maxHealth = 20;
-
-    [Header("Enemy Specific Variables")]
     public bool isEnemy;
     public Color defaultColour;
     public Color damagedColour;
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-    public spawner spawnScript;
-=======
->>>>>>> Stashed changes
     private GameManager gm;
 
->>>>>>> 425417744334a492b9ad6d928ea67ddea6ce1f09
     public int currentHealth = 0;
     private Material currentMaterial;
     public bool isColourChanging;
 
-<<<<<<< Updated upstream
     void Start()
-=======
-<<<<<<< HEAD
-    [Header("Player Specific Variables")]
-    public GameObject[] healthBarParts;
-
-
-    private void Start()
-=======
-    void Start()
->>>>>>> 425417744334a492b9ad6d928ea67ddea6ce1f09
->>>>>>> Stashed changes
     {
         Debug.Log("I'm Working!");
         currentHealth = maxHealth;
@@ -52,31 +31,8 @@ public class Health: MonoBehaviour
 
         if (isEnemy)
         {
-<<<<<<< Updated upstream
             gm = GameObject.Find("GameManager").GetComponent<GameManager>();
             explosionManager = GameObject.Find("GameManager").GetComponent<setExplosionAt>();
-=======
-<<<<<<< HEAD
-            GameObject otherObject = GameObject.FindGameObjectWithTag("GameController");
-            spawnScript = otherObject.GetComponent<spawner>();
-            if (transform.position.y < 10)
-            {
-                Destroy(gameObject);
-            }
-        }
-    }
-
-    private void Update()
-    {
-        if (currentHealth < 1)
-        {
-            Explode();
-
-=======
-            gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-            explosionManager = GameObject.Find("GameManager").GetComponent<setExplosionAt>();
->>>>>>> 425417744334a492b9ad6d928ea67ddea6ce1f09
->>>>>>> Stashed changes
         }
     }
 
@@ -95,8 +51,12 @@ public class Health: MonoBehaviour
             if (collision.gameObject.tag == "missile" || collision.gameObject.tag == "enemy")
             {
                 currentHealth += -5;
-                UpdateHealthBar(currentHealth);
             }
+        }
+        if (currentHealth < 1)
+        {
+            Explode();
+
         }
 
         if (collision.gameObject.tag == "ground")
@@ -119,14 +79,6 @@ public class Health: MonoBehaviour
         {
             SceneManager.LoadScene("Tutorial Level");
         }
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-        Destroy(gameObject);
-
-=======
->>>>>>> 425417744334a492b9ad6d928ea67ddea6ce1f09
->>>>>>> Stashed changes
         if (explosionManager != null)
         {
             explosionManager.explodeAt(gameObject.transform.position);
@@ -151,25 +103,11 @@ public class Health: MonoBehaviour
         }
     }
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-    private void UpdateHealthBar(int health)
-    {
-        for (int i = health; i < 10; i++)
-        {
-            healthBarParts[i].SetActive(false);
-=======
->>>>>>> Stashed changes
     private void DeleteClone()
     {
         if (isEnemy)
         {
             Destroy(gameObject);
-<<<<<<< Updated upstream
-=======
->>>>>>> 425417744334a492b9ad6d928ea67ddea6ce1f09
->>>>>>> Stashed changes
         }
     }
 }
