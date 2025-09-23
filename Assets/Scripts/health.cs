@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Health: MonoBehaviour
+public class health: MonoBehaviour
 {
     public setExplosionAt explosionManager;
 
@@ -18,9 +18,9 @@ public class Health: MonoBehaviour
     private Material currentMaterial;
     public bool isColourChanging;
 
-    void Start()
+
+    private void Start()
     {
-        Debug.Log("I'm Working!");
         currentHealth = maxHealth;
 
         if (isEnemy && isColourChanging)
@@ -67,7 +67,6 @@ public class Health: MonoBehaviour
 
     private void Explode()
     {
-        gameObject.SetActive(false);
         if (isEnemy)
         {
             if (gm != null)
@@ -79,6 +78,7 @@ public class Health: MonoBehaviour
         {
             SceneManager.LoadScene("Tutorial Level");
         }
+        gameObject.SetActive(false);
         if (explosionManager != null)
         {
             explosionManager.explodeAt(gameObject.transform.position);
@@ -103,11 +103,4 @@ public class Health: MonoBehaviour
         }
     }
 
-    private void DeleteClone()
-    {
-        if (isEnemy)
-        {
-            Destroy(gameObject);
-        }
-    }
 }
