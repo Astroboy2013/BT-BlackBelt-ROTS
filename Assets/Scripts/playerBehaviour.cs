@@ -62,7 +62,7 @@ public class playerBehaviour : MonoBehaviour
                 pitchBuffer += pitchForce;
             }
         }
-        
+
         //Tilt Down
         if (Input.GetKey(KeyCode.W))
         {
@@ -80,12 +80,12 @@ public class playerBehaviour : MonoBehaviour
         ///FORCE CODE
         //Boosts Forward
         totalForce = constantForwardForce;
-        
+
         if (Input.GetKey(KeyCode.Space))
         {
             totalForce += boostForce;
         }
-        
+
         rb.velocity = transform.forward * totalForce;
 
         if (transform.position.y > 500)

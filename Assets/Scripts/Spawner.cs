@@ -33,16 +33,22 @@ public class spawner : MonoBehaviour
 
         for (int enemies = 0; enemies < enemyCount; enemies++)
         {
+            GameObject enemyClone;
             if (enemyCount < spawnLocations.Count)
             {
                 selectedGameobject = enemy[Random.Range(0, enemy.Length)];
-                Instantiate(selectedGameobject, spawnLocations[enemies].position, Quaternion.identity);
+                enemyClone = Instantiate(selectedGameobject, spawnLocations[enemies].position, Quaternion.identity);
             }
             else
             {
                 selectedGameobject = enemy[Random.Range(0, enemy.Length)];
-                Instantiate(selectedGameobject, spawnLocations[Random.Range(0, spawnLocations.Count)].position + randomOffset, Quaternion.identity);
+                enemyClone = Instantiate(selectedGameobject, spawnLocations[Random.Range(0, spawnLocations.Count)].position + randomOffset, Quaternion.identity);
                 Debug.Log("Too Many Enemies. Spawn Method 2 Activating...");
+            }
+
+            if(enemyClone.transform.position.y < 10)
+            {
+                Destroy(enemyClone);
             }
         }
 

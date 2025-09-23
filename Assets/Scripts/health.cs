@@ -13,6 +13,7 @@ public class health: MonoBehaviour
     public Color defaultColour;
     public Color damagedColour;
     private GameManager gm;
+    public GameObject[] healthBarParts;
 
     public int currentHealth = 0;
     private Material currentMaterial;
@@ -36,6 +37,14 @@ public class health: MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (currentHealth <= 0)
+        {
+            Explode();
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (isEnemy)
@@ -44,6 +53,7 @@ public class health: MonoBehaviour
             {
                 currentHealth--;
                 SetDamageColour();
+                UpdateHealthBar(currentHealth, maxHealth);
             }
         }
         else
@@ -53,12 +63,6 @@ public class health: MonoBehaviour
                 currentHealth += -5;
             }
         }
-        if (currentHealth < 1)
-        {
-            Explode();
-
-        }
-
         if (collision.gameObject.tag == "ground")
         {
             currentHealth = 0;
@@ -72,17 +76,16 @@ public class health: MonoBehaviour
             if (gm != null)
             {
                 gm.ReduceEnemyTotalCount();
+
             }
         }
-        else
-        {
-            SceneManager.LoadScene("Tutorial Level");
-        }
-        gameObject.SetActive(false);
         if (explosionManager != null)
         {
             explosionManager.explodeAt(gameObject.transform.position);
         }
+        
+        Destroy(gameObject);
+
     }
 
     private void SetDefaultColour()
@@ -102,5 +105,11 @@ public class health: MonoBehaviour
             Invoke("SetDefaultColour", 0.5f);
         }
     }
-
+    private void UpdateHealthBar(int health, int maxHealth)
+    {
+        for (int i = health; i < maxHealth; i++)
+        {
+            healthBarParts[i].SetActive(false);
+        }
+    }
 }
