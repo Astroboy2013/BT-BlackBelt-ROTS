@@ -7,7 +7,9 @@ public class fire : MonoBehaviour
 {
     public missile missilePrefab;
     public float time;
-    
+    private int ammoCount;
+    public int maxAmmo;
+
     private playerBehaviour parentCode;
     private float timer = 0f;
 
@@ -17,6 +19,7 @@ public class fire : MonoBehaviour
     void Start()
     {
         parentCode = GetComponent<playerBehaviour>();
+        ammoCount = maxAmmo;
 }
 
     // Update is called once per frame
@@ -30,14 +33,19 @@ public class fire : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0) && timer <= 0)
         {
             //ShootStraight();
-            SphereRayTrace();
+            SphereRayTrace_Shoot();
+        }
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            ammoCount = maxAmmo;
         }
     }
 
 
 
 
-    void ShootStraight()
+    void ShootStraight_Shoot()
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
@@ -69,44 +77,51 @@ public class fire : MonoBehaviour
         timer = time;
     }
 
-    void SphereRayTrace()
+    void SphereRayTrace_Shoot()
     {
-        Vector3 origin = transform.position;
-        Vector3 direction = transform.forward;
-        float radius = 50f;
-        float maxDistance = 50000f;
-        RaycastHit hit;
-
-        Transform targetTransform = null;
-        Quaternion targetRot = Quaternion.identity;
-        Vector3 unLookRotationed = Vector3.zero;
-
-        if (Physics.SphereCast(origin, radius, direction, out hit, maxDistance))
+        if (ammoCount > 0)
         {
-            Debug.Log("Hit: " + hit.collider.name);
+            ammoCount--;
+            Debug.Log(ammoCount);
+            Vector3 origin = transform.position;
+            Vector3 direction = transform.forward;
+            float radius = 50f;
+            float maxDistance = 50000f;
+            RaycastHit hit;
 
-            targetTransform = hit.transform;
-            unLookRotationed = targetTransform.position - origin; 
-            targetRot = Quaternion.LookRotation(unLookRotationed);
-        }
-        else
-        {
-            Debug.Log("NONE");
-        }
+            Transform targetTransform = null;
+            Quaternion targetRot = Quaternion.identity;
+            Vector3 unLookRotationed = Vector3.zero;
 
-        if (targetTransform != null)
-        {
-            if (hit.collider.gameObject.tag == "enemy" || hit.collider.gameObject.tag == "dummy")
+            if (Physics.SphereCast(origin, radius, direction, out hit, maxDistance))
             {
-                newMissile = Instantiate(missilePrefab, origin, targetRot);
-                newMissile.setTarget(targetTransform);
+                Debug.Log("Hit: " + hit.collider.name);
+
+                targetTransform = hit.transform;
+                unLookRotationed = targetTransform.position - origin;
+                targetRot = Quaternion.LookRotation(unLookRotationed);
+            }
+            else
+            {
+                Debug.Log("NONE");
+            }
+
+            if (targetTransform != null)
+            {
+                if (hit.collider.gameObject.tag == "enemy" || hit.collider.gameObject.tag == "dummy")
+                {
+                    newMissile = Instantiate(missilePrefab, origin, targetRot);
+                    newMissile.setTarget(targetTransform);
+                }
+                else
+                {
+                    newMissile = Instantiate(missilePrefab, origin, transform.rotation);
+                }
+            }
+            else
+            {
+                newMissile = Instantiate(missilePrefab, origin, transform.rotation);
             }
         }
-        else
-        {
-            newMissile = Instantiate(missilePrefab, origin, transform.rotation);
-
-        }
     }
-   
 }
