@@ -53,7 +53,6 @@ public class health: MonoBehaviour
             {
                 currentHealth--;
                 SetDamageColour();
-                UpdateHealthBar(currentHealth, maxHealth);
             }
         }
         else
@@ -109,6 +108,7 @@ public class health: MonoBehaviour
     {
         for (int i = health; i < maxHealth; i++)
         {
+            Debug.Log(i + "Health");
             healthBarParts[i].SetActive(false);
         }
     }

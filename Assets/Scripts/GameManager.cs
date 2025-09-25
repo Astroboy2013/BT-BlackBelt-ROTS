@@ -8,7 +8,10 @@ public class GameManager : MonoBehaviour
 {
     [Header("External Game Objects")]
     public TMP_Text enemyCountText;
+    public health playerHealth;
+    public GameObject deathScreen;
 
+    [Header("Other Variables")]
     public int totalEnemyCount = 0;
 
     // Start is called before the first frame update
@@ -25,6 +28,11 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Game shall end");
             SceneManager.LoadSceneAsync("Win");
+        }
+
+        if (playerHealth.currentHealth <= 0)
+        {
+            deathScreen.SetActive(true);
         }
     }
     void UpdateFirstEnemyCount()

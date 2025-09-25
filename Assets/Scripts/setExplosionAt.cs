@@ -10,10 +10,5 @@ public class setExplosionAt : MonoBehaviour
     public void explodeAt(Vector3 position)
     {
         newObject = Instantiate(prefab, position, Quaternion.identity);
-        Invoke("DestroyObj", 3f);
-    }
-    private void DestroyObj()
-    {
-        Destroy(newObject);
     }
 }

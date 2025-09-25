@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
 
 public class fire : MonoBehaviour
 {
     public missile missilePrefab;
     public float time;
-    
+    public int maxAmmo;
+    public TextMeshProUGUI ammoCounter;
+
     private playerBehaviour parentCode;
     private float timer = 0f;
+    private int currentAmmo;
 
     missile newMissile;
 
@@ -17,7 +21,9 @@ public class fire : MonoBehaviour
     void Start()
     {
         parentCode = GetComponent<playerBehaviour>();
-}
+        currentAmmo = maxAmmo;
+        UpdateAmmoCounter(currentAmmo);
+    }
 
     // Update is called once per frame
     void Update()
@@ -29,8 +35,12 @@ public class fire : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && timer <= 0)
         {
-            //ShootStraight();
-            SphereRayTrace();
+            if (currentAmmo > 0)
+            {
+                SphereRayTrace();
+                currentAmmo--;
+                UpdateAmmoCounter(currentAmmo);
+            }
         }
     }
 
@@ -107,6 +117,11 @@ public class fire : MonoBehaviour
             newMissile = Instantiate(missilePrefab, origin, transform.rotation);
 
         }
+    }
+
+    private void UpdateAmmoCounter(int count)
+    {
+        ammoCounter.text = count.ToString();
     }
    
 }
