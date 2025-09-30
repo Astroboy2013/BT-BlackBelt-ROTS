@@ -10,6 +10,7 @@ TagManager:
   - player missile
   - dummy
   - enemySpawn
+  - fueling
   layers:
   - Default
   - TransparentFX

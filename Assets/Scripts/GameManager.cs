@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +10,8 @@ public class GameManager : MonoBehaviour
     [Header("External Game Objects")]
     public TMP_Text enemyCountText;
     public health playerHealth;
+    public playerBehaviour playerScript;
+    public Slider fuelBar;
     public GameObject deathScreen;
 
     [Header("Other Variables")]
@@ -34,6 +37,8 @@ public class GameManager : MonoBehaviour
         {
             deathScreen.SetActive(true);
         }
+
+        fuelBar.value = playerScript.fuel;
     }
     void UpdateFirstEnemyCount()
     {

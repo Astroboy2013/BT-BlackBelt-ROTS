@@ -38,7 +38,6 @@ public class fire : MonoBehaviour
             if (currentAmmo > 0)
             {
                 SphereRayTrace();
-                currentAmmo--;
                 UpdateAmmoCounter(currentAmmo);
             }
         }
@@ -109,13 +108,17 @@ public class fire : MonoBehaviour
             if (hit.collider.gameObject.tag == "enemy" || hit.collider.gameObject.tag == "dummy")
             {
                 newMissile = Instantiate(missilePrefab, origin, targetRot);
+                currentAmmo--;
                 newMissile.setTarget(targetTransform);
+            }
+            else
+            {
+                newMissile = Instantiate(missilePrefab, origin, transform.rotation);
             }
         }
         else
         {
             newMissile = Instantiate(missilePrefab, origin, transform.rotation);
-
         }
     }
 

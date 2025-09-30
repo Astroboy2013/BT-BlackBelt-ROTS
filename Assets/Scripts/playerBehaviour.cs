@@ -23,9 +23,12 @@ public class playerBehaviour : MonoBehaviour
 
     [Header("Other")]
     public bool reverseTiltcontrol = false;
+    public float fuel = 100f;
+    public float fuelConsumption;
 
     private float yawBuffer = 0f;
     private float pitchBuffer = 0f;
+    private bool isMoving = true;
 
 
     // Start is called before the first frame update
@@ -84,9 +87,20 @@ public class playerBehaviour : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             totalForce += boostForce;
+            fuel += fuelConsumption * -1;
         }
 
-        rb.velocity = transform.forward * totalForce;
+        if (isMoving)
+        {
+            rb.velocity = transform.forward * totalForce;
+            fuel += fuelConsumption * -1;
+        } 
+
+        if (fuel <= 0)
+        {
+            isMoving = false;
+            rb.useGravity = true;
+        }
 
         if (transform.position.y > 500)
         {
@@ -94,5 +108,13 @@ public class playerBehaviour : MonoBehaviour
         }
 
         healthNumber.text = healthScript.currentHealth.ToString();
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "fueling")
+        {
+            fuel++;
+        }
     }
 }

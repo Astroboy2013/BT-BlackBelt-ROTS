@@ -274,7 +274,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -315,7 +315,7 @@ MonoBehaviour:
   rb: {fileID: 2486680678851863555}
   explosionManager: {fileID: 0}
   healthNumber: {fileID: 0}
-  healthScript: {fileID: 0}
+  healthScript: {fileID: 6504208437269446247}
   yawForce: 2
   pitchForce: 2
   constantForwardForce: 50
@@ -324,6 +324,8 @@ MonoBehaviour:
   angularAcceleration: 1
   maxAngularAcceleration: 2
   reverseTiltcontrol: 0
+  fuel: 100
+  fuelConsumption: 1
 --- !u!114 &4059084904597260215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,6 +340,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missilePrefab: {fileID: 451534549390141338, guid: ac9b85c487661d44da30ee01bb179ac2, type: 3}
   time: 0.5
+  maxAmmo: 0
+  ammoCounter: {fileID: 0}
 --- !u!114 &6504208437269446247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,8 +359,9 @@ MonoBehaviour:
   isEnemy: 0
   defaultColour: {r: 0, g: 0, b: 0, a: 0}
   damagedColour: {r: 1, g: 0, b: 0, a: 0}
-  spawnScript: {fileID: 0}
+  healthBarParts: []
   currentHealth: 0
+  isColourChanging: 0
 --- !u!1 &7697245658709983207
 GameObject:
   m_ObjectHideFlags: 0
