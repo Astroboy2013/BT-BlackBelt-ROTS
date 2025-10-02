@@ -11,6 +11,7 @@ public class playerBehaviour : MonoBehaviour
     public setExplosionAt explosionManager;
     public TMP_Text healthNumber;
     public health healthScript;
+    public TMP_Text fuelNumber;
 
     [Header("Force Strengths")]
     public float yawForce;
@@ -23,12 +24,14 @@ public class playerBehaviour : MonoBehaviour
 
     [Header("Other")]
     public bool reverseTiltcontrol = false;
+    public float maxFuel = 100f;
     public float fuel = 100f;
     public float fuelConsumption;
 
     private float yawBuffer = 0f;
     private float pitchBuffer = 0f;
     private bool isMoving = true;
+
 
 
     // Start is called before the first frame update
@@ -94,6 +97,7 @@ public class playerBehaviour : MonoBehaviour
         {
             rb.velocity = transform.forward * totalForce;
             fuel += fuelConsumption * -1;
+            fuelNumber.text = Mathf.Round(fuel).ToString();
         } 
 
         if (fuel <= 0)
@@ -115,6 +119,11 @@ public class playerBehaviour : MonoBehaviour
         if (other.gameObject.tag == "fueling")
         {
             fuel++;
+        }
+
+        if (fuel > maxFuel)
+        {
+            fuel = maxFuel;
         }
     }
 }
