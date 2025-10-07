@@ -97,6 +97,9 @@ public class fire : MonoBehaviour
             targetTransform = hit.transform;
             unLookRotationed = targetTransform.position - origin; 
             targetRot = Quaternion.LookRotation(unLookRotationed);
+
+            Debug.DrawLine(origin, hit.point, Color.red, 3f);
+            Debug.DrawRay(hit.point, hit.normal, Color.green, 3f);
         }
         else
         {

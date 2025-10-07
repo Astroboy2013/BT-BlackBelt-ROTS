@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Invoke("UpdateFirstEnemyCount", 0.5f);
-        Invoke("SetRoundBool", 2f);
     }
 
     // Update is called once per frame
@@ -60,11 +59,6 @@ public class GameManager : MonoBehaviour
     {
         // Updates the enemy counter text
         enemyCountText.text = "Enemies Left: " + rawInt.ToString();
-    }
-
-    private void SetRoundBool()
-    {
-        isStarted = true;
     }
     
 }

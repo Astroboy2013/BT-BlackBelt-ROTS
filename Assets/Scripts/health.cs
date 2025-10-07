@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class health: MonoBehaviour
 {
     public setExplosionAt explosionManager;
 
-    public int maxHealth = 20;
+    public int currentHealth = 0;
+    public int maxHealth = 10;
     public bool isEnemy;
     public Color defaultColour;
     public Color damagedColour;
     private GameManager gm;
-    public GameObject[] healthBarParts;
+    public Slider healthBar;
 
-    public int currentHealth = 0;
     private Material currentMaterial;
     public bool isColourChanging;
 
@@ -35,14 +36,13 @@ public class health: MonoBehaviour
             gm = GameObject.Find("GameManager").GetComponent<GameManager>();
             explosionManager = GameObject.Find("GameManager").GetComponent<setExplosionAt>();
         }
+
+        healthBar.maxValue = maxHealth;
     }
 
     private void Update()
     {
-        if (currentHealth <= 0)
-        {
-            Explode();
-        }
+        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -61,10 +61,16 @@ public class health: MonoBehaviour
             {
                 currentHealth += -5;
             }
+            UpdateHealthBar(currentHealth, maxHealth);
         }
         if (collision.gameObject.tag == "ground")
         {
             currentHealth = 0;
+        }
+
+        if (currentHealth <= 0)
+        {
+            Explode();
         }
     }
 
@@ -106,10 +112,23 @@ public class health: MonoBehaviour
     }
     private void UpdateHealthBar(int health, int maxHealth)
     {
-        for (int i = health; i < maxHealth; i++)
+        /*float percent = health / maxHealth;
+        int activeBars = (int)percent * healthBarParts.Length;
+
+        Debug.Log(percent);
+
+        foreach (GameObject bar in healthBarParts)
         {
-            Debug.Log(i + "Health");
-            healthBarParts[i].SetActive(false);
+            bar.SetActive(false);
         }
+
+        for (int i = activeBars; i >= 0; i--)
+        {
+            healthBarParts[i].SetActive(true);
+        }
+        */
+
+        healthBar.value = health;
+        
     }
 }
