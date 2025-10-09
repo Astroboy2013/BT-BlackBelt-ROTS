@@ -36,8 +36,10 @@ public class health: MonoBehaviour
             gm = GameObject.Find("GameManager").GetComponent<GameManager>();
             explosionManager = GameObject.Find("GameManager").GetComponent<setExplosionAt>();
         }
-
-        healthBar.maxValue = maxHealth;
+        else
+        {
+            healthBar.maxValue = maxHealth;
+        }
     }
 
     private void Update()
