@@ -9,6 +9,7 @@ public class spawner : MonoBehaviour
     public bool toggleConstantSpawn;
 
     public GameObject[] enemy;
+    public GameObject indicatorPrefab;
     public List<Transform> spawnLocations;
 
     private int enemyCount;
@@ -18,6 +19,7 @@ public class spawner : MonoBehaviour
     public int minEnemyCount;
 
     private GameObject[] foundSpawnLocations;
+    private int debugCounter = 0;
 
 // Start is called before the first frame update
     void Start()
@@ -36,21 +38,30 @@ public class spawner : MonoBehaviour
             for (int enemies = 0; enemies < enemyCount; enemies++)
             {
                 GameObject enemyClone;
+                GameObject indicator;
                 if (enemyCount < spawnLocations.Count)
                 {
                     selectedGameobject = enemy[Random.Range(0, enemy.Length)];
                     enemyClone = Instantiate(selectedGameobject, spawnLocations[enemies].position, Quaternion.identity);
+                    indicator = Instantiate(indicatorPrefab);
+                    indicator.GetComponent<mapFollowPlayer>().playerTransform = enemyClone.transform;
+                    debugCounter++;
                 }
                 else
                 {
                     selectedGameobject = enemy[Random.Range(0, enemy.Length)];
                     enemyClone = Instantiate(selectedGameobject, spawnLocations[Random.Range(0, spawnLocations.Count)].position + randomOffset, Quaternion.identity);
                     Debug.Log("Too Many Enemies. Spawn Method 2 Activating...");
+                    indicator = Instantiate(indicatorPrefab);
+                    indicator.GetComponent<mapFollowPlayer>().playerTransform = enemyClone.transform;
+                    debugCounter++;
                 }
+            
 
                 if (enemyClone.transform.position.y < 10)
                 {
                     Destroy(enemyClone);
+                    enemies--;
                 }
             }
 
@@ -60,8 +71,9 @@ public class spawner : MonoBehaviour
             {
                 gm.totalEnemyCount = enemyCount;
             }
-            Debug.Log(enemyCount);
-        
+
+            Debug.Log(debugCounter.ToString() + " " + gm.totalEnemyCount.ToString());
+
     }
     void Update()
     {
