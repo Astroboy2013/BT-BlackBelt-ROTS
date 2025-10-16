@@ -44,7 +44,7 @@ public class spawner : MonoBehaviour
                     selectedGameobject = enemy[Random.Range(0, enemy.Length)];
                     enemyClone = Instantiate(selectedGameobject, spawnLocations[enemies].position, Quaternion.identity);
                     indicator = Instantiate(indicatorPrefab);
-                    indicator.GetComponent<mapFollowPlayer>().playerTransform = enemyClone.transform;
+                    indicator.GetComponent<mapFollowPlayer>().objTransform = enemyClone.transform;
                     debugCounter++;
                 }
                 else
@@ -53,7 +53,7 @@ public class spawner : MonoBehaviour
                     enemyClone = Instantiate(selectedGameobject, spawnLocations[Random.Range(0, spawnLocations.Count)].position + randomOffset, Quaternion.identity);
                     Debug.Log("Too Many Enemies. Spawn Method 2 Activating...");
                     indicator = Instantiate(indicatorPrefab);
-                    indicator.GetComponent<mapFollowPlayer>().playerTransform = enemyClone.transform;
+                    indicator.GetComponent<mapFollowPlayer>().objTransform = enemyClone.transform;
                     debugCounter++;
                 }
             

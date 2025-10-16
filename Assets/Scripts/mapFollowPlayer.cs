@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class mapFollowPlayer : MonoBehaviour
 {
-    public Transform playerTransform;
+    public Transform objTransform;
     public float hoverHeight;
     // Start is called before the first frame update
     void Start()
@@ -15,9 +15,9 @@ public class mapFollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerTransform != null)
+        if (objTransform != null)
         {
-            transform.position = new Vector3(playerTransform.position.x, hoverHeight, playerTransform.position.z);
+            transform.position = new Vector3(objTransform.position.x, hoverHeight, objTransform.position.z);
         }
         else
         {

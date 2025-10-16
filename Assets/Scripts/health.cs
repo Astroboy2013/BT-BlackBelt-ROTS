@@ -44,7 +44,10 @@ public class health: MonoBehaviour
 
     private void Update()
     {
-        
+        if (currentHealth <= 0)
+        {
+            Explode();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -68,11 +71,6 @@ public class health: MonoBehaviour
         if (collision.gameObject.tag == "ground")
         {
             currentHealth = 0;
-        }
-
-        if (currentHealth <= 0)
-        {
-            Explode();
         }
     }
 

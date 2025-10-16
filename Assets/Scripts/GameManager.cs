@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public playerBehaviour playerScript;
     public Slider fuelBar;
     public GameObject deathScreen;
+    public GameObject engineOffIndicator;
 
     [Header("Other Variables")]
     public int totalEnemyCount = 0;
@@ -36,6 +37,15 @@ public class GameManager : MonoBehaviour
         if (playerHealth.currentHealth <= 0)
         {
             deathScreen.SetActive(true);
+        }
+
+        if(playerScript.isMoving)
+        {
+            engineOffIndicator.SetActive(false);
+        }
+        else
+        {
+            engineOffIndicator.SetActive(true);
         }
 
         fuelBar.value = playerScript.fuel;

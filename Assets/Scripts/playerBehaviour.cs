@@ -26,11 +26,11 @@ public class playerBehaviour : MonoBehaviour
     public bool reverseTiltcontrol = false;
     public float maxFuel = 100f;
     public float fuel = 100f;
+    public bool isMoving = true;
     public float fuelConsumption;
 
     private float yawBuffer = 0f;
     private float pitchBuffer = 0f;
-    private bool isMoving = true;
 
 
 
@@ -81,6 +81,21 @@ public class playerBehaviour : MonoBehaviour
                 pitchBuffer -= pitchForce;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (isMoving == true)
+            {
+                isMoving = false;
+                rb.useGravity = true;
+            }
+            else
+            {
+                isMoving = true;
+                rb.useGravity = false;
+            }
+        }
+
         transform.eulerAngles = new Vector3(pitchBuffer, yawBuffer, 0);
 
         ///FORCE CODE
