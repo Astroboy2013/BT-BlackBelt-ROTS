@@ -31,6 +31,7 @@ public class playerBehaviour : MonoBehaviour
 
     private float yawBuffer = 0f;
     private float pitchBuffer = 0f;
+    private bool isHealing = false;
 
 
 
@@ -84,7 +85,7 @@ public class playerBehaviour : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (isMoving == true)
+            if (isMoving == true && fuel > 0)
             {
                 isMoving = false;
                 rb.useGravity = true;
@@ -96,7 +97,10 @@ public class playerBehaviour : MonoBehaviour
             }
         }
 
-        transform.eulerAngles = new Vector3(pitchBuffer, yawBuffer, 0);
+        if (isMoving)
+        {
+            transform.eulerAngles = new Vector3(pitchBuffer, yawBuffer, 0);
+        }
 
         ///FORCE CODE
         //Boosts Forward
@@ -126,7 +130,12 @@ public class playerBehaviour : MonoBehaviour
             pitchBuffer = 90f;
         }
 
-        healthNumber.text = healthScript.currentHealth.ToString();
+        healthNumber.text = Mathf.Round(healthScript.currentHealth).ToString();
+
+        if (healthScript.currentHealth < healthScript.maxHealth && isHealing)
+        {
+            healthScript.currentHealth += 0.1f;
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -134,11 +143,20 @@ public class playerBehaviour : MonoBehaviour
         if (other.gameObject.tag == "fueling")
         {
             fuel++;
+            isHealing = true;
         }
 
         if (fuel > maxFuel)
         {
             fuel = maxFuel;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "fueling")
+        {
+            isHealing = false;
         }
     }
 }

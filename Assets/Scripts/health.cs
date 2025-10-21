@@ -9,7 +9,7 @@ public class health: MonoBehaviour
 {
     public setExplosionAt explosionManager;
 
-    public int currentHealth = 0;
+    public float currentHealth = 0;
     public int maxHealth = 10;
     public bool isEnemy;
     public Color defaultColour;
@@ -62,9 +62,13 @@ public class health: MonoBehaviour
         }
         else
         {
-            if (collision.gameObject.tag == "missile" || collision.gameObject.tag == "enemy")
+            if (collision.gameObject.tag == "enemy")
             {
                 currentHealth += -5;
+            }
+            if (collision.gameObject.tag == "missile")
+            {
+                currentHealth--;
             }
             UpdateHealthBar(currentHealth, maxHealth);
         }
@@ -110,25 +114,8 @@ public class health: MonoBehaviour
             Invoke("SetDefaultColour", 0.5f);
         }
     }
-    private void UpdateHealthBar(int health, int maxHealth)
+    private void UpdateHealthBar(float health, int maxHealth)
     {
-        /*float percent = health / maxHealth;
-        int activeBars = (int)percent * healthBarParts.Length;
-
-        Debug.Log(percent);
-
-        foreach (GameObject bar in healthBarParts)
-        {
-            bar.SetActive(false);
-        }
-
-        for (int i = activeBars; i >= 0; i--)
-        {
-            healthBarParts[i].SetActive(true);
-        }
-        */
-
-        healthBar.value = health;
-        
+        healthBar.value = Mathf.Round(health); 
     }
 }
