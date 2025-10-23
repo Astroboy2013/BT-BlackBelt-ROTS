@@ -26,6 +26,7 @@ public class shipHealth : MonoBehaviour
             Vector3 offSet = new Vector3(Random.Range(-0.015f, 0.015f), 15, Random.Range(-0.015f, 0.015f));
 
             rb.useGravity = true;
+            rb.isKinematic = false;
             Destroy(fuelingBox);
             fireEffect.SetActive(true);
         }

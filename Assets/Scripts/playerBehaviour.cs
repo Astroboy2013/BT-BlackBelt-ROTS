@@ -12,6 +12,7 @@ public class playerBehaviour : MonoBehaviour
     public TMP_Text healthNumber;
     public health healthScript;
     public TMP_Text fuelNumber;
+    public GameObject[] engineEffectParts;
 
     [Header("Force Strengths")]
     public float yawForce;
@@ -135,6 +136,22 @@ public class playerBehaviour : MonoBehaviour
         if (healthScript.currentHealth < healthScript.maxHealth && isHealing)
         {
             healthScript.currentHealth += 0.1f;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "carrier")
+        {
+            transform.SetParent(collision.transform);
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "carrier")
+        {
+            transform.SetParent(null);
         }
     }
 
