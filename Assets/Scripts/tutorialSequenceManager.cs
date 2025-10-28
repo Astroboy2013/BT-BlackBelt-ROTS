@@ -38,6 +38,6 @@ public class tutorialSequenceManager : MonoBehaviour
 
     public void skipText()
     {
-        SceneManager.LoadSceneAsync("Tutorial Level");
+        SceneManager.LoadSceneAsync("Level");
     }
 }

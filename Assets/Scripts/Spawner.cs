@@ -60,8 +60,9 @@ public class spawner : MonoBehaviour
 
                 if (enemyClone.transform.position.y < 10)
                 {
-                    Destroy(enemyClone);
-                    enemies--;
+                    Vector3 newPosition = enemyClone.transform.position;
+                    newPosition.y = Random.Range(20, 50);
+                    enemyClone.transform.position = newPosition;
                 }
             }
 

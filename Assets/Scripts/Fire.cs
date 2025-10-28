@@ -82,7 +82,7 @@ public class fire : MonoBehaviour
     {
         Vector3 origin = transform.position;
         Vector3 direction = transform.forward;
-        float radius = 50f;
+        float radius = 100f;
         float maxDistance = 50000f;
         RaycastHit hit;
 
