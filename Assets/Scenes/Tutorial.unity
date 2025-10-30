@@ -262,11 +262,12 @@ MonoBehaviour:
   tutorialDialogues:
   - Welcome to Ruler of the Skies!
   - In this game, you can pilot a jet fighter, although it is a really simple simulation
-  - To move, you just have to use WASD, no yoke needed!
-  - To shoot you just have to use your Left Mouse Button, simple as that.
-  - You will be sent to a prototype of the game soon, shoot the cubes and the balls
-    and I guess that's it!
-  - Goodbye and Good luck! Stay tuned for more content :D
+  - Use WASD to move and use left mouse to shoot. You can also give yourself a boost
+    by holding shift
+  - For this level, shoot the bright cubes and spheres
+  - You can fuel up at the aircraft carrier. Press CTRL to land on it.
+  - There's a weird bug where the lighting is wonky, so don't mind
+  - Goodbye and Good Luck!
   nextButton: {fileID: 2008358979}
   skipButton: {fileID: 677379604}
   finishButton: {fileID: 1833700030}

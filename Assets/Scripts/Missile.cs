@@ -35,7 +35,10 @@ public class missile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        destroyMissile();
+        if (collision.gameObject.tag != "Player")
+        {
+            destroyMissile();
+        }
     }
    
     void destroyMissile()

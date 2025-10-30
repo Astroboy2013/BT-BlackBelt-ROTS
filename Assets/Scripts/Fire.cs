@@ -82,7 +82,7 @@ public class fire : MonoBehaviour
     {
         Vector3 origin = transform.position;
         Vector3 direction = transform.forward;
-        float radius = 100f;
+        float radius = 20;
         float maxDistance = 50000f;
         RaycastHit hit;
 
@@ -117,11 +117,13 @@ public class fire : MonoBehaviour
             else
             {
                 newMissile = Instantiate(missilePrefab, origin, transform.rotation);
+                currentAmmo--;
             }
         }
         else
         {
             newMissile = Instantiate(missilePrefab, origin, transform.rotation);
+            currentAmmo--;
         }
     }
 

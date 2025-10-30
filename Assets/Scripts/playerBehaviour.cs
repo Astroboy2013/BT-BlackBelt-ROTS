@@ -12,7 +12,7 @@ public class playerBehaviour : MonoBehaviour
     public TMP_Text healthNumber;
     public health healthScript;
     public TMP_Text fuelNumber;
-    public GameObject[] engineEffectParts;
+    public GameObject engineEffectPart;
 
     [Header("Force Strengths")]
     public float yawForce;
@@ -84,7 +84,7 @@ public class playerBehaviour : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             if (isMoving == true && fuel > 0)
             {
@@ -107,10 +107,15 @@ public class playerBehaviour : MonoBehaviour
         //Boosts Forward
         totalForce = constantForwardForce;
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             totalForce += boostForce;
             fuel += fuelConsumption * -1;
+            engineEffectPart.SetActive(true);
+        }
+        else
+        {
+            engineEffectPart.SetActive(false);
         }
 
         if (isMoving)
