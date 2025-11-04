@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Cinemachine;
+using UnityEngine.Rendering;
+using Unity.VisualScripting;
 
-public class playerBehaviour : MonoBehaviour
+public class PlayerBehaviour : MonoBehaviour
 {
     [Header("External Scripts")]
     public Rigidbody rb;
@@ -13,32 +16,47 @@ public class playerBehaviour : MonoBehaviour
     public health healthScript;
     public TMP_Text fuelNumber;
     public GameObject engineEffectPart;
+<<<<<<< HEAD
+    public CinemachineVirtualCamera cam;
+    public AnimationCurve camOffsetCurve;
+=======
+>>>>>>> 921bd350012689a13a3c376e9fc559e5ea98077c
 
     [Header("Force Strengths")]
     public float yawForce;
     public float pitchForce;
+    public float pitchRotationLimit = 35f;
+    public float rollRotationLimit = 30f;
     public float constantForwardForce = 30f;
     public float boostForce = 60f;
-    public float totalForce;
     public float angularAcceleration = 1f;
     public float maxAngularAcceleration = 2f;
+    public float camOffsetUpperLimitY = 12f;
+    public float camOffsetLowerLimitY = -2.5f;
 
     [Header("Other")]
-    public bool reverseTiltcontrol = false;
+    public bool reversePitchControl = false;
     public float maxFuel = 100f;
     public float fuel = 100f;
     public bool isMoving = true;
     public float fuelConsumption;
 
+    private float totalForce;
+    private float horizontalInput;
+    private float verticalInput;
     private float yawBuffer = 0f;
     private float pitchBuffer = 0f;
+    private float rollBuffer = 0f;
     private bool isHealing = false;
-
+    private CinemachineTransposer transposer;
+    private Vector3 camOffsetBuffer;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        transposer = cam.GetCinemachineComponent<CinemachineTransposer>();
+        camOffsetBuffer = transposer.m_FollowOffset;
 
     }
 
@@ -46,44 +64,71 @@ public class playerBehaviour : MonoBehaviour
     void FixedUpdate()
     {
         ///ROTATION CODE
-        //Tilt Left
-        if (Input.GetKey(KeyCode.A))
+        
+        //Get Inputs
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
+
+        //Tilt Left-Right
+        yawBuffer += horizontalInput * yawForce;
+        rollBuffer = -horizontalInput * rollRotationLimit;
+        rollBuffer = Math.Clamp(rollBuffer, -rollRotationLimit, rollRotationLimit);
+
+        //Tilt Up-Down
+        if (reversePitchControl) 
         {
-            yawBuffer -= yawForce;
+            pitchBuffer += verticalInput * pitchForce;
+        }
+        else
+        {
+            pitchBuffer -= verticalInput * pitchForce;
         }
 
-        //Tilt Right
-        if (Input.GetKey(KeyCode.D))
-        {
-            yawBuffer += yawForce;
-        }
+        //Limit pitch rotation
+        pitchBuffer = Math.Clamp(pitchBuffer, -pitchRotationLimit, pitchRotationLimit);
 
-        //Tilt Up
-        if (Input.GetKey(KeyCode.S))
-        {
-            if (reverseTiltcontrol)
-            {
-                pitchBuffer -= pitchForce;
-            }
-            else
-            {
-                pitchBuffer += pitchForce;
-            }
-        }
+        ////Tilt LEFT
+        //if (Input.GetKey(KeyCode.A))
+        //{
+        //    yawBuffer -= yawForce;
+        //}
 
-        //Tilt Down
-        if (Input.GetKey(KeyCode.W))
-        {
-            if (reverseTiltcontrol)
-            {
-                pitchBuffer += pitchForce;
-            }
-            else
-            {
-                pitchBuffer -= pitchForce;
-            }
-        }
+        ////Tilt RIGHT
+        //if (Input.GetKey(KeyCode.D))
+        //{
+        //    yawBuffer += yawForce;
+        //}
 
+<<<<<<< HEAD
+
+        ////Tilt DOWN
+        //if (Input.GetKey(KeyCode.S))
+        //{
+        //    if (reverseTiltcontrol)
+        //    {
+        //        pitchBuffer -= pitchForce;
+        //    }
+        //    else
+        //    {
+        //        pitchBuffer += pitchForce;
+        //    }
+        //}
+
+        ////Tilt UP
+        //if (Input.GetKey(KeyCode.W))
+        //{
+        //    if (reverseTiltcontrol)
+        //    {
+        //        pitchBuffer += pitchForce;
+        //    }
+        //    else
+        //    {
+        //        pitchBuffer -= pitchForce;
+        //    }
+        //}
+
+=======
+>>>>>>> 921bd350012689a13a3c376e9fc559e5ea98077c
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             if (isMoving == true && fuel > 0)
@@ -100,13 +145,23 @@ public class playerBehaviour : MonoBehaviour
 
         if (isMoving)
         {
-            transform.eulerAngles = new Vector3(pitchBuffer, yawBuffer, 0);
+            //Apply input rotation
+            transform.eulerAngles = new Vector3(pitchBuffer, yawBuffer, rollBuffer);
         }
 
         ///FORCE CODE
         //Boosts Forward
         totalForce = constantForwardForce;
 
+<<<<<<< HEAD
+        //Adjusts Camera
+        camOffsetBuffer.y = camOffsetCurve.Evaluate(-pitchBuffer);
+        camOffsetBuffer.y = Math.Clamp(camOffsetBuffer.y, camOffsetLowerLimitY, camOffsetUpperLimitY);
+        transposer.m_FollowOffset = camOffsetBuffer;
+
+        //Boosts
+=======
+>>>>>>> 921bd350012689a13a3c376e9fc559e5ea98077c
         if (Input.GetKey(KeyCode.LeftShift))
         {
             totalForce += boostForce;
@@ -146,9 +201,19 @@ public class playerBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "carrier")
-        {
-            transform.SetParent(collision.transform);
+        switch (collision.gameObject.tag) {
+            case "carrier":
+                transform.SetParent(collision.transform);
+                break;
+            case "enemy":
+                //Collide with enemies deal damage to them and self
+                healthScript.DoDamage(5); //Damage to self
+                collision.gameObject.GetComponent<health>().DoDamage(5); //Damage to enemy
+                break;
+            case "dummy":
+                healthScript.DoDamage(1); //Damage to self
+                collision.gameObject.GetComponent<health>().DoDamage(5); //Damage to dummy
+                break;
         }
     }
 

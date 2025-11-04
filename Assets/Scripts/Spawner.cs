@@ -13,7 +13,6 @@ public class spawner : MonoBehaviour
     public List<Transform> spawnLocations;
 
     private int enemyCount;
-    private Vector3 spawnLocation;
     private GameObject selectedGameobject;
     public int maxEnemyCount;
     public int minEnemyCount;
@@ -33,7 +32,7 @@ public class spawner : MonoBehaviour
 
             enemyCount = Random.Range(minEnemyCount, maxEnemyCount);
 
-            Vector3 randomOffset = new Vector3(Random.Range(-20, 20), Random.Range(-20, 20), Random.Range(-20, 20));
+            Vector3 randomOffset = new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), Random.Range(20, 50));
 
             for (int enemies = 0; enemies < enemyCount; enemies++)
             {
@@ -73,7 +72,7 @@ public class spawner : MonoBehaviour
                 gm.totalEnemyCount = enemyCount;
             }
 
-            Debug.Log(debugCounter.ToString() + " " + gm.totalEnemyCount.ToString());
+            //Debug.Log(debugCounter.ToString() + " " + gm.totalEnemyCount.ToString());
 
     }
     void Update()

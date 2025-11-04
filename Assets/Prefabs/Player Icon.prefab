@@ -146,7 +146,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0adb80ddc22c2fe44b827a3838f9ae9f, type: 2}
+  - {fileID: 2100000, guid: 7bd1f9b05946d7541862151d523e898e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -182,4 +182,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objTransform: {fileID: 0}
   hoverHeight: 100
-  rotatesWithObj: 0

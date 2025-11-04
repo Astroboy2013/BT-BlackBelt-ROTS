@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 2175478322271929151}
   - component: {fileID: 8866346718457819721}
   - component: {fileID: 5321234569758010778}
+  - component: {fileID: 3156479909150694333}
+  - component: {fileID: 529945516336587286}
   - component: {fileID: 5756372894326636457}
   - component: {fileID: 1640449181729897513}
-  - component: {fileID: 529945516336587286}
-  - component: {fileID: 3156479909150694333}
   m_Layer: 7
   m_Name: Dummy 2
-  m_TagString: enemy
+  m_TagString: dummy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,62 +87,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5756372894326636457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 873152588879334286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63ccdebc6a122d34895142db24240cc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explosionManager: {fileID: 0}
-  maxHealth: 2
-  isEnemy: 1
-  defaultColour: {r: 0, g: 0, b: 0, a: 0}
-  damagedColour: {r: 1, g: 0, b: 0, a: 0}
-  spawnScript: {fileID: 0}
-  currentHealth: 0
---- !u!114 &1640449181729897513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 873152588879334286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54a2187c9b2ddca48839b745dc716b8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  rb: {fileID: 3156479909150694333}
-  speed: 5
-  hasAI: 1
---- !u!135 &529945516336587286
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 873152588879334286}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3156479909150694333
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -170,3 +114,60 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &529945516336587286
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873152588879334286}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5756372894326636457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873152588879334286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ccdebc6a122d34895142db24240cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionManager: {fileID: 0}
+  currentHealth: 0
+  maxHealth: 2
+  isEnemy: 1
+  defaultColour: {r: 1, g: 1, b: 1, a: 0}
+  damagedColour: {r: 1, g: 0, b: 0, a: 0}
+  healthBar: {fileID: 0}
+  isColourChanging: 1
+--- !u!114 &1640449181729897513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873152588879334286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54a2187c9b2ddca48839b745dc716b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  rb: {fileID: 3156479909150694333}
+  speed: 5
+  hasAI: 1

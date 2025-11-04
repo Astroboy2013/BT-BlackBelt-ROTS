@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
 
-public class missile : MonoBehaviour
+public class Missile : MonoBehaviour
 {
     public Rigidbody rb;
     public float initialForce;
     public float additionalForce;
+    public float missileLifespan = 10f;
 
     Transform followTarget;
     Vector3 flyDirection;
@@ -25,7 +26,7 @@ public class missile : MonoBehaviour
         totalForce = initialForce + additionalForce;
         flyDirection = transform.forward;
 
-        Invoke("destroyMissile", 10f);
+        Invoke("DestroyMissile", missileLifespan);
     }
 
     // Update is called once per frame
@@ -33,23 +34,36 @@ public class missile : MonoBehaviour
     {
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
+<<<<<<< HEAD
+        //If missile collided with enemies or dummies and do damage to them
+        if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "dummy")
+        {
+            collision.gameObject.GetComponent<health>().DoDamage(1); //Damage amount
+        }
+
+        //If missile collided with anything else then destroy missile
+        if (collision.gameObject.tag != "Player" || collision.gameObject.tag != "player missile")
+        {
+            DestroyMissile();
+=======
         if (collision.gameObject.tag != "Player")
         {
             destroyMissile();
+>>>>>>> 921bd350012689a13a3c376e9fc559e5ea98077c
         }
     }
    
-    void destroyMissile()
+    void DestroyMissile()
     {
         Explode();
         Destroy(gameObject);
     }
 
-    public void setTarget(Transform target)
+    public void SetTarget(Transform target)
     {
-        if (target != null || target.gameObject.tag != "enemy" || target.gameObject.tag != "dummy")
+        if (target != null)
         {
             flyDirection = (target.position - transform.position).normalized;
             followTarget = target;
@@ -68,14 +82,14 @@ public class missile : MonoBehaviour
             flyDirection = transform.forward;
         }
         
-        rb.AddForce(flyDirection * totalForce);
+        rb.velocity = (flyDirection * totalForce);
         transform.LookAt(flyDirection);
     }
 
     private void Explode()
     {
         gameObject.SetActive(false);
-        explosionManager.explodeAt(gameObject.transform.position);
+        explosionManager.explodeAt(gameObject.transform.position, Vector3.zero, false);
     }
 
 }

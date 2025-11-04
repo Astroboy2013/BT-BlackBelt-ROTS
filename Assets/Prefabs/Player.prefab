@@ -4830,6 +4830,37 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &729907904108061625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4075009958532348999}
+  m_Layer: 6
+  m_Name: CameraTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4075009958532348999
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729907904108061625}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 5, z: 50}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5313699637942061276}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1663471528298106996
 GameObject:
   m_ObjectHideFlags: 0
@@ -4891,6 +4922,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1796936498518324331}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1814972519851796329
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3454526847554769441}
+  m_Layer: 6
+  m_Name: MissileSpawnLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3454526847554769441
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814972519851796329}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.15, z: 2.96}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5313699637942061276}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2030878639264563024
 GameObject:
@@ -9887,6 +9949,8 @@ Transform:
   - {fileID: 9104243103843836574}
   - {fileID: 1078163691166606208}
   - {fileID: 7942030600843867841}
+  - {fileID: 4075009958532348999}
+  - {fileID: 3454526847554769441}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &2596341452827585405
@@ -9977,15 +10041,25 @@ MonoBehaviour:
   healthNumber: {fileID: 0}
   healthScript: {fileID: 6504208437269446247}
   fuelNumber: {fileID: 0}
-  engineEffectParts: []
+  engineEffectPart: {fileID: 0}
+  cam: {fileID: 0}
+  camOffsetCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   yawForce: 2
   pitchForce: 2
+  pitchRotationLimit: 35
+  rollRotationLimit: 30
   constantForwardForce: 50
   boostForce: 150
-  totalForce: 0
   angularAcceleration: 1
   maxAngularAcceleration: 2
-  reverseTiltcontrol: 0
+  camOffsetUpperLimitY: 12
+  camOffsetLowerLimitY: -2.5
+  reversePitchControl: 0
   maxFuel: 100
   fuel: 100
   isMoving: 1
@@ -10003,6 +10077,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missilePrefab: {fileID: 451534549390141338, guid: ac9b85c487661d44da30ee01bb179ac2, type: 3}
+  missileSpawnLocation: {fileID: 3454526847554769441}
   time: 0.5
   maxAmmo: 0
   ammoCounter: {fileID: 0}

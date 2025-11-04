@@ -40,10 +40,29 @@ public class health: MonoBehaviour
         {
             healthBar.maxValue = maxHealth;
         }
+
     }
 
     private void Update()
     {
+
+    }
+
+    public void DoDamage(float damage)
+    {
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        if (!isEnemy)
+        {
+            UpdateHealthBar(currentHealth);
+        }
+
+        if (isColourChanging)
+        {
+            SetDamageColour();
+        }
+
         if (currentHealth <= 0)
         {
             Explode();
@@ -52,29 +71,34 @@ public class health: MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (isEnemy)
-        {
-            if (collision.gameObject.tag == "player missile")
-            {
-                currentHealth--;
-                SetDamageColour();
-            }
-        }
-        else
-        {
-            if (collision.gameObject.tag == "enemy")
-            {
-                currentHealth += -5;
-            }
-            if (collision.gameObject.tag == "missile")
-            {
-                currentHealth--;
-            }
-            UpdateHealthBar(currentHealth, maxHealth);
-        }
+        //if (isEnemy)
+        //{
+        //    if (collision.gameObject.tag == "player missile")
+        //    {
+        //        currentHealth--;
+        //        SetDamageColour();
+        //    }
+        //}
+        //else
+        //{
+        //    if (collision.gameObject.tag == "enemy")
+        //    {
+        //        currentHealth += -5;
+        //    }
+        //    if (collision.gameObject.tag == "missile")
+        //    {
+        //        currentHealth--;
+        //    }
+        //    UpdateHealthBar(currentHealth, maxHealth);
+        //}
         if (collision.gameObject.tag == "ground")
         {
-            currentHealth = 0;
+            DoDamage(9999);
+
+            if (!isEnemy)
+            {
+                UpdateHealthBar(currentHealth);
+            }
         }
     }
 
@@ -90,7 +114,7 @@ public class health: MonoBehaviour
         }
         if (explosionManager != null)
         {
-            explosionManager.explodeAt(gameObject.transform.position);
+            explosionManager.explodeAt(gameObject.transform.position, gameObject.GetComponent<Rigidbody>().velocity, true);
         }
         
         Destroy(gameObject);
@@ -99,22 +123,15 @@ public class health: MonoBehaviour
 
     private void SetDefaultColour()
     {
-        if (isColourChanging)
-        {
-            currentMaterial.color = defaultColour;
-        }
+        currentMaterial.color = defaultColour;
     }
 
     private void SetDamageColour()
     {
-        if (isColourChanging)
-        {
-            currentMaterial.color = damagedColour;
-
-            Invoke("SetDefaultColour", 0.5f);
-        }
+        currentMaterial.color = damagedColour;
+        Invoke("SetDefaultColour", 0.5f);
     }
-    private void UpdateHealthBar(float health, int maxHealth)
+    private void UpdateHealthBar(float health)
     {
         healthBar.value = Mathf.Round(health); 
     }

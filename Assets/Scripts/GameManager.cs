@@ -10,18 +10,24 @@ public class GameManager : MonoBehaviour
     [Header("External Game Objects")]
     public TMP_Text enemyCountText;
     public health playerHealth;
-    public playerBehaviour playerScript;
+    public PlayerBehaviour playerScript;
     public Slider fuelBar;
     public GameObject deathScreen;
     public GameObject engineOffIndicator;
+    public GameObject gameModeText;
 
     [Header("Other Variables")]
     public int totalEnemyCount = 0;
+
+    private int textBlinkCount = 5;
 
     // Start is called before the first frame update
     void Start()
     {
         Invoke("UpdateFirstEnemyCount", 0.5f);
+
+        //Game Mode text blinking animation
+        AnimateGameModeText();
     }
 
     // Update is called once per frame
@@ -30,7 +36,7 @@ public class GameManager : MonoBehaviour
         // Ends the game when there are no enemies
         if (totalEnemyCount <= 0)
         {
-            Debug.Log("Game shall end");
+            //Debug.Log("Game shall end");
             SceneManager.LoadSceneAsync("Win");
         }
 
@@ -71,4 +77,37 @@ public class GameManager : MonoBehaviour
         enemyCountText.text = "Enemies Left: " + rawInt.ToString();
     }
     
+    private void AnimateGameModeText()
+    {
+        if (gameModeText != null)
+        {
+            Invoke("HideModeTextTemporary", 0.3f);
+        }
+    }
+    private void ShowModeText()
+    {
+        gameModeText.SetActive(true);
+
+        if (textBlinkCount <= 0)
+        {
+            Invoke("HideModeTextPermanent", 0.3f);
+        }
+        else
+        {
+            Invoke("HideModeTextTemporary", 0.3f);
+            textBlinkCount--;
+        }
+    }
+
+    private void HideModeTextTemporary()
+    {
+        gameModeText.SetActive(false);
+        Invoke("ShowModeText", 0.3f);
+    }
+
+    private void HideModeTextPermanent()
+    {
+        gameModeText.SetActive(false);
+    }
+
 }

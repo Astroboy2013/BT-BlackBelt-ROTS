@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class deleteExplosion : MonoBehaviour
 {
+    public float explosionLifespan = 1.5f;
+
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("DestroyObj", 3f);
+        Invoke("DestroyObj", explosionLifespan);
     }
     private void DestroyObj()
     {

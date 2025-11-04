@@ -4,25 +4,27 @@ using Unity.VisualScripting;
 using TMPro;
 using UnityEngine;
 
-public class fire : MonoBehaviour
+public class Fire : MonoBehaviour
 {
-    public missile missilePrefab;
+    public Missile missilePrefab;
+    public Transform missileSpawnLocation;
     public float time;
     public int maxAmmo;
     public TextMeshProUGUI ammoCounter;
 
-    private playerBehaviour parentCode;
-    private float timer = 0f;
+    private PlayerBehaviour parentCode;
+    private float timer = 1f;
     private int currentAmmo;
 
-    missile newMissile;
+    Missile newMissile;
 
     // Start is called before the first frame update
     void Start()
     {
-        parentCode = GetComponent<playerBehaviour>();
+        parentCode = GetComponent<PlayerBehaviour>();
         currentAmmo = maxAmmo;
         UpdateAmmoCounter(currentAmmo);
+
     }
 
     // Update is called once per frame
@@ -33,7 +35,7 @@ public class fire : MonoBehaviour
             timer -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && timer <= 0)
+        if (Input.GetButtonDown("Fire1") && timer <= 0)
         {
             if (currentAmmo > 0)
             {
@@ -42,8 +44,6 @@ public class fire : MonoBehaviour
             }
         }
     }
-
-
 
 
     void ShootStraight()
@@ -68,11 +68,11 @@ public class fire : MonoBehaviour
         Quaternion targetDirectionRot = Quaternion.LookRotation(targetDirection);
 
         newMissile = Instantiate(missilePrefab, missileSpawnPos, targetDirectionRot);
-        newMissile.additionalForce = parentCode.totalForce;
+        //newMissile.additionalForce = parentCode;
 
         if (hit.transform != null)
         {
-            newMissile.setTarget(hit.transform);
+            newMissile.SetTarget(hit.transform);
         }
 
         timer = time;
@@ -80,10 +80,18 @@ public class fire : MonoBehaviour
 
     void SphereRayTrace()
     {
+<<<<<<< HEAD
+        Vector3 viewportCenter = new Vector3(0.5f, 0.5f, 0f);
+        Vector3 origin = Camera.main.ScreenToWorldPoint(viewportCenter);
+        Vector3 direction = Camera.main.transform.forward;
+        float radius = 50;
+        float maxDistance = 80000f;
+=======
         Vector3 origin = transform.position;
         Vector3 direction = transform.forward;
         float radius = 20;
         float maxDistance = 50000f;
+>>>>>>> 921bd350012689a13a3c376e9fc559e5ea98077c
         RaycastHit hit;
 
         Transform targetTransform = null;
@@ -92,39 +100,69 @@ public class fire : MonoBehaviour
 
         if (Physics.SphereCast(origin, radius, direction, out hit, maxDistance))
         {
-            Debug.Log("Hit: " + hit.collider.name);
+            if (hit.collider.gameObject.tag == "enemy" || hit.collider.gameObject.tag == "dummy")
+            {
+                //Debug.Log("Hit: " + hit.collider.name);
+                
+                targetTransform = hit.transform;
 
-            targetTransform = hit.transform;
-            unLookRotationed = targetTransform.position - origin; 
-            targetRot = Quaternion.LookRotation(unLookRotationed);
-
-            Debug.DrawLine(origin, hit.point, Color.red, 3f);
-            Debug.DrawRay(hit.point, hit.normal, Color.green, 3f);
+                if (missileSpawnLocation != null)
+                {
+                    unLookRotationed = targetTransform.position - missileSpawnLocation.position; 
+                }
+                else
+                {
+                    unLookRotationed = targetTransform.position - transform.position;
+                }
+                targetRot = Quaternion.LookRotation(unLookRotationed);
+            }
         }
         else
         {
-            Debug.Log("NONE");
+            //Debug.Log("NONE");
+        }
+
+        //For debugging
+        //Debug.DrawLine(origin, hit.point, Color.red, 3f);
+
+        Vector3 missileSpawnPos = transform.position;
+        if (missileSpawnLocation != null)
+        {
+            missileSpawnPos = missileSpawnLocation.position;
         }
 
         if (targetTransform != null)
         {
             if (hit.collider.gameObject.tag == "enemy" || hit.collider.gameObject.tag == "dummy")
             {
-                newMissile = Instantiate(missilePrefab, origin, targetRot);
+
+                newMissile = Instantiate(missilePrefab, missileSpawnPos, targetRot);
                 currentAmmo--;
-                newMissile.setTarget(targetTransform);
+
+                //Set homing target
+                newMissile.SetTarget(targetTransform);
             }
             else
             {
+<<<<<<< HEAD
+                newMissile = Instantiate(missilePrefab, missileSpawnPos, transform.rotation);
+=======
                 newMissile = Instantiate(missilePrefab, origin, transform.rotation);
+>>>>>>> 921bd350012689a13a3c376e9fc559e5ea98077c
                 currentAmmo--;
             }
         }
         else
         {
+<<<<<<< HEAD
+            newMissile = Instantiate(missilePrefab, missileSpawnPos, transform.rotation);
+=======
             newMissile = Instantiate(missilePrefab, origin, transform.rotation);
+>>>>>>> 921bd350012689a13a3c376e9fc559e5ea98077c
             currentAmmo--;
         }
+
+        newMissile.initialForce = GetComponent<Rigidbody>().velocity.magnitude;
     }
 
     private void UpdateAmmoCounter(int count)
