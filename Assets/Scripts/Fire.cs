@@ -80,18 +80,11 @@ public class Fire : MonoBehaviour
 
     void SphereRayTrace()
     {
-<<<<<<< HEAD
         Vector3 viewportCenter = new Vector3(0.5f, 0.5f, 0f);
         Vector3 origin = Camera.main.ScreenToWorldPoint(viewportCenter);
         Vector3 direction = Camera.main.transform.forward;
         float radius = 50;
         float maxDistance = 80000f;
-=======
-        Vector3 origin = transform.position;
-        Vector3 direction = transform.forward;
-        float radius = 20;
-        float maxDistance = 50000f;
->>>>>>> 921bd350012689a13a3c376e9fc559e5ea98077c
         RaycastHit hit;
 
         Transform targetTransform = null;
@@ -144,21 +137,13 @@ public class Fire : MonoBehaviour
             }
             else
             {
-<<<<<<< HEAD
                 newMissile = Instantiate(missilePrefab, missileSpawnPos, transform.rotation);
-=======
-                newMissile = Instantiate(missilePrefab, origin, transform.rotation);
->>>>>>> 921bd350012689a13a3c376e9fc559e5ea98077c
                 currentAmmo--;
             }
         }
         else
         {
-<<<<<<< HEAD
             newMissile = Instantiate(missilePrefab, missileSpawnPos, transform.rotation);
-=======
-            newMissile = Instantiate(missilePrefab, origin, transform.rotation);
->>>>>>> 921bd350012689a13a3c376e9fc559e5ea98077c
             currentAmmo--;
         }
 

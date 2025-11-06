@@ -36,7 +36,6 @@ public class Missile : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-<<<<<<< HEAD
         //If missile collided with enemies or dummies and do damage to them
         if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "dummy")
         {
@@ -47,11 +46,6 @@ public class Missile : MonoBehaviour
         if (collision.gameObject.tag != "Player" || collision.gameObject.tag != "player missile")
         {
             DestroyMissile();
-=======
-        if (collision.gameObject.tag != "Player")
-        {
-            destroyMissile();
->>>>>>> 921bd350012689a13a3c376e9fc559e5ea98077c
         }
     }
    

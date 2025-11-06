@@ -16,11 +16,8 @@ public class PlayerBehaviour : MonoBehaviour
     public health healthScript;
     public TMP_Text fuelNumber;
     public GameObject engineEffectPart;
-<<<<<<< HEAD
     public CinemachineVirtualCamera cam;
     public AnimationCurve camOffsetCurve;
-=======
->>>>>>> 921bd350012689a13a3c376e9fc559e5ea98077c
 
     [Header("Force Strengths")]
     public float yawForce;
@@ -99,7 +96,6 @@ public class PlayerBehaviour : MonoBehaviour
         //    yawBuffer += yawForce;
         //}
 
-<<<<<<< HEAD
 
         ////Tilt DOWN
         //if (Input.GetKey(KeyCode.S))
@@ -127,19 +123,20 @@ public class PlayerBehaviour : MonoBehaviour
         //    }
         //}
 
-=======
->>>>>>> 921bd350012689a13a3c376e9fc559e5ea98077c
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            if (isMoving == true && fuel > 0)
+            if (fuel > 0)
             {
-                isMoving = false;
-                rb.useGravity = true;
-            }
-            else
-            {
-                isMoving = true;
-                rb.useGravity = false;
+                if (isMoving == true)
+                {
+                    isMoving = false;
+                    rb.useGravity = true;
+                }
+                else
+                {
+                    isMoving = true;
+                    rb.useGravity = false;
+                }
             }
         }
 
@@ -153,15 +150,12 @@ public class PlayerBehaviour : MonoBehaviour
         //Boosts Forward
         totalForce = constantForwardForce;
 
-<<<<<<< HEAD
         //Adjusts Camera
         camOffsetBuffer.y = camOffsetCurve.Evaluate(-pitchBuffer);
         camOffsetBuffer.y = Math.Clamp(camOffsetBuffer.y, camOffsetLowerLimitY, camOffsetUpperLimitY);
         transposer.m_FollowOffset = camOffsetBuffer;
 
         //Boosts
-=======
->>>>>>> 921bd350012689a13a3c376e9fc559e5ea98077c
         if (Input.GetKey(KeyCode.LeftShift))
         {
             totalForce += boostForce;
@@ -207,12 +201,15 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             case "enemy":
                 //Collide with enemies deal damage to them and self
-                healthScript.DoDamage(5); //Damage to self
+                healthScript.DoDamage(2); //Damage to self
                 collision.gameObject.GetComponent<health>().DoDamage(5); //Damage to enemy
                 break;
             case "dummy":
                 healthScript.DoDamage(1); //Damage to self
                 collision.gameObject.GetComponent<health>().DoDamage(5); //Damage to dummy
+                break;
+            case "ground":
+                healthScript.DoDamage(999);
                 break;
         }
     }

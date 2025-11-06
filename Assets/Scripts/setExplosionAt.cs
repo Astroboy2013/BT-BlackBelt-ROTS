@@ -5,19 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class setExplosionAt : MonoBehaviour
 {
-    public GameObject prefab;
+    public GameObject explosionPrefab;
     public GameObject debrisPrefab;
     private GameObject newObject;
-    private GameObject debris;
-    public void explodeAt(Vector3 position, Vector3 velocity, bool addDestructionParts)
+    
+    public void explodeAt(Vector3 position, Vector3 velocity, bool canSpawnParticles)
     {
-        newObject = Instantiate(prefab, position, Quaternion.identity);
-        for (int i = Random.Range(0, 4); i < 4; i++)
+        newObject = Instantiate(explosionPrefab, position, Quaternion.identity);
+        if (canSpawnParticles)
         {
-            debris = Instantiate(debrisPrefab, position, Quaternion.identity);
-            if (velocity != null)
+            Vector3 offset = new Vector3(Random.Range(-10f, 10f), Random.Range(-10f, 10f), Random.Range(-10f, 10f));
+            GameObject debrisObj;
+            for (int i = 0; i <= Random.Range(5, 10); i++)
             {
-                debris.GetComponent<Rigidbody>().velocity = velocity;
+                offset = new Vector3(Random.Range(-10f, 10f), Random.Range(-10f, 10f), Random.Range(-10f, 10f));
+                debrisObj = Instantiate(debrisPrefab, position, Quaternion.identity);
+                debrisObj.GetComponent<Rigidbody>().velocity = velocity + offset;
             }
         }
     }

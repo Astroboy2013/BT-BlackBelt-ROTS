@@ -93,7 +93,7 @@ public class health: MonoBehaviour
         //}
         if (collision.gameObject.tag == "ground")
         {
-            DoDamage(9999);
+            currentHealth = 0;
 
             if (!isEnemy)
             {

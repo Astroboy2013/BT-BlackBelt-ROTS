@@ -37,11 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-<<<<<<< HEAD
   m_Sun: {fileID: 1469169276}
-=======
-  m_Sun: {fileID: 0}
->>>>>>> 921bd350012689a13a3c376e9fc559e5ea98077c
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
