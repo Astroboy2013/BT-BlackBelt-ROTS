@@ -7,6 +7,7 @@ public class selectMenu : MonoBehaviour
 {
     public void go()
     {
-        SceneManager.LoadSceneAsync("Level Select");
+        SceneManager.LoadSceneAsync("Tutorial");
+        // Set to "Level Select" later
     }
 }
