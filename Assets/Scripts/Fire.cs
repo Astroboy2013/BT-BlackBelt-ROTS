@@ -11,10 +11,10 @@ public class Fire : MonoBehaviour
     public float time;
     public int maxAmmo;
     public TextMeshProUGUI ammoCounter;
+    public int currentAmmo;
 
     private PlayerBehaviour parentCode;
     private float timer = 1f;
-    private int currentAmmo;
 
     Missile newMissile;
 

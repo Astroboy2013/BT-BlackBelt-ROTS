@@ -9893,7 +9893,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1078163691166606208
 Transform:
   m_ObjectHideFlags: 0
@@ -10038,10 +10038,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 2486680678851863555}
   explosionManager: {fileID: 0}
+  shootScript: {fileID: 0}
   healthNumber: {fileID: 0}
   healthScript: {fileID: 6504208437269446247}
   fuelNumber: {fileID: 0}
-  engineEffectPart: {fileID: 0}
+  sound: {fileID: 0}
+  engineEffectPart:
+  - {fileID: 0}
+  - {fileID: 0}
   cam: {fileID: 0}
   camOffsetCurve:
     serializedVersion: 2
@@ -10081,6 +10085,7 @@ MonoBehaviour:
   time: 0.5
   maxAmmo: 0
   ammoCounter: {fileID: 0}
+  currentAmmo: 0
 --- !u!114 &6504208437269446247
 MonoBehaviour:
   m_ObjectHideFlags: 0

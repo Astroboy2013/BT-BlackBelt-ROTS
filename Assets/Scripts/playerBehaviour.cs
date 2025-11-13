@@ -6,15 +6,18 @@ using TMPro;
 using Cinemachine;
 using UnityEngine.Rendering;
 using Unity.VisualScripting;
+using UnityEditor.Build;
 
 public class PlayerBehaviour : MonoBehaviour
 {
     [Header("External Scripts")]
     public Rigidbody rb;
     public setExplosionAt explosionManager;
+    public Fire shootScript;
     public TMP_Text healthNumber;
     public health healthScript;
     public TMP_Text fuelNumber;
+    public AudioSource sound;
     public GameObject engineEffectPart;
     public CinemachineVirtualCamera cam;
     public AnimationCurve camOffsetCurve;
@@ -45,6 +48,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float pitchBuffer = 0f;
     private float rollBuffer = 0f;
     private bool isHealing = false;
+    private bool isTouchingFuelBox = false;
     private CinemachineTransposer transposer;
     private Vector3 camOffsetBuffer;
 
@@ -127,7 +131,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             if (fuel > 0)
             {
-                if (isMoving == true)
+                if (isMoving == true && isTouchingFuelBox == true)
                 {
                     isMoving = false;
                     rb.useGravity = true;
@@ -161,17 +165,18 @@ public class PlayerBehaviour : MonoBehaviour
             totalForce += boostForce;
             fuel += fuelConsumption * -1;
             engineEffectPart.SetActive(true);
+            sound.pitch = 1.1f;
         }
         else
         {
             engineEffectPart.SetActive(false);
+            sound.pitch = 1;
         }
 
         if (isMoving)
         {
             rb.velocity = transform.forward * totalForce;
             fuel += fuelConsumption * -1;
-            fuelNumber.text = Mathf.Round(fuel).ToString();
         } 
 
         if (fuel <= 0)
@@ -186,6 +191,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         healthNumber.text = Mathf.Round(healthScript.currentHealth).ToString();
+        fuelNumber.text = Mathf.Round(fuel).ToString();
 
         if (healthScript.currentHealth < healthScript.maxHealth && isHealing)
         {
@@ -224,9 +230,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "fueling")
+        if (other.gameObject.tag == "fueling" && isMoving == false)
         {
             fuel++;
+            shootScript.currentAmmo++;
             isHealing = true;
         }
 
@@ -234,6 +241,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             fuel = maxFuel;
         }
+        isTouchingFuelBox = true;
     }
 
     private void OnTriggerExit(Collider other)
@@ -242,5 +250,6 @@ public class PlayerBehaviour : MonoBehaviour
         {
             isHealing = false;
         }
+        isTouchingFuelBox = false;
     }
 }
