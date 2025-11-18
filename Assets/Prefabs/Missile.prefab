@@ -5074,6 +5074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3620380835036469640}
+  isEnemyMissile: 1
   initialForce: 50
   additionalForce: 100
   missileLifespan: 10

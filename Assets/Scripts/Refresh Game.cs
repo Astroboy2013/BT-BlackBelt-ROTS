@@ -9,4 +9,9 @@ public class RefreshGame : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadSceneAsync("Main Menu");
+    }
 }

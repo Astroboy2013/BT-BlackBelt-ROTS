@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 529945516336587286}
   - component: {fileID: 5756372894326636457}
   - component: {fileID: 1640449181729897513}
+  - component: {fileID: 1164265493587152169}
   m_Layer: 7
   m_Name: Dummy 2
   m_TagString: dummy
@@ -171,3 +172,18 @@ MonoBehaviour:
   rb: {fileID: 3156479909150694333}
   speed: 5
   hasAI: 1
+--- !u!114 &1164265493587152169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873152588879334286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0250c1cdafb4645a7c12144b7e8aa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missilePrefab: {fileID: 9145021199509371004, guid: ab2afebe47fc39944b6e96d7f3366758, type: 3}
+  hasAI: 0
+  time: 0.5

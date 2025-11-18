@@ -6,6 +6,7 @@ using UnityEngine.Animations;
 public class Missile : MonoBehaviour
 {
     public Rigidbody rb;
+    public bool isEnemyMissile;
     public float initialForce;
     public float additionalForce;
     public float missileLifespan = 10f;
@@ -29,30 +30,42 @@ public class Missile : MonoBehaviour
         Invoke("DestroyMissile", missileLifespan);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     private void OnTriggerEnter(Collider collision)
     {
-        //If missile collided with enemies or dummies and do damage to them
-        if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "dummy")
+        if (!isEnemyMissile)
         {
-            collision.gameObject.GetComponent<health>().DoDamage(1); //Damage amount
+            //If missile collided with enemies or dummies and do damage to them
+            if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "dummy")
+            {
+                collision.gameObject.GetComponent<health>().DoDamage(1); //Damage amount
+            }
+
+            //If missile collided with anything else then destroy missile
+            if (collision.gameObject.tag != "Player" || collision.gameObject.tag != "player missile")
+            {
+                DestroyMissile();
+            }
+
+        }
+        else
+        {
+            if (collision.gameObject.tag != "enemy" || collision.gameObject.tag == "dummy")
+            {
+                DestroyMissile();
+            }
+
+            if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "player missile")
+            {
+                collision.gameObject.GetComponent<health>().DoDamage(1); //Damage amount
+            }
         }
 
-        //If missile collided with anything else then destroy missile
-        if (collision.gameObject.tag != "Player" || collision.gameObject.tag != "player missile")
+        void DestroyMissile()
         {
-            DestroyMissile();
+            Explode();
+            Destroy(gameObject);
         }
-    }
-   
-    void DestroyMissile()
-    {
-        Explode();
-        Destroy(gameObject);
+
     }
 
     public void SetTarget(Transform target)

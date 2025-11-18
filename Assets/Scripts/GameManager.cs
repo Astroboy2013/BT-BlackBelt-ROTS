@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public PlayerBehaviour playerScript;
     public Slider fuelBar;
     public GameObject deathScreen;
+    public GameObject winScreen;
     public GameObject engineOffIndicator;
     public GameObject gameModeText;
 
@@ -36,8 +37,7 @@ public class GameManager : MonoBehaviour
         // Ends the game when there are no enemies
         if (totalEnemyCount <= 0)
         {
-            //Debug.Log("Game shall end");
-            SceneManager.LoadSceneAsync("Win");
+            winScreen.SetActive(true);
         }
 
         if (playerHealth.currentHealth <= 0)
