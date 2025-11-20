@@ -19,6 +19,7 @@ public class PlayerBehaviour : MonoBehaviour
     public TMP_Text fuelNumber;
     public AudioSource sound;
     public GameObject engineEffectPart;
+    public GameObject[] damagedsmokeParts;
     public CinemachineVirtualCamera cam;
     public AnimationCurve camOffsetCurve;
 
@@ -175,9 +176,14 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (isMoving)
         {
+            sound.volume = 0.5f;
             rb.velocity = transform.forward * totalForce;
             fuel += fuelConsumption * -1;
-        } 
+        }
+        else
+        {
+            sound.volume = 0;
+        }
 
         if (fuel <= 0)
         {
@@ -188,6 +194,15 @@ public class PlayerBehaviour : MonoBehaviour
         if (transform.position.y > 500)
         {
             pitchBuffer = 90f;
+        }
+
+        if(healthScript.currentHealth <= healthScript.maxHealth / 2)
+        {
+            damagedsmokeParts[1].SetActive(true);
+        }
+        if (healthScript.currentHealth <= healthScript.maxHealth / 4)
+        {
+            damagedsmokeParts[2].SetActive(true);
         }
 
         healthNumber.text = Mathf.Round(healthScript.currentHealth).ToString();

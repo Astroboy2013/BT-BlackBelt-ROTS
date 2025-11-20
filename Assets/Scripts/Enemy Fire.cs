@@ -29,10 +29,9 @@ public class enemyFire : MonoBehaviour
 
             if (timer <= 0)
             {
-                GameObject newMissile = Instantiate(missilePrefab, new Vector3(transform.position.x, transform.position.y - 5, transform.position.z), transform.rotation);
-                //newMissile.transform.parent = null;
-
                 timer = time;
+                GameObject newMissile = Instantiate(missilePrefab, new Vector3(transform.position.x, transform.position.y - 20, transform.position.z), transform.rotation);
+                //newMissile.transform.parent = null;
             }
         }
     }

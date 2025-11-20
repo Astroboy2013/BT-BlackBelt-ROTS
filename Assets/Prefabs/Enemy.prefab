@@ -437,9 +437,8 @@ GameObject:
   - component: {fileID: 3083382815824131557}
   - component: {fileID: 6474657611880273184}
   - component: {fileID: 3367689335569424761}
-  - component: {fileID: -7156839463956713374}
   - component: {fileID: 3991934856581187050}
-  - component: {fileID: 2815079142211108365}
+  - component: {fileID: 4041761970222092708}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: enemy
@@ -548,23 +547,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missilePrefab: {fileID: 9145021199509371004, guid: ab2afebe47fc39944b6e96d7f3366758, type: 3}
-  hasAI: 0
+  hasAI: 1
   time: 1
---- !u!114 &-7156839463956713374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8315383081915650354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c41e5224d1801c45aac6ea786e9493e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  rb: {fileID: 3083382815824131557}
-  hasAI: 0
 --- !u!114 &3991934856581187050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,33 +562,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionManager: {fileID: 0}
+  currentHealth: 0
   maxHealth: 5
   isEnemy: 1
   defaultColour: {r: 0, g: 0, b: 0, a: 0}
   damagedColour: {r: 1, g: 0, b: 0, a: 0}
-  spawnScript: {fileID: 0}
-  currentHealth: 0
---- !u!135 &2815079142211108365
-SphereCollider:
+  healthBar: {fileID: 0}
+  isColourChanging: 0
+--- !u!114 &4041761970222092708
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8315383081915650354}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 30
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54a2187c9b2ddca48839b745dc716b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  rb: {fileID: 3083382815824131557}
+  speed: 10
+  hasAI: 1
 --- !u!1 &8575034606213667808
 GameObject:
   m_ObjectHideFlags: 0
