@@ -55,7 +55,7 @@ public class health: MonoBehaviour
 
         if (!isEnemy)
         {
-            UpdateHealthBar(currentHealth);
+            healthBar.value = Mathf.Round(currentHealth);
         }
 
         if (isColourChanging)
@@ -97,7 +97,7 @@ public class health: MonoBehaviour
 
             if (!isEnemy)
             {
-                UpdateHealthBar(currentHealth);
+                healthBar.value = Mathf.Round(currentHealth);
             }
         }
     }
@@ -130,9 +130,5 @@ public class health: MonoBehaviour
     {
         currentMaterial.color = damagedColour;
         Invoke("SetDefaultColour", 0.5f);
-    }
-    private void UpdateHealthBar(float health)
-    {
-        healthBar.value = Mathf.Round(health); 
     }
 }

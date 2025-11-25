@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject winScreen;
     public GameObject engineOffIndicator;
     public GameObject gameModeText;
+    public string gameMode;
 
     [Header("Other Variables")]
     public int totalEnemyCount = 0;
@@ -37,7 +38,10 @@ public class GameManager : MonoBehaviour
         // Ends the game when there are no enemies
         if (totalEnemyCount <= 0)
         {
-            winScreen.SetActive(true);
+            if (gameMode == "Elimination")
+            {
+                winScreen.SetActive(true);
+            }
         }
 
         if (playerHealth.currentHealth <= 0)
@@ -58,7 +62,7 @@ public class GameManager : MonoBehaviour
     }
     void UpdateFirstEnemyCount()
     {
-        updateText(totalEnemyCount);
+        updateText(totalEnemyCount, gameMode);
     }
 
     public void SetEnemyTotalCount(int value) { 
@@ -68,13 +72,16 @@ public class GameManager : MonoBehaviour
     public void ReduceEnemyTotalCount()
     {
         totalEnemyCount--;
-        updateText(totalEnemyCount);
+        updateText(totalEnemyCount, gameMode);
     }
 
-    public void updateText(int rawInt)
+    public void updateText(int rawInt, string mode)
     {
-        // Updates the enemy counter text
-        enemyCountText.text = "Enemies Left: " + rawInt.ToString();
+        if (mode == "Elimination")
+        {
+            // Updates the enemy counter text
+            enemyCountText.text = "Enemies Left: " + rawInt.ToString();
+        }
     }
     
     private void AnimateGameModeText()
