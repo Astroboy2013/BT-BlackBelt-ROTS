@@ -12,6 +12,7 @@ TagManager:
   - enemySpawn
   - fueling
   - carrier
+  - territory
   layers:
   - Default
   - TransparentFX

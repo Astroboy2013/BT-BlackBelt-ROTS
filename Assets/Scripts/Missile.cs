@@ -30,7 +30,38 @@ public class Missile : MonoBehaviour
         Invoke("DestroyMissile", missileLifespan);
     }
 
-    private void OnTriggerEnter(Collider collision)
+    public void SetTarget(Transform target)
+    {
+        if (target != null)
+        {
+            flyDirection = (target.position - transform.position).normalized;
+            followTarget = target;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (followTarget != null)
+        {
+            flyDirection = (followTarget.position - transform.position).normalized;
+        }
+
+        if (followTarget = null)
+        {
+            flyDirection = transform.forward;
+        }
+        
+        rb.velocity = (flyDirection * totalForce);
+        transform.LookAt(flyDirection);
+    }
+
+    private void Explode()
+    {
+        gameObject.SetActive(false);
+        explosionManager.explodeAt(gameObject.transform.position, Vector3.zero, false);
+    }
+
+    private void OnCollisionEnter(Collision collision)
     {
         if (!isEnemyMissile)
         {
@@ -65,38 +96,5 @@ public class Missile : MonoBehaviour
             Explode();
             Destroy(gameObject);
         }
-
     }
-
-    public void SetTarget(Transform target)
-    {
-        if (target != null)
-        {
-            flyDirection = (target.position - transform.position).normalized;
-            followTarget = target;
-        }
-    }
-
-    void FixedUpdate()
-    {
-        if (followTarget != null)
-        {
-            flyDirection = (followTarget.position - transform.position).normalized;
-        }
-
-        if (followTarget = null)
-        {
-            flyDirection = transform.forward;
-        }
-        
-        rb.velocity = (flyDirection * totalForce);
-        transform.LookAt(flyDirection);
-    }
-
-    private void Explode()
-    {
-        gameObject.SetActive(false);
-        explosionManager.explodeAt(gameObject.transform.position, Vector3.zero, false);
-    }
-
 }

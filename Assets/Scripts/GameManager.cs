@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 {
     [Header("External Game Objects")]
     public TMP_Text enemyCountText;
+    public TMP_Text territorySign;
+    public GameObject territorySignObj;
     public health playerHealth;
     public PlayerBehaviour playerScript;
     public Slider fuelBar;
@@ -16,10 +18,10 @@ public class GameManager : MonoBehaviour
     public GameObject winScreen;
     public GameObject engineOffIndicator;
     public GameObject gameModeText;
-    public string gameMode;
 
     [Header("Other Variables")]
     public int totalEnemyCount = 0;
+    public string gameMode;
 
     private int textBlinkCount = 5;
 
@@ -56,6 +58,19 @@ public class GameManager : MonoBehaviour
         else
         {
             engineOffIndicator.SetActive(true);
+        }
+
+        if(gameMode == "Territorial Occupation")
+        {
+            if (playerScript.currentTerritory != null)
+            {
+                territorySignObj.SetActive(true);
+                territorySign.text = playerScript.currentTerritory;
+            }
+            else
+            {
+                territorySignObj.SetActive(false);
+            }
         }
 
         fuelBar.value = playerScript.fuel;

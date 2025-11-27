@@ -41,6 +41,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float fuel = 100f;
     public bool isMoving = true;
     public float fuelConsumption;
+    public string currentTerritory;
 
     private float totalForce;
     private float horizontalInput;
@@ -243,6 +244,14 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "territory")
+        {
+            currentTerritory = other.gameObject.name;
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "fueling" && isMoving == false)
@@ -266,5 +275,10 @@ public class PlayerBehaviour : MonoBehaviour
             isHealing = false;
         }
         isTouchingFuelBox = false;
+
+        if (other.gameObject.tag == "territory")
+        {
+            currentTerritory = null;
+        }
     }
 }
