@@ -14929,6 +14929,7 @@ MonoBehaviour:
   fuel: 100
   isMoving: 1
   fuelConsumption: 0.03
+  currentTerritory: 
 --- !u!114 &4059084904597260215
 MonoBehaviour:
   m_ObjectHideFlags: 0

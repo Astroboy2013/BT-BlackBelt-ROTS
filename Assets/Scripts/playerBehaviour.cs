@@ -249,6 +249,7 @@ public class PlayerBehaviour : MonoBehaviour
         if(other.gameObject.tag == "territory")
         {
             currentTerritory = other.gameObject.name;
+            other.GetComponent<territoryCode>().playerCapture++;
         }
     }
 
@@ -266,6 +267,11 @@ public class PlayerBehaviour : MonoBehaviour
             fuel = maxFuel;
         }
         isTouchingFuelBox = true;
+
+        if (other.gameObject.tag == "territory")
+        {
+            other.GetComponent<territoryCode>().playerCapture += 0.1f;
+        }
     }
 
     private void OnTriggerExit(Collider other)

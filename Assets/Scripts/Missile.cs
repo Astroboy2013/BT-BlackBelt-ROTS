@@ -63,38 +63,40 @@ public class Missile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!isEnemyMissile)
+        if (collision.gameObject.tag != "territory")
         {
-            //If missile collided with enemies or dummies and do damage to them
-            if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "dummy")
+            if (!isEnemyMissile)
             {
-                collision.gameObject.GetComponent<health>().DoDamage(1); //Damage amount
-            }
+                //If missile collided with enemies or dummies and do damage to them
+                if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "dummy")
+                {
+                    collision.gameObject.GetComponent<health>().DoDamage(1); //Damage amount
+                }
 
-            //If missile collided with anything else then destroy missile
-            if (collision.gameObject.tag != "Player" || collision.gameObject.tag != "player missile")
+                //If missile collided with anything else then destroy missile
+                if (collision.gameObject.tag != "Player" || collision.gameObject.tag != "player missile")
+                {
+                    DestroyMissile();
+                }
+
+            }
+            else
             {
-                DestroyMissile();
-            }
+                if (collision.gameObject.tag != "enemy" || collision.gameObject.tag == "dummy")
+                {
+                    DestroyMissile();
+                }
 
+                if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "player missile")
+                {
+                    collision.gameObject.GetComponent<health>().DoDamage(1); //Damage amount
+                }
+            }
         }
-        else
-        {
-            if (collision.gameObject.tag != "enemy" || collision.gameObject.tag == "dummy")
-            {
-                DestroyMissile();
-            }
-
-            if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "player missile")
-            {
-                collision.gameObject.GetComponent<health>().DoDamage(1); //Damage amount
-            }
-        }
-
-        void DestroyMissile()
-        {
-            Explode();
-            Destroy(gameObject);
-        }
+    }
+    void DestroyMissile()
+    {
+        Explode();
+        Destroy(gameObject);
     }
 }

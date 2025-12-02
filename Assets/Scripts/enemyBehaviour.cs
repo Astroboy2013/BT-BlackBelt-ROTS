@@ -30,4 +30,12 @@ public class enemyBehaviour : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "territory")
+        {
+            other.GetComponent<territoryCode>().enemyCapture += 0.1f;
+        }
+    }
 }

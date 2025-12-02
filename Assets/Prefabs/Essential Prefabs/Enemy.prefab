@@ -583,7 +583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   rb: {fileID: 3083382815824131557}
-  speed: 10
+  speed: 35
   hasAI: 1
 --- !u!1 &8575034606213667808
 GameObject:
