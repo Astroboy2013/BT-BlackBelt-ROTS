@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class territoryCode : MonoBehaviour
@@ -9,6 +10,10 @@ public class territoryCode : MonoBehaviour
     public float totalCapture;
     public float maxCapture;
     public float percentage;
+    public Slider captureSlider;
+
+    private bool isPlayerInTerritory;
+    private bool isEnemyInTerritory;
 
     private float percentageBuffer;
     // Start is called before the first frame update
@@ -23,6 +28,6 @@ public class territoryCode : MonoBehaviour
         totalCapture = playerCapture - enemyCapture;
         percentageBuffer = totalCapture / maxCapture;
         percentage = percentageBuffer * 100;
-        Debug.Log(percentage);
+        captureSlider.value = percentage;
     }
 }
