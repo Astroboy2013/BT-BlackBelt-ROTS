@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
 
 public class territoryCode : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class territoryCode : MonoBehaviour
     public float maxCapture;
     public float percentage;
     public Slider captureSlider;
+    public TMP_Text captureText;
 
     private bool isPlayerInTerritory;
     private bool isEnemyInTerritory;
@@ -27,7 +29,8 @@ public class territoryCode : MonoBehaviour
     {
         totalCapture = playerCapture - enemyCapture;
         percentageBuffer = totalCapture / maxCapture;
-        percentage = percentageBuffer * 100;
+        percentage = Mathf.Clamp(percentageBuffer * 100, -100, 100);
         captureSlider.value = percentage;
+        captureText.text = Mathf.Round(percentage).ToString();
     }
 }

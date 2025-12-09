@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         // Ends the game when there are no enemies
         if (totalEnemyCount <= 0)
         {
-            if (gameMode == "Elimination")
+            if (SceneManager.GetActiveScene().buildIndex == 2)
             {
                 winScreen.SetActive(true);
             }
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
             engineOffIndicator.SetActive(true);
         }
 
-        if(gameMode == "Territorial Occupation")
+        if(SceneManager.GetActiveScene().buildIndex == 3)
         {
             if (playerScript.currentTerritory != null)
             {
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
     }
     void UpdateFirstEnemyCount()
     {
-        updateText(totalEnemyCount, gameMode);
+        updateText(totalEnemyCount, SceneManager.GetActiveScene().buildIndex);
     }
 
     public void SetEnemyTotalCount(int value) { 
@@ -87,12 +87,12 @@ public class GameManager : MonoBehaviour
     public void ReduceEnemyTotalCount()
     {
         totalEnemyCount--;
-        updateText(totalEnemyCount, gameMode);
+        updateText(totalEnemyCount, SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void updateText(int rawInt, string mode)
+    public void updateText(int rawInt, int mode)
     {
-        if (mode == "Elimination")
+        if (mode == 2)
         {
             // Updates the enemy counter text
             enemyCountText.text = "Enemies Left: " + rawInt.ToString();
