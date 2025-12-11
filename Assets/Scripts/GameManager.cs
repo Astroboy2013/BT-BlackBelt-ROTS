@@ -18,10 +18,12 @@ public class GameManager : MonoBehaviour
     public GameObject winScreen;
     public GameObject engineOffIndicator;
     public GameObject gameModeText;
+    public territoryCode[] captureValues;
 
     [Header("Other Variables")]
     public int totalEnemyCount = 0;
     public string gameMode;
+    public int foughtTerritory;
 
     private int textBlinkCount = 5;
 
@@ -74,6 +76,7 @@ public class GameManager : MonoBehaviour
         }
 
         fuelBar.value = playerScript.fuel;
+        CheckFoughtTerritories(captureValues);
     }
     void UpdateFirstEnemyCount()
     {
@@ -132,4 +135,15 @@ public class GameManager : MonoBehaviour
         gameModeText.SetActive(false);
     }
 
+    private void CheckFoughtTerritories(territoryCode[] territoriesInput)
+    {
+        for (int i = 0; i < territoriesInput.Length; i++)
+        {
+            if (territoriesInput[i].percentage <= 0)
+            {
+                foughtTerritory = i;
+                break;
+            }
+        }
+    }
 }

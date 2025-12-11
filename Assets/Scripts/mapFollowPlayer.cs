@@ -18,6 +18,9 @@ public class mapFollowPlayer : MonoBehaviour
         if (objTransform != null)
         {
             transform.position = new Vector3(objTransform.position.x, hoverHeight, objTransform.position.z);
+            Quaternion targetRotation = Quaternion.Euler(0, objTransform.eulerAngles.y, 0);
+            transform.rotation = targetRotation;
+
         }
         else
         {

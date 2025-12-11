@@ -13,6 +13,7 @@ public class territoryCode : MonoBehaviour
     public float percentage;
     public Slider captureSlider;
     public TMP_Text captureText;
+    public GameManager manager;
 
     private bool isPlayerInTerritory;
     private bool isEnemyInTerritory;
@@ -30,7 +31,15 @@ public class territoryCode : MonoBehaviour
         totalCapture = playerCapture - enemyCapture;
         percentageBuffer = totalCapture / maxCapture;
         percentage = Mathf.Clamp(percentageBuffer * 100, -100, 100);
-        captureSlider.value = percentage;
+        captureSlider.value = Mathf.Abs(percentage);
         captureText.text = Mathf.Round(percentage).ToString();
+        if(percentage > 0)
+        {
+            captureSlider.direction = Slider.Direction.LeftToRight;
+        }
+        else
+        {
+            captureSlider.direction = Slider.Direction.RightToLeft;
+        }
     }
 }

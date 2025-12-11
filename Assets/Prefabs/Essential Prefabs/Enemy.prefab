@@ -583,7 +583,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   rb: {fileID: 3083382815824131557}
-  hasAI: 0
+  manager: {fileID: 0}
+  territories: []
+  hasAI: 1
 --- !u!1 &8575034606213667808
 GameObject:
   m_ObjectHideFlags: 0
