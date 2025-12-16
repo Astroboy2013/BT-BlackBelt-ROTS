@@ -34,25 +34,19 @@ public class Missile : MonoBehaviour
     {
         if (target != null)
         {
-            flyDirection = (target.position - transform.position).normalized;
             followTarget = target;
         }
     }
 
     void FixedUpdate()
     {
-        if (followTarget != null)
-        {
-            flyDirection = (followTarget.position - transform.position).normalized;
-        }
-
         if (followTarget = null)
         {
             flyDirection = transform.forward;
         }
         
-        rb.velocity = (flyDirection * totalForce);
-        transform.LookAt(flyDirection);
+        rb.velocity = (transform.forward * totalForce);
+        transform.LookAt(followTarget);
     }
 
     private void Explode()
@@ -65,11 +59,14 @@ public class Missile : MonoBehaviour
     {
         if (collision.gameObject.tag != "territory")
         {
+            Debug.Log("not in territory");
             if (!isEnemyMissile)
             {
+                Debug.Log("not enemy missle");
                 //If missile collided with enemies or dummies and do damage to them
                 if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "dummy")
                 {
+                    Debug.Log("collided");
                     collision.gameObject.GetComponent<health>().DoDamage(1); //Damage amount
                 }
 
@@ -89,6 +86,7 @@ public class Missile : MonoBehaviour
 
                 if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "player missile")
                 {
+                    Debug.Log("collided");
                     collision.gameObject.GetComponent<health>().DoDamage(1); //Damage amount
                 }
             }

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class spawner : MonoBehaviour
 {
     public bool toggleConstantSpawn;
 
     public GameObject[] enemy;
+    public GameObject dirIndicatorPrefab;
     public GameObject indicatorPrefab;
     public List<Transform> spawnLocations;
 
@@ -38,22 +40,26 @@ public class spawner : MonoBehaviour
             {
                 GameObject enemyClone;
                 GameObject indicator;
+                GameObject dirInPre;
                 if (enemyCount < spawnLocations.Count)
                 {
                     selectedGameobject = enemy[Random.Range(0, enemy.Length)];
                     enemyClone = Instantiate(selectedGameobject, spawnLocations[enemies].position, Quaternion.identity);
                     indicator = Instantiate(indicatorPrefab);
                     indicator.GetComponent<mapFollowPlayer>().objTransform = enemyClone.transform;
+                    dirInPre = Instantiate(selectedGameobject, spawnLocations[enemies].position, Quaternion.identity);
+                    dirInPre.GetComponent<lookAtEnemy>().enemyTransform = enemyClone.transform;
                     debugCounter++;
                 }
                 else
                 {
                     selectedGameobject = enemy[Random.Range(0, enemy.Length)];
                     enemyClone = Instantiate(selectedGameobject, spawnLocations[Random.Range(0, spawnLocations.Count)].position + randomOffset, Quaternion.identity);
-                    Debug.Log("Too Many Enemies. Spawn Method 2 Activating...");
                     indicator = Instantiate(indicatorPrefab);
                     indicator.GetComponent<mapFollowPlayer>().objTransform = enemyClone.transform;
-                    debugCounter++;
+                    dirInPre = Instantiate(selectedGameobject, spawnLocations[enemies].position, Quaternion.identity);
+                    dirInPre.GetComponent<lookAtEnemy>().enemyTransform = enemyClone.transform;
+                debugCounter++;
                 }
             
 

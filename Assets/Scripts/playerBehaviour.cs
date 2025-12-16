@@ -199,11 +199,11 @@ public class PlayerBehaviour : MonoBehaviour
 
         if(healthScript.currentHealth <= healthScript.maxHealth / 2)
         {
-            damagedsmokeParts[1].SetActive(true);
+            damagedsmokeParts[0].SetActive(true);
         }
         if (healthScript.currentHealth <= healthScript.maxHealth / 4)
         {
-            damagedsmokeParts[2].SetActive(true);
+            damagedsmokeParts[1].SetActive(true);
         }
 
         healthNumber.text = Mathf.Round(healthScript.currentHealth).ToString();
