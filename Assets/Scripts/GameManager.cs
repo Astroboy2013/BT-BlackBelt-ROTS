@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour
             }
         }
 
+
+
         if (playerHealth.currentHealth <= 0)
         {
             deathScreen.SetActive(true);
@@ -139,7 +141,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < territoriesInput.Length; i++)
         {
-            if (territoriesInput[i].percentage <= 0)
+            if (territoriesInput[i].percentage < territoriesInput[i - 1].percentage)
             {
                 foughtTerritory = i;
                 break;

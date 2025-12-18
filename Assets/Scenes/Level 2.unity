@@ -412,6 +412,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3346475076870324118, guid: 0e0e7177b108a41419914d9bcdce1dbb, type: 3}
+      propertyPath: dirIndicatorPrefab
+      value: 
+      objectReference: {fileID: 6479193035707317465, guid: 4c0dfc8682475ce479e5e011e0b44208, type: 3}
+    - target: {fileID: 3346475076870324118, guid: 0e0e7177b108a41419914d9bcdce1dbb, type: 3}
       propertyPath: enemy.Array.data[1]
       value: 
       objectReference: {fileID: 8315383081915650354, guid: 3da24710fa2e0f1489ec20a5b3f3c94e, type: 3}
@@ -763,6 +767,7 @@ MonoBehaviour:
   maxCapture: 100
   percentage: 100
   captureSlider: {fileID: 47621277}
+  fillBar: {fileID: 1429789964}
   captureText: {fileID: 510828379}
   manager: {fileID: 0}
 --- !u!1 &142451223
@@ -1622,6 +1627,7 @@ MonoBehaviour:
   maxCapture: 100
   percentage: 0
   captureSlider: {fileID: 1375965070}
+  fillBar: {fileID: 1566496307}
   captureText: {fileID: 362297660}
   manager: {fileID: 0}
 --- !u!65 &356298558
@@ -2217,8 +2223,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 399199649}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 932.8287, y: 0, z: 361}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1584, y: 100, z: 1454}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4366,6 +4372,7 @@ MonoBehaviour:
   maxCapture: 100
   percentage: 0
   captureSlider: {fileID: 802622572}
+  fillBar: {fileID: 1327414641}
   captureText: {fileID: 1843577323}
   manager: {fileID: 0}
 --- !u!65 &918982986
@@ -9372,6 +9379,7 @@ MonoBehaviour:
   maxCapture: 100
   percentage: 0
   captureSlider: {fileID: 1448791749}
+  fillBar: {fileID: 1875885024}
   captureText: {fileID: 1293305684}
   manager: {fileID: 0}
 --- !u!65 &2034709669
@@ -9592,6 +9600,7 @@ MonoBehaviour:
   maxCapture: 100
   percentage: 0
   captureSlider: {fileID: 1626509756}
+  fillBar: {fileID: 605364494}
   captureText: {fileID: 1155112607}
   manager: {fileID: 0}
 --- !u!65 &2112507581

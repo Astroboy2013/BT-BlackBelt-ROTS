@@ -12,6 +12,7 @@ public class territoryCode : MonoBehaviour
     public float maxCapture;
     public float percentage;
     public Slider captureSlider;
+    public Image fillBar;
     public TMP_Text captureText;
     public GameManager manager;
 
@@ -33,13 +34,20 @@ public class territoryCode : MonoBehaviour
         percentage = Mathf.Clamp(percentageBuffer * 100, -100, 100);
         captureSlider.value = Mathf.Abs(percentage);
         captureText.text = Mathf.Round(percentage).ToString();
+        Debug.Log(gameObject.name + " " + captureSlider.direction);
         if(percentage > 0)
         {
             captureSlider.direction = Slider.Direction.LeftToRight;
+            fillBar.color = Color.blue;
+        }
+        else if (percentage < 0)
+        {
+            captureSlider.direction = Slider.Direction.RightToLeft;
+            fillBar.color = Color.red;
         }
         else
         {
-            captureSlider.direction = Slider.Direction.RightToLeft;
+            fillBar.color = Color.black;
         }
     }
 }

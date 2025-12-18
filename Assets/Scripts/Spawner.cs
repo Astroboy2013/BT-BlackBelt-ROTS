@@ -22,17 +22,23 @@ public class spawner : MonoBehaviour
     private GameObject[] foundSpawnLocations;
     private int debugCounter = 0;
 
-// Start is called before the first frame update
+    // Start is called before the first frame update
     void Start()
     {
-            foundSpawnLocations = GameObject.FindGameObjectsWithTag("enemySpawn");
 
-            foreach (GameObject obj in foundSpawnLocations)
-            {
-                spawnLocations.Add(obj.transform);
-            }
+        GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-            enemyCount = Random.Range(minEnemyCount, maxEnemyCount);
+        foundSpawnLocations = GameObject.FindGameObjectsWithTag("enemySpawn");
+
+        foreach (GameObject obj in foundSpawnLocations)
+        {
+            spawnLocations.Add(obj.transform);
+        }
+
+        enemyCount = Random.Range(minEnemyCount, maxEnemyCount);
+
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
 
             Vector3 randomOffset = new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), Random.Range(20, 50));
 
@@ -47,7 +53,7 @@ public class spawner : MonoBehaviour
                     enemyClone = Instantiate(selectedGameobject, spawnLocations[enemies].position, Quaternion.identity);
                     indicator = Instantiate(indicatorPrefab);
                     indicator.GetComponent<mapFollowPlayer>().objTransform = enemyClone.transform;
-                    dirInPre = Instantiate(selectedGameobject, spawnLocations[enemies].position, Quaternion.identity);
+                    dirInPre = Instantiate(dirIndicatorPrefab, spawnLocations[enemies].position, Quaternion.identity);
                     dirInPre.GetComponent<lookAtEnemy>().enemyTransform = enemyClone.transform;
                     debugCounter++;
                 }
@@ -57,11 +63,11 @@ public class spawner : MonoBehaviour
                     enemyClone = Instantiate(selectedGameobject, spawnLocations[Random.Range(0, spawnLocations.Count)].position + randomOffset, Quaternion.identity);
                     indicator = Instantiate(indicatorPrefab);
                     indicator.GetComponent<mapFollowPlayer>().objTransform = enemyClone.transform;
-                    dirInPre = Instantiate(selectedGameobject, spawnLocations[enemies].position, Quaternion.identity);
+                    dirInPre = Instantiate(dirIndicatorPrefab);
                     dirInPre.GetComponent<lookAtEnemy>().enemyTransform = enemyClone.transform;
-                debugCounter++;
+                    debugCounter++;
                 }
-            
+
 
                 if (enemyClone.transform.position.y < 10)
                 {
@@ -70,20 +76,39 @@ public class spawner : MonoBehaviour
                     enemyClone.transform.position = newPosition;
                 }
             }
+        }
+        if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            InvokeRepeating("SpawnOneEnemy", 0f, 2f);
+        }
 
-            GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        if (gm != null)
+        {
+            gm.totalEnemyCount = enemyCount;
+        }
 
-            if (gm != null)
-            {
-                gm.totalEnemyCount = enemyCount;
-            }
-
-            //Debug.Log(debugCounter.ToString() + " " + gm.totalEnemyCount.ToString());
+        //Debug.Log(debugCounter.ToString() + " " + gm.totalEnemyCount.ToString());
 
     }
     void Update()
     {
 
+    }
+
+    void SpawnOneEnemy()
+    {
+        Vector3 randomOffset = new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), Random.Range(20, 50));
+        GameObject enemyClone;
+        GameObject indicator;
+        GameObject dirInPre;
+
+        selectedGameobject = enemy[Random.Range(0, enemy.Length)];
+        enemyClone = Instantiate(selectedGameobject, spawnLocations[Random.Range(0, spawnLocations.Count)].position + randomOffset, Quaternion.identity);
+        indicator = Instantiate(indicatorPrefab);
+        indicator.GetComponent<mapFollowPlayer>().objTransform = enemyClone.transform;
+        dirInPre = Instantiate(dirIndicatorPrefab);
+        dirInPre.GetComponent<lookAtEnemy>().enemyTransform = enemyClone.transform;
+        debugCounter++;
     }
 
 }

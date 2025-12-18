@@ -22,7 +22,7 @@ public class lookAtEnemy : MonoBehaviour
             Vector3 direction;
             rawDir = enemyTransform.position - playerTransform.position;
             direction = rawDir.normalized;
-            transform.position = playerTransform.position + direction * 5;
+            transform.position = playerTransform.position + direction * 20;
         }
         else
         {
