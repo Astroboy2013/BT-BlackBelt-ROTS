@@ -128,7 +128,6 @@ public class Fire : MonoBehaviour
         {
             if (hit.collider.gameObject.tag == "enemy" || hit.collider.gameObject.tag == "dummy")
             {
-
                 newMissile = Instantiate(missilePrefab, missileSpawnPos, targetRot);
                 currentAmmo--;
 

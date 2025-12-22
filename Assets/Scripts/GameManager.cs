@@ -139,13 +139,24 @@ public class GameManager : MonoBehaviour
 
     private void CheckFoughtTerritories(territoryCode[] territoriesInput)
     {
-        for (int i = 0; i < territoriesInput.Length; i++)
+        for (int i = territoriesInput.Length - 1; i > 0; i--)
         {
-            if (territoriesInput[i].percentage < territoriesInput[i - 1].percentage)
+            Debug.Log(territoriesInput[i].percentage);
+            if (territoriesInput[i].percentage >= 0)
             {
-                foughtTerritory = i;
+                foughtTerritory = i + 1;
                 break;
             }
+        }
+
+        if(territoriesInput[0].percentage < 0)
+        {
+            deathScreen.SetActive(true);
+        }
+
+        if(territoriesInput[territoriesInput.Length - 1].percentage > 0)
+        {
+            winScreen.SetActive(true);
         }
     }
 }

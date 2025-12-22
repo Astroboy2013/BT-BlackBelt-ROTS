@@ -16,7 +16,7 @@ public class enemyBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        territories = GameObject.FindGameObjectsWithTag("territory");
+       territories = GameObject.FindGameObjectsWithTag("territory");
         player = GameObject.Find("Player");
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
@@ -42,7 +42,16 @@ public class enemyBehaviour : MonoBehaviour
             {
                 int curTer = manager.foughtTerritory;
                 gameObject.transform.LookAt(territories[curTer].transform);
-                rb.velocity = transform.forward * 30f;
+                rb.velocity = transform.forward * 50;
+            }
+
+            if(Physics.CheckSphere(transform.position, 2))
+            {
+                rb.velocity += Vector3.up * 5f;
+            }
+            else
+            {
+                rb.velocity += Vector3.up * -5f;
             }
         }
     }

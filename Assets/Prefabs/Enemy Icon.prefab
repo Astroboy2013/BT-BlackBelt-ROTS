@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objTransform: {fileID: 0}
-  hoverHeight: 100
+  hoverHeight: 200
 --- !u!1 &5338305414392285594
 GameObject:
   m_ObjectHideFlags: 0

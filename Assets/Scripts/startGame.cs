@@ -10,6 +10,11 @@ public class startGame : MonoBehaviour
         SceneManager.LoadSceneAsync("Tutorial");
     }
 
+    public void goButLevelTwo()
+    {
+        SceneManager.LoadSceneAsync("Level 2");
+    }
+
     public void goodBAAH()
     {
         Application.Quit();

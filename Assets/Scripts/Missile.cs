@@ -40,8 +40,9 @@ public class Missile : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (followTarget = null)
+        if (followTarget != null)
         {
+            Debug.Log("soifhsfo");
             flyDirection = transform.forward;
         }
         

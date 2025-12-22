@@ -584,7 +584,12 @@ MonoBehaviour:
   player: {fileID: 0}
   rb: {fileID: 3083382815824131557}
   manager: {fileID: 0}
-  territories: []
+  territories:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   hasAI: 1
 --- !u!1 &8575034606213667808
 GameObject:

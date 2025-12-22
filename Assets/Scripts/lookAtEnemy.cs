@@ -20,9 +20,12 @@ public class lookAtEnemy : MonoBehaviour
         {
             Vector3 rawDir;
             Vector3 direction;
+            Vector3 newPos;
             rawDir = enemyTransform.position - playerTransform.position;
             direction = rawDir.normalized;
-            transform.position = playerTransform.position + direction * 20;
+            newPos = playerTransform.position + direction * 20f;
+            newPos.y = 1000f;
+            transform.position = newPos;
         }
         else
         {
