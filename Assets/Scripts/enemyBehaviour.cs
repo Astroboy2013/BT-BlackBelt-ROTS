@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,7 @@ public class enemyBehaviour : MonoBehaviour
     public Rigidbody rb;
     public GameManager manager;
     public GameObject[] territories;
+    public float speed;
 
     [Header("Dev Options")]
     public bool hasAI;
@@ -16,9 +18,9 @@ public class enemyBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       territories = GameObject.FindGameObjectsWithTag("territory");
         player = GameObject.Find("Player");
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        territories = manager.territories;
     }
 
     // Update is called once per frame
@@ -40,19 +42,33 @@ public class enemyBehaviour : MonoBehaviour
             }
             if (SceneManager.GetActiveScene().buildIndex == 3)
             {
-                int curTer = manager.foughtTerritory;
-                gameObject.transform.LookAt(territories[curTer].transform);
-                rb.velocity = transform.forward * 50;
+                if (hasAI)
+                {
+                    int curTer = manager.foughtTerritory;
+
+                    Vector3 flyForce = transform.forward;
+
+
+
+                    if(Vector3.Distance(transform.position, player.transform.position) < 10)
+                    {
+                        gameObject.transform.LookAt(player.transform);
+                    }
+                    else
+                    {
+                        gameObject.transform.LookAt(territories[curTer].transform);
+                    }
+
+                    if(Physics.CheckSphere(transform.position, 5f))
+                    {
+                        rb.velocity += Vector3.up * 5f;
+                    }
+
+                    rb.velocity = flyForce * speed;
+
+                }
             }
 
-            if(Physics.CheckSphere(transform.position, 2))
-            {
-                rb.velocity += Vector3.up * 5f;
-            }
-            else
-            {
-                rb.velocity += Vector3.up * -5f;
-            }
         }
     }
 
@@ -60,7 +76,7 @@ public class enemyBehaviour : MonoBehaviour
     {
         if (other.gameObject.tag == "territory")
         {
-            other.GetComponent<territoryCode>().enemyCapture += 0.1f;
+            other.GetComponent<territoryCode>().enemyCapture += 0.05f;
         }
     }
 }

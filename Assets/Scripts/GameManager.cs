@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public GameObject engineOffIndicator;
     public GameObject gameModeText;
     public territoryCode[] captureValues;
+    public GameObject[] territories;
 
     [Header("Other Variables")]
     public int totalEnemyCount = 0;
@@ -144,7 +145,7 @@ public class GameManager : MonoBehaviour
             Debug.Log(territoriesInput[i].percentage);
             if (territoriesInput[i].percentage >= 0)
             {
-                foughtTerritory = i + 1;
+                foughtTerritory = i;
                 break;
             }
         }
