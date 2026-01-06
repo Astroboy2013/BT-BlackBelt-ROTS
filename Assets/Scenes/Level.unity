@@ -1454,6 +1454,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3621537834664372662, guid: b6c9d43bf6b0dfc40a16245d356bdabb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621537834664372662, guid: b6c9d43bf6b0dfc40a16245d356bdabb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621537834664372662, guid: b6c9d43bf6b0dfc40a16245d356bdabb, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621537834664372662, guid: b6c9d43bf6b0dfc40a16245d356bdabb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 960
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621537834664372662, guid: b6c9d43bf6b0dfc40a16245d356bdabb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 321
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621537834664372662, guid: b6c9d43bf6b0dfc40a16245d356bdabb, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6589330836644261156, guid: b6c9d43bf6b0dfc40a16245d356bdabb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 757.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 6589330836644261156, guid: b6c9d43bf6b0dfc40a16245d356bdabb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 28
+      objectReference: {fileID: 0}
     - target: {fileID: 6800851457606965642, guid: b6c9d43bf6b0dfc40a16245d356bdabb, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

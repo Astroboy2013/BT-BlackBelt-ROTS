@@ -8,6 +8,7 @@ public class toggleGameObject : MonoBehaviour
     public GameObject obj;
     public void OnToggleChanged(bool isOn)
     {
+        Debug.Log("Toggle fired: " + isOn);
         obj.SetActive(isOn);
     }
 }
