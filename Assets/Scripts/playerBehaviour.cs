@@ -137,6 +137,7 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     isMoving = false;
                     rb.useGravity = true;
+                    pitchBuffer = 0;
                 }
                 else
                 {
@@ -154,7 +155,14 @@ public class PlayerBehaviour : MonoBehaviour
 
         ///FORCE CODE
         //Boosts Forward
-        totalForce = constantForwardForce;
+        if (currentTerritory == null)
+        {
+            totalForce = constantForwardForce;
+        }
+        else
+        {
+            totalForce = constantForwardForce * 0.5f;
+        }
 
         //Adjusts Camera
         camOffsetBuffer.y = camOffsetCurve.Evaluate(-pitchBuffer);
@@ -164,8 +172,16 @@ public class PlayerBehaviour : MonoBehaviour
         //Boosts
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            totalForce += boostForce;
-            fuel += fuelConsumption * -1;
+            if (currentTerritory == null)
+            {
+                totalForce += boostForce;
+                fuel += fuelConsumption * -1;
+            }
+            else
+            {
+                totalForce += boostForce * 0.5f;
+                fuel += fuelConsumption * -0.5f;
+            }
             engineEffectPart.SetActive(true);
             sound.pitch = 1.1f;
         }
@@ -179,7 +195,14 @@ public class PlayerBehaviour : MonoBehaviour
         {
             sound.volume = 0.5f;
             rb.velocity = transform.forward * totalForce;
-            fuel += fuelConsumption * -1;
+            if (currentTerritory == null)
+            {
+                fuel += fuelConsumption * -1;
+            }
+            else
+            {
+                fuel += fuelConsumption * -0.5f;
+            }
         }
         else
         {
@@ -201,9 +224,14 @@ public class PlayerBehaviour : MonoBehaviour
         {
             damagedsmokeParts[0].SetActive(true);
         }
-        if (healthScript.currentHealth <= healthScript.maxHealth / 4)
+        else if (healthScript.currentHealth <= healthScript.maxHealth / 4)
         {
             damagedsmokeParts[1].SetActive(true);
+        }
+        else
+        {
+            damagedsmokeParts[0].SetActive(false);
+            damagedsmokeParts[1].SetActive(false);
         }
 
         healthNumber.text = Mathf.Round(healthScript.currentHealth).ToString();

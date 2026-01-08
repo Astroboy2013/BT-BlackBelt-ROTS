@@ -50,7 +50,7 @@ public class enemyBehaviour : MonoBehaviour
 
 
 
-                    if(Vector3.Distance(transform.position, player.transform.position) < 10)
+                    /*if(Vector3.Distance(transform.position, player.transform.position) < 50)
                     {
                         gameObject.transform.LookAt(player.transform);
                     }
@@ -58,8 +58,10 @@ public class enemyBehaviour : MonoBehaviour
                     {
                         gameObject.transform.LookAt(territories[curTer].transform);
                     }
+                    */
+                    gameObject.transform.LookAt(territories[curTer].transform);
 
-                    if(Physics.CheckSphere(transform.position, 5f))
+                    if (Physics.CheckSphere(transform.position, 10f))
                     {
                         rb.velocity += Vector3.up * 5f;
                     }
