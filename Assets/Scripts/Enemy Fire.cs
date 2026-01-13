@@ -11,10 +11,11 @@ public class enemyFire : MonoBehaviour
 
     public float time;
     private float timer = 0f;
+    private GameObject player;
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -27,11 +28,14 @@ public class enemyFire : MonoBehaviour
                 timer -= Time.deltaTime;
             }
 
-            if (timer <= 0)
+            if (Vector3.Distance(transform.position, player.transform.position) < 20)
             {
-                timer = time;
-                GameObject newMissile = Instantiate(missilePrefab, new Vector3(transform.position.x, transform.position.y - 5, transform.position.z), transform.rotation);
-                //newMissile.transform.parent = null;
+                if (timer <= 0)
+                {
+                    timer = time;
+                    GameObject newMissile = Instantiate(missilePrefab, new Vector3(transform.position.x, transform.position.y - 5, transform.position.z), transform.rotation);
+                    //newMissile.transform.parent = null;
+                }
             }
         }
     }

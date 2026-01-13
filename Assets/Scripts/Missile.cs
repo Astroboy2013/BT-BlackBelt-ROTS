@@ -42,7 +42,6 @@ public class Missile : MonoBehaviour
     {
         if (followTarget != null)
         {
-            Debug.Log("soifhsfo");
             flyDirection = transform.forward;
         }
         

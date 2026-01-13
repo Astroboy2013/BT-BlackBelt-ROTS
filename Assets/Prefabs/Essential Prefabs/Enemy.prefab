@@ -547,7 +547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missilePrefab: {fileID: 9145021199509371004, guid: ab2afebe47fc39944b6e96d7f3366758, type: 3}
-  hasAI: 0
+  hasAI: 1
   time: 1
 --- !u!114 &3991934856581187050
 MonoBehaviour:

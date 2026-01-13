@@ -15,6 +15,8 @@ public class enemyBehaviour : MonoBehaviour
     [Header("Dev Options")]
     public bool hasAI;
 
+    private bool thinking = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,10 +32,29 @@ public class enemyBehaviour : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().buildIndex == 2)
             {
-                gameObject.transform.LookAt(player.transform);
+            
                 if (hasAI)
                 {
-                    rb.velocity = transform.forward * 30f;
+                    Vector3 randpos = new Vector3(Random.Range(0, 1000), Random.Range(0, 500), Random.Range(0, 1000));
+                    Vector3 rawDistance = transform.forward;
+
+                    if (thinking)
+                    {
+                        if (Vector3.Distance(transform.position, player.transform.position) < 40)
+                        {
+                            rawDistance  = transform.position - player.transform.position;
+                        }
+                        else
+                        {
+                            rawDistance = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
+                        }
+                        rb.velocity = rawDistance.normalized * 30f;
+
+                        thinking = false;
+                        Invoke("SetThinking", 1);
+
+                    }
+                    gameObject.transform.LookAt(rawDistance.normalized);
                 }
                 else
                 {
@@ -72,6 +93,11 @@ public class enemyBehaviour : MonoBehaviour
             }
 
         }
+    }
+
+    private void SetThinking()
+    {
+        thinking = true;
     }
 
     private void OnTriggerStay(Collider other)

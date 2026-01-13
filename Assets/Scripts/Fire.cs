@@ -6,12 +6,19 @@ using UnityEngine;
 
 public class Fire : MonoBehaviour
 {
+    [Header("Missile Settings")]
     public Missile missilePrefab;
     public Transform missileSpawnLocation;
     public float time;
+
+    [Header("Ammo Settings")]
     public int maxAmmo;
-    public TextMeshProUGUI ammoCounter;
     public int currentAmmo;
+    public TextMeshProUGUI ammoCounter;
+
+    [Header("Other")]
+    public float mouseFireThreshold;
+    public float mouseY;
 
     private PlayerBehaviour parentCode;
     private float timer = 1f;
@@ -30,6 +37,7 @@ public class Fire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        mouseY = Input.mousePosition.y;
         if (timer > 0)
         {
             timer -= Time.deltaTime;
@@ -37,10 +45,13 @@ public class Fire : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1") && timer <= 0)
         {
-            if (currentAmmo > 0)
+            if (mouseY > mouseFireThreshold)
             {
-                SphereRayTrace();
-                UpdateAmmoCounter(currentAmmo);
+                if (currentAmmo > 0)
+                {
+                    SphereRayTrace();
+                    UpdateAmmoCounter(currentAmmo);
+                }
             }
         }
     }

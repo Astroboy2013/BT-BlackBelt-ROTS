@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if(territoriesInput[0].percentage < 0)
+        if(territoriesInput[1].percentage < 0)
         {
             deathScreen.SetActive(true);
         }
