@@ -28,13 +28,16 @@ public class enemyFire : MonoBehaviour
                 timer -= Time.deltaTime;
             }
 
-            if (Vector3.Distance(transform.position, player.transform.position) < 20)
+            if (player != null)
             {
-                if (timer <= 0)
+                if (Vector3.Distance(transform.position, player.transform.position) < 20)
                 {
-                    timer = time;
-                    GameObject newMissile = Instantiate(missilePrefab, new Vector3(transform.position.x, transform.position.y - 5, transform.position.z), transform.rotation);
-                    //newMissile.transform.parent = null;
+                    if (timer <= 0)
+                    {
+                        timer = time;
+                        GameObject newMissile = Instantiate(missilePrefab, new Vector3(transform.position.x, transform.position.y - 5, transform.position.z), transform.rotation);
+                        //newMissile.transform.parent = null;
+                    }
                 }
             }
         }

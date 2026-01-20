@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class health: MonoBehaviour
@@ -15,7 +14,6 @@ public class health: MonoBehaviour
     public Color defaultColour;
     public Color damagedColour;
     private GameManager gm;
-    public Slider healthBar;
 
     private Material currentMaterial;
     public bool isColourChanging;
@@ -36,10 +34,6 @@ public class health: MonoBehaviour
             gm = GameObject.Find("GameManager").GetComponent<GameManager>();
             explosionManager = GameObject.Find("GameManager").GetComponent<setExplosionAt>();
         }
-        else
-        {
-            healthBar.maxValue = maxHealth;
-        }
 
     }
 
@@ -52,11 +46,6 @@ public class health: MonoBehaviour
     {
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-
-        if (!isEnemy)
-        {
-            healthBar.value = Mathf.Round(currentHealth);
-        }
 
         if (isColourChanging)
         {
@@ -94,11 +83,6 @@ public class health: MonoBehaviour
         if (collision.gameObject.tag == "ground")
         {
             currentHealth = 0;
-
-            if (!isEnemy)
-            {
-                healthBar.value = Mathf.Round(currentHealth);
-            }
         }
     }
 

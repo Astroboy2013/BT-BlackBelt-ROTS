@@ -32,17 +32,17 @@ public class enemyBehaviour : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().buildIndex == 2)
             {
-            
+                Vector3 randpos = new Vector3(Random.Range(0, 1000), Random.Range(0, 500), Random.Range(0, 1000));
+                Vector3 rawDistance = transform.forward;
+
                 if (hasAI)
                 {
-                    Vector3 randpos = new Vector3(Random.Range(0, 1000), Random.Range(0, 500), Random.Range(0, 1000));
-                    Vector3 rawDistance = transform.forward;
 
                     if (thinking)
                     {
                         if (Vector3.Distance(transform.position, player.transform.position) < 40)
                         {
-                            rawDistance  = transform.position - player.transform.position;
+                            rawDistance = transform.position - player.transform.position;
                         }
                         else
                         {
@@ -54,7 +54,8 @@ public class enemyBehaviour : MonoBehaviour
                         Invoke("SetThinking", 1);
 
                     }
-                    gameObject.transform.LookAt(rawDistance.normalized);
+                    transform.rotation = Quaternion.LookRotation(rawDistance.normalized);
+
                 }
                 else
                 {

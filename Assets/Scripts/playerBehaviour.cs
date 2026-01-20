@@ -14,9 +14,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Rigidbody rb;
     public setExplosionAt explosionManager;
     public Fire shootScript;
-    public TMP_Text healthNumber;
     public health healthScript;
-    public TMP_Text fuelNumber;
     public AudioSource sound;
     public GameObject engineEffectPart;
     public GameObject[] damagedsmokeParts;
@@ -89,46 +87,8 @@ public class PlayerBehaviour : MonoBehaviour
 
         //Limit pitch rotation
         pitchBuffer = Math.Clamp(pitchBuffer, -pitchRotationLimit, pitchRotationLimit);
-
-        ////Tilt LEFT
-        //if (Input.GetKey(KeyCode.A))
-        //{
-        //    yawBuffer -= yawForce;
-        //}
-
-        ////Tilt RIGHT
-        //if (Input.GetKey(KeyCode.D))
-        //{
-        //    yawBuffer += yawForce;
-        //}
-
-
-        ////Tilt DOWN
-        //if (Input.GetKey(KeyCode.S))
-        //{
-        //    if (reverseTiltcontrol)
-        //    {
-        //        pitchBuffer -= pitchForce;
-        //    }
-        //    else
-        //    {
-        //        pitchBuffer += pitchForce;
-        //    }
-        //}
-
-        ////Tilt UP
-        //if (Input.GetKey(KeyCode.W))
-        //{
-        //    if (reverseTiltcontrol)
-        //    {
-        //        pitchBuffer += pitchForce;
-        //    }
-        //    else
-        //    {
-        //        pitchBuffer -= pitchForce;
-        //    }
-        //}
-
+        /*
+        REMAKE SOON
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             if (fuel > 0)
@@ -146,6 +106,7 @@ public class PlayerBehaviour : MonoBehaviour
                 }
             }
         }
+        */
 
         if (isMoving)
         {
@@ -233,9 +194,6 @@ public class PlayerBehaviour : MonoBehaviour
             damagedsmokeParts[0].SetActive(false);
             damagedsmokeParts[1].SetActive(false);
         }
-
-        healthNumber.text = Mathf.Round(healthScript.currentHealth).ToString();
-        fuelNumber.text = Mathf.Round(fuel).ToString();
 
         if (healthScript.currentHealth < healthScript.maxHealth && isHealing)
         {

@@ -14,9 +14,11 @@ public class GameManager : MonoBehaviour
     public health playerHealth;
     public PlayerBehaviour playerScript;
     public Slider fuelBar;
+    public Slider healthBar;
+    public TMP_Text healthNumber;
+    public TMP_Text fuelNumber;
     public GameObject deathScreen;
     public GameObject winScreen;
-    public GameObject engineOffIndicator;
     public GameObject gameModeText;
     public territoryCode[] captureValues;
     public GameObject[] territories;
@@ -31,6 +33,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        healthBar.maxValue = playerHealth.maxHealth;
+
         Invoke("UpdateFirstEnemyCount", 0.5f);
 
         //Game Mode text blinking animation
@@ -56,15 +60,6 @@ public class GameManager : MonoBehaviour
             deathScreen.SetActive(true);
         }
 
-        if(playerScript.isMoving)
-        {
-            engineOffIndicator.SetActive(false);
-        }
-        else
-        {
-            engineOffIndicator.SetActive(true);
-        }
-
         if(SceneManager.GetActiveScene().buildIndex == 3)
         {
             if (playerScript.currentTerritory != null)
@@ -78,7 +73,10 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        healthBar.value = Mathf.Round(playerHealth.currentHealth);
+        healthNumber.text = Mathf.Round(playerHealth.currentHealth).ToString();
         fuelBar.value = playerScript.fuel;
+        fuelNumber.text = Mathf.Round(playerScript.fuel).ToString();
         CheckFoughtTerritories(captureValues);
     }
     void UpdateFirstEnemyCount()
