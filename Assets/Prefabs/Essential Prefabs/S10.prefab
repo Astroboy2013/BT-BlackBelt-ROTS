@@ -176,12 +176,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1109764497379022242}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abc6b8bf526db2d46a95388098277dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   shipSpeed: 20
+  shipPositions:
+  - {fileID: 0}
+  currentPosId: 0
 --- !u!1 &3901353676964725420
 GameObject:
   m_ObjectHideFlags: 0

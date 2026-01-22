@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using Cinemachine;
 using UnityEngine.Rendering;
@@ -10,7 +11,7 @@ using UnityEditor.Build;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    [Header("External Scripts")]
+    [Header("External Scripts and GameObjects")]
     public Rigidbody rb;
     public setExplosionAt explosionManager;
     public Fire shootScript;
@@ -18,6 +19,8 @@ public class PlayerBehaviour : MonoBehaviour
     public AudioSource sound;
     public GameObject engineEffectPart;
     public GameObject[] damagedsmokeParts;
+    public Image fuelingButton;
+    public TMP_Text fuelingButtonText;
     public CinemachineVirtualCamera cam;
     public AnimationCurve camOffsetCurve;
 
@@ -37,9 +40,13 @@ public class PlayerBehaviour : MonoBehaviour
     public bool reversePitchControl = false;
     public float maxFuel = 100f;
     public float fuel = 100f;
+    public bool isFueling;
     public bool isMoving = true;
     public float fuelConsumption;
     public string currentTerritory;
+    public GameObject currentFuelingBox;
+    public Color onColour;
+    public Color offColour;
 
     private float totalForce;
     private float horizontalInput;
@@ -170,6 +177,13 @@ public class PlayerBehaviour : MonoBehaviour
             sound.volume = 0;
         }
 
+        if (isFueling)
+        {
+            fuel++;
+            shootScript.currentAmmo++;
+            isHealing = true;
+        }
+
         if (fuel <= 0)
         {
             isMoving = false;
@@ -201,6 +215,29 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    public void ToggleFueling()
+    {
+        if (currentFuelingBox != null)
+        {
+            if (isFueling == true)
+            {
+                isFueling = false;
+                fuelingButton.color = offColour;
+                fuelingButtonText.text = "Start Fueling";
+                isMoving = true;
+                rb.useGravity = false;
+
+            }
+            else
+            {
+                isFueling = true;
+                fuelingButton.color = onColour;
+                fuelingButtonText.text = "Stop Fueling";
+                isMoving = false;
+                rb.useGravity = true;
+            }
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
         switch (collision.gameObject.tag) {
@@ -232,6 +269,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(other.gameObject.tag == "fueling")
+        {
+            currentFuelingBox = other.gameObject;
+        }
         if(other.gameObject.tag == "territory")
         {
             currentTerritory = other.gameObject.name;
@@ -241,13 +282,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "fueling" && isMoving == false)
-        {
-            fuel++;
-            shootScript.currentAmmo++;
-            isHealing = true;
-        }
-
         if (fuel > maxFuel)
         {
             fuel = maxFuel;
@@ -265,6 +299,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (other.gameObject.tag == "fueling")
         {
             isHealing = false;
+            currentFuelingBox = null;
         }
         isTouchingFuelBox = false;
 

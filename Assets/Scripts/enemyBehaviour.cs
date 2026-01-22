@@ -43,10 +43,12 @@ public class enemyBehaviour : MonoBehaviour
                         if (Vector3.Distance(transform.position, player.transform.position) < 40)
                         {
                             rawDistance = transform.position - player.transform.position;
+                            rb.MoveRotation(Quaternion.LookRotation(rawDistance.normalized));
                         }
                         else
                         {
                             rawDistance = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
+                            rb.MoveRotation(Quaternion.LookRotation(rawDistance.normalized));
                         }
                         rb.velocity = rawDistance.normalized * 30f;
 
@@ -54,8 +56,6 @@ public class enemyBehaviour : MonoBehaviour
                         Invoke("SetThinking", 1);
 
                     }
-                    transform.rotation = Quaternion.LookRotation(rawDistance.normalized);
-
                 }
                 else
                 {
