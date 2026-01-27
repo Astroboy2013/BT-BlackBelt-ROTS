@@ -19,7 +19,7 @@ public class correctEnemyCount : MonoBehaviour
         enemies = GameObject.FindGameObjectsWithTag("enemy").Length;
         dummies = GameObject.FindGameObjectsWithTag("dummy").Length;
         total = enemies + dummies;
-        Debug.Log("There are " +  enemies + " Enemies and " + dummies + " Dummies. In total there are " + total + " Enemies and Dummies");
+        //Debug.Log("There are " +  enemies + " Enemies and " + dummies + " Dummies. In total there are " + total + " Enemies and Dummies");
         if (total > manager.totalEnemyCount)
         {
             manager.totalEnemyCount = total;

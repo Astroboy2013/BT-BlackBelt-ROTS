@@ -224,6 +224,7 @@ public class PlayerBehaviour : MonoBehaviour
                 isFueling = false;
                 fuelingButton.color = offColour;
                 fuelingButtonText.text = "Start Fueling";
+                pitchBuffer = transform.rotation.x;
                 isMoving = true;
                 rb.useGravity = false;
 
@@ -272,6 +273,7 @@ public class PlayerBehaviour : MonoBehaviour
         if(other.gameObject.tag == "fueling")
         {
             currentFuelingBox = other.gameObject;
+            fuelingButton.color = new Color32(0, 0, 0, 223);
         }
         if(other.gameObject.tag == "territory")
         {
@@ -300,6 +302,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             isHealing = false;
             currentFuelingBox = null;
+            fuelingButton.color = new Color32(0, 0, 0, 190);
         }
         isTouchingFuelBox = false;
 

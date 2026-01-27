@@ -13,10 +13,12 @@ public class GameManager : MonoBehaviour
     public GameObject territorySignObj;
     public health playerHealth;
     public PlayerBehaviour playerScript;
+    public Transform playerTransform;
     public Slider fuelBar;
     public Slider healthBar;
     public TMP_Text healthNumber;
     public TMP_Text fuelNumber;
+    public GameObject tooFarScreen;
     public GameObject deathScreen;
     public GameObject winScreen;
     public GameObject gameModeText;
@@ -25,8 +27,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Other Variables")]
     public int totalEnemyCount = 0;
-    public string gameMode;
     public int foughtTerritory;
+    public int distanceThreshold;
 
     private int textBlinkCount = 5;
 
@@ -53,7 +55,14 @@ public class GameManager : MonoBehaviour
             }
         }
 
-
+        if(Vector3.Distance(transform.position, playerTransform.position) > distanceThreshold)
+        {
+            tooFarScreen.SetActive(true);
+        }
+        else
+        {
+            tooFarScreen.SetActive(false);
+        }
 
         if (playerHealth.currentHealth <= 0)
         {
@@ -140,7 +149,6 @@ public class GameManager : MonoBehaviour
     {
         for (int i = territoriesInput.Length - 1; i > 0; i--)
         {
-            Debug.Log(territoriesInput[i].percentage);
             if (territoriesInput[i].percentage >= 0)
             {
                 foughtTerritory = i;
