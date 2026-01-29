@@ -20,7 +20,10 @@ public class enemyDetectTerrain : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        isTerrainDetected = true;
+        if (other.gameObject.tag == "terrain")
+        {
+            isTerrainDetected = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)

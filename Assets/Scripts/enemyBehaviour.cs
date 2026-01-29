@@ -11,17 +11,20 @@ public class enemyBehaviour : MonoBehaviour
     public GameManager manager;
     public GameObject[] territories;
     public float speed;
+    public enemyDetectTerrain terDetec;
 
     [Header("Dev Options")]
     public bool hasAI;
 
     private bool thinking = true;
+    private bool closeToPlayer = false;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        terDetec = GetComponentInChildren<enemyDetectTerrain>();
         territories = manager.territories;
     }
 
@@ -32,15 +35,13 @@ public class enemyBehaviour : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().buildIndex == 2)
             {
-                Vector3 randpos = new Vector3(Random.Range(0, 1000), Random.Range(0, 500), Random.Range(0, 1000));
                 Vector3 rawDistance = transform.forward;
 
                 if (hasAI)
                 {
-
                     if (thinking)
                     {
-                        if (Vector3.Distance(transform.position, player.transform.position) < 40)
+                        if (closeToPlayer)
                         {
                             rawDistance = transform.position - player.transform.position;
                             rb.MoveRotation(Quaternion.LookRotation(rawDistance.normalized));
@@ -56,6 +57,31 @@ public class enemyBehaviour : MonoBehaviour
                         Invoke("SetThinking", 1);
 
                     }
+
+                    Collider[] hits = Physics.OverlapSphere(transform.position, 20f);
+                    
+                    for(int i = 1; i < hits.Length; i++)
+                    {
+                        if(hits[i].gameObject.tag == gameObject.tag)
+                        {
+                            continue;
+                        }
+
+                        if (hits[i].gameObject.tag == "player")
+                        {
+                            closeToPlayer = true;
+                        }
+                        else
+                        {
+                            closeToPlayer = false;
+                        }
+
+                        if (hits[i].gameObject.tag == "terrain")
+                        {
+                            rawDistance = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
+                        }
+                    }
+
                 }
                 else
                 {
@@ -83,9 +109,9 @@ public class enemyBehaviour : MonoBehaviour
                     */
                     gameObject.transform.LookAt(territories[curTer].transform);
 
-                    if (Physics.CheckSphere(transform.position, 10f))
+                    if (terDetec.isTerrainDetected)
                     {
-                        rb.velocity += Vector3.up * 5f;
+                        rb.velocity += Vector3.up * 10f;
                     }
 
                     rb.velocity = flyForce * speed;

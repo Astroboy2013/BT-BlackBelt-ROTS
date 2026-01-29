@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7079178187292089841}
   - component: {fileID: 3307963243306742527}
+  - component: {fileID: 3674407685705488291}
   m_Layer: 0
   m_Name: Terrain Detector
   m_TagString: Untagged
@@ -51,8 +52,21 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 30, y: 50, z: 40}
-  m_Center: {x: 0, y: -131.83891, z: 16.886393}
+  m_Size: {x: 33.499794, y: 16.313446, z: 55.933777}
+  m_Center: {x: 0, y: -114.99562, z: 24.85328}
+--- !u!114 &3674407685705488291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978417342687100074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc1d8041a5d70024db64a455e769969a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTerrainDetected: 0
 --- !u!1 &2313011569343245116
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,6 +658,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   speed: 50
+  terDetec: {fileID: 0}
   hasAI: 1
 --- !u!1 &8575034606213667808
 GameObject:

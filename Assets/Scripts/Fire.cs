@@ -106,8 +106,6 @@ public class Fire : MonoBehaviour
         {
             if (hit.collider.gameObject.tag == "enemy" || hit.collider.gameObject.tag == "dummy")
             {
-                //Debug.Log("Hit: " + hit.collider.name);
-                
                 targetTransform = hit.transform;
 
                 if (missileSpawnLocation != null)
@@ -120,10 +118,6 @@ public class Fire : MonoBehaviour
                 }
                 targetRot = Quaternion.LookRotation(unLookRotationed);
             }
-        }
-        else
-        {
-            //Debug.Log("NONE");
         }
 
         //For debugging

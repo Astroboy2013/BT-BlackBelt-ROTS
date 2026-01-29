@@ -55,7 +55,6 @@ public class PlayerBehaviour : MonoBehaviour
     private float pitchBuffer = 0f;
     private float rollBuffer = 0f;
     private bool isHealing = false;
-    private bool isTouchingFuelBox = false;
     private CinemachineTransposer transposer;
     private Vector3 camOffsetBuffer;
 
@@ -288,7 +287,6 @@ public class PlayerBehaviour : MonoBehaviour
         {
             fuel = maxFuel;
         }
-        isTouchingFuelBox = true;
 
         if (other.gameObject.tag == "territory")
         {
@@ -304,7 +302,6 @@ public class PlayerBehaviour : MonoBehaviour
             currentFuelingBox = null;
             fuelingButton.color = new Color32(0, 0, 0, 190);
         }
-        isTouchingFuelBox = false;
 
         if (other.gameObject.tag == "territory")
         {

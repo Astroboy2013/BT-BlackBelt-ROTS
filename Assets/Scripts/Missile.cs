@@ -83,7 +83,6 @@ public class Missile : MonoBehaviour
 
                 if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "player missile")
                 {
-                    Debug.Log("collided");
                     collision.gameObject.GetComponent<health>().DoDamage(1); //Damage amount
                 }
             }

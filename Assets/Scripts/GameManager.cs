@@ -9,8 +9,6 @@ public class GameManager : MonoBehaviour
 {
     [Header("External Game Objects")]
     public TMP_Text enemyCountText;
-    public TMP_Text territorySign;
-    public GameObject territorySignObj;
     public health playerHealth;
     public PlayerBehaviour playerScript;
     public Transform playerTransform;
@@ -22,6 +20,10 @@ public class GameManager : MonoBehaviour
     public GameObject deathScreen;
     public GameObject winScreen;
     public GameObject gameModeText;
+
+    [Header("Territorial Occupation Only")]
+    public TMP_Text territorySign;
+    public GameObject territorySignObj;
     public territoryCode[] captureValues;
     public GameObject[] territories;
 
@@ -55,16 +57,19 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if(Vector3.Distance(transform.position, playerTransform.position) > distanceThreshold)
+        if (playerTransform != null)
         {
-            tooFarScreen.SetActive(true);
-        }
-        else
-        {
-            tooFarScreen.SetActive(false);
+            if (Vector3.Distance(transform.position, playerTransform.position) > distanceThreshold)
+            {
+                tooFarScreen.SetActive(true);
+            }
+            else
+            {
+                tooFarScreen.SetActive(false);
+            }
         }
 
-        if (playerHealth.currentHealth <= 0)
+        if (playerHealth.currentHealth <= 0.1f)
         {
             deathScreen.SetActive(true);
         }
@@ -86,7 +91,11 @@ public class GameManager : MonoBehaviour
         healthNumber.text = Mathf.Round(playerHealth.currentHealth).ToString();
         fuelBar.value = playerScript.fuel;
         fuelNumber.text = Mathf.Round(playerScript.fuel).ToString();
-        CheckFoughtTerritories(captureValues);
+
+        if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            CheckFoughtTerritories(captureValues);
+        }
     }
     void UpdateFirstEnemyCount()
     {
@@ -156,9 +165,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if(territoriesInput[1].percentage < 0)
+        if (territoriesInput[1].percentage < 0)
         {
-            deathScreen.SetActive(true);
+             deathScreen.SetActive(true);
         }
 
         if(territoriesInput[territoriesInput.Length - 1].percentage > 0)
