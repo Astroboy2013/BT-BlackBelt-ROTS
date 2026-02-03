@@ -12,9 +12,8 @@ public class Fire : MonoBehaviour
     public float time;
 
     [Header("Ammo Settings")]
-    public int maxAmmo;
+    public int startingAmmo;
     public int currentAmmo;
-    public TextMeshProUGUI ammoCounter;
 
     [Header("Other")]
     public float mouseFireThreshold;
@@ -29,9 +28,7 @@ public class Fire : MonoBehaviour
     void Start()
     {
         parentCode = GetComponent<PlayerBehaviour>();
-        currentAmmo = maxAmmo;
-        UpdateAmmoCounter(currentAmmo);
-
+        currentAmmo = startingAmmo;
     }
 
     // Update is called once per frame
@@ -50,7 +47,6 @@ public class Fire : MonoBehaviour
                 if (currentAmmo > 0)
                 {
                     SphereRayTrace();
-                    UpdateAmmoCounter(currentAmmo);
                 }
             }
         }
@@ -153,10 +149,4 @@ public class Fire : MonoBehaviour
 
         newMissile.initialForce = GetComponent<Rigidbody>().velocity.magnitude;
     }
-
-    private void UpdateAmmoCounter(int count)
-    {
-        ammoCounter.text = count.ToString();
-    }
-   
 }

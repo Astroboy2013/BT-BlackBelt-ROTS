@@ -114,7 +114,7 @@ public class enemyBehaviour : MonoBehaviour
                         rb.velocity += Vector3.up * 10f;
                     }
 
-                    rb.velocity = flyForce * speed;
+                    rb.AddForce(flyForce * speed);
 
                 }
             }
@@ -131,7 +131,7 @@ public class enemyBehaviour : MonoBehaviour
     {
         if (other.gameObject.tag == "territory")
         {
-            other.GetComponent<territoryCode>().enemyCapture += 0.05f;
+            other.GetComponent<territoryCode>().enemyCapture += 0.005f;
         }
     }
 }

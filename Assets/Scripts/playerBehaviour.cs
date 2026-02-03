@@ -272,9 +272,10 @@ public class PlayerBehaviour : MonoBehaviour
         if(other.gameObject.tag == "fueling")
         {
             currentFuelingBox = other.gameObject;
-            fuelingButton.color = new Color32(0, 0, 0, 223);
+            fuelingButton.gameObject.GetComponent<Button>().interactable = true;
+
         }
-        if(other.gameObject.tag == "territory")
+        if (other.gameObject.tag == "territory")
         {
             currentTerritory = other.gameObject.name;
             other.GetComponent<territoryCode>().playerCapture++;
@@ -300,7 +301,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             isHealing = false;
             currentFuelingBox = null;
-            fuelingButton.color = new Color32(0, 0, 0, 190);
+            fuelingButton.gameObject.GetComponent<Button>().interactable = false;
         }
 
         if (other.gameObject.tag == "territory")

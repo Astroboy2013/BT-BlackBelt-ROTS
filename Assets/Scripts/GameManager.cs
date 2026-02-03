@@ -11,11 +11,8 @@ public class GameManager : MonoBehaviour
     public TMP_Text enemyCountText;
     public health playerHealth;
     public PlayerBehaviour playerScript;
+    public Fire shootScript;
     public Transform playerTransform;
-    public Slider fuelBar;
-    public Slider healthBar;
-    public TMP_Text healthNumber;
-    public TMP_Text fuelNumber;
     public GameObject tooFarScreen;
     public GameObject deathScreen;
     public GameObject winScreen;
@@ -31,6 +28,13 @@ public class GameManager : MonoBehaviour
     public int totalEnemyCount = 0;
     public int foughtTerritory;
     public int distanceThreshold;
+
+    [Header("Counters and Sliders")]
+    public Slider fuelBar;
+    public Slider healthBar;
+    public TMP_Text healthNumber;
+    public TMP_Text fuelNumber;
+    public TextMeshProUGUI ammoCounter;
 
     private int textBlinkCount = 5;
 
@@ -91,6 +95,7 @@ public class GameManager : MonoBehaviour
         healthNumber.text = Mathf.Round(playerHealth.currentHealth).ToString();
         fuelBar.value = playerScript.fuel;
         fuelNumber.text = Mathf.Round(playerScript.fuel).ToString();
+        ammoCounter.text = shootScript.currentAmmo.ToString();
 
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
@@ -158,14 +163,14 @@ public class GameManager : MonoBehaviour
     {
         for (int i = territoriesInput.Length - 1; i > 0; i--)
         {
-            if (territoriesInput[i].percentage >= 0)
+            if (territoriesInput[i].percentage >= -50)
             {
                 foughtTerritory = i;
                 break;
             }
         }
 
-        if (territoriesInput[1].percentage < 0)
+        if (territoriesInput[0].percentage < -99)
         {
              deathScreen.SetActive(true);
         }
@@ -173,6 +178,14 @@ public class GameManager : MonoBehaviour
         if(territoriesInput[territoriesInput.Length - 1].percentage > 0)
         {
             winScreen.SetActive(true);
+        }
+    }
+
+    public void Reload()
+    {
+        if (playerScript.isFueling)
+        {
+            shootScript.currentAmmo = shootScript.startingAmmo;
         }
     }
 }
