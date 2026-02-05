@@ -2400,7 +2400,7 @@ Transform:
   m_GameObject: {fileID: 399199649}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1584, y: 100, z: 1454}
+  m_LocalPosition: {x: 1009, y: 100, z: 1454}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3939,7 +3939,8 @@ MonoBehaviour:
 
     Left Mouse to shoot
 
-'
+    Be
+    in a fueling zone to start fueling'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 357a2dc764923574685a5fd94142a806, type: 2}
   m_sharedMaterial: {fileID: -1085828613158138377, guid: 357a2dc764923574685a5fd94142a806, type: 2}
@@ -8571,15 +8572,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5313699637942061276, guid: b102a11946bbf3f448dd905415622adc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 743.16
+      value: 766
       objectReference: {fileID: 0}
     - target: {fileID: 5313699637942061276, guid: b102a11946bbf3f448dd905415622adc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 17.42
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 5313699637942061276, guid: b102a11946bbf3f448dd905415622adc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1118
+      value: -1077
       objectReference: {fileID: 0}
     - target: {fileID: 5313699637942061276, guid: b102a11946bbf3f448dd905415622adc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -13050,7 +13051,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 9.008112, z: -10}
+  m_FollowOffset: {x: 0, y: 3, z: -10}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -15360,7 +15361,7 @@ Transform:
   m_GameObject: {fileID: 487135182134397988}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 743.16, y: 26.428112, z: -1128}
+  m_LocalPosition: {x: 766, y: 22, z: -1087}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15888,7 +15889,7 @@ Transform:
   m_GameObject: {fileID: 3173898691917390906}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 743.16, y: 26.428112, z: -1128}
+  m_LocalPosition: {x: 766, y: 22, z: -1087}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18532,9 +18533,9 @@ SceneRoots:
   - {fileID: 1177911308}
   - {fileID: 4289208847145272948}
   - {fileID: 909518584694337384}
-  - {fileID: 1456518080}
   - {fileID: 399199650}
   - {fileID: 78417941}
   - {fileID: 1819733145}
   - {fileID: 1481490840}
   - {fileID: 753869676}
+  - {fileID: 1456518080}

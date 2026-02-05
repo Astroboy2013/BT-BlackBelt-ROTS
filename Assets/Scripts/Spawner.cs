@@ -79,7 +79,7 @@ public class spawner : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
-            InvokeRepeating("SpawnOneEnemy", 0f, 2f);
+            InvokeRepeating("SpawnOneEnemy", 0f, 5f);
         }
 
         if (gm != null)

@@ -179,7 +179,6 @@ public class PlayerBehaviour : MonoBehaviour
         if (isFueling)
         {
             fuel++;
-            shootScript.currentAmmo++;
             isHealing = true;
         }
 

@@ -43,7 +43,7 @@ public class territoryCode : MonoBehaviour
         percentageBuffer = totalCapture / maxCapture;
         percentage = Mathf.Clamp(percentageBuffer * 100, -100, 100);
         captureSlider.value = Mathf.Abs(percentage);
-        captureText.text = Mathf.Round(percentage).ToString();
+        captureText.text = Mathf.Abs(Mathf.Round(percentage)).ToString() + "%";
         if(percentage > 0)
         {
             captureSlider.direction = Slider.Direction.LeftToRight;

@@ -96,25 +96,28 @@ public class enemyBehaviour : MonoBehaviour
 
                     Vector3 flyForce = transform.forward;
 
-
-
-                    /*if(Vector3.Distance(transform.position, player.transform.position) < 50)
-                    {
-                        gameObject.transform.LookAt(player.transform);
-                    }
-                    else
+                    if (Vector3.Distance(transform.position, territories[curTer].transform.position) > 200)
                     {
                         gameObject.transform.LookAt(territories[curTer].transform);
                     }
-                    */
-                    gameObject.transform.LookAt(territories[curTer].transform);
+                    else
+                    {
+                        if (thinking)
+                        {
+                            Vector3 lookPosition;
+                            lookPosition = territories[curTer].transform.position + new Vector3(Random.Range(-100, 100), Random.Range(-100, 100), Random.Range(-100, 100));
+                            rb.MoveRotation(Quaternion.LookRotation((lookPosition - transform.position).normalized));
+                            thinking = false;
+                            Invoke("SetThinking", 1);
+                        }
+                    }
 
                     if (terDetec.isTerrainDetected)
                     {
                         rb.velocity += Vector3.up * 10f;
                     }
 
-                    rb.AddForce(flyForce * speed);
+                    rb.velocity = flyForce * speed;
 
                 }
             }

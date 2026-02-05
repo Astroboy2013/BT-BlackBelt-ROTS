@@ -12,11 +12,10 @@ public class Fire : MonoBehaviour
     public float time;
 
     [Header("Ammo Settings")]
-    public int startingAmmo;
+    public int maxAmmo;
     public int currentAmmo;
 
     [Header("Other")]
-    public float mouseFireThreshold;
     public float mouseY;
 
     private PlayerBehaviour parentCode;
@@ -28,7 +27,7 @@ public class Fire : MonoBehaviour
     void Start()
     {
         parentCode = GetComponent<PlayerBehaviour>();
-        currentAmmo = startingAmmo;
+        currentAmmo = maxAmmo;
     }
 
     // Update is called once per frame
@@ -42,13 +41,18 @@ public class Fire : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1") && timer <= 0)
         {
-            if (mouseY > mouseFireThreshold)
+            if (mouseY > 130 && mouseY < 860)
             {
                 if (currentAmmo > 0)
                 {
                     SphereRayTrace();
                 }
             }
+        }
+
+        if(currentAmmo > maxAmmo)
+        {
+            currentAmmo = maxAmmo;
         }
     }
 
@@ -130,7 +134,6 @@ public class Fire : MonoBehaviour
             if (hit.collider.gameObject.tag == "enemy" || hit.collider.gameObject.tag == "dummy")
             {
                 newMissile = Instantiate(missilePrefab, missileSpawnPos, targetRot);
-                currentAmmo--;
 
                 //Set homing target
                 newMissile.SetTarget(targetTransform);
@@ -138,15 +141,14 @@ public class Fire : MonoBehaviour
             else
             {
                 newMissile = Instantiate(missilePrefab, missileSpawnPos, transform.rotation);
-                currentAmmo--;
             }
         }
         else
         {
             newMissile = Instantiate(missilePrefab, missileSpawnPos, transform.rotation);
-            currentAmmo--;
         }
 
         newMissile.initialForce = GetComponent<Rigidbody>().velocity.magnitude;
+        currentAmmo--;
     }
 }

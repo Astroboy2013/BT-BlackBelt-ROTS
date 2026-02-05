@@ -185,7 +185,7 @@ public class GameManager : MonoBehaviour
     {
         if (playerScript.isFueling)
         {
-            shootScript.currentAmmo = shootScript.startingAmmo;
+            shootScript.currentAmmo = shootScript.maxAmmo;
         }
     }
 }
