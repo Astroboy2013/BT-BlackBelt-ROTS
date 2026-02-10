@@ -82,7 +82,7 @@ public class health: MonoBehaviour
         //}
         if (collision.gameObject.tag == "ground")
         {
-            currentHealth = 0;
+            currentHealth -= 5f;
         }
     }
 

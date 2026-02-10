@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public GameObject deathScreen;
     public GameObject winScreen;
     public GameObject gameModeText;
+    public GameObject lowFuelSign;
 
     [Header("Territorial Occupation Only")]
     public TMP_Text territorySign;
@@ -78,7 +79,16 @@ public class GameManager : MonoBehaviour
             deathScreen.SetActive(true);
         }
 
-        if(SceneManager.GetActiveScene().buildIndex == 3)
+        if (playerScript.fuel <= 40)
+        {
+            lowFuelSign.SetActive(true);
+        }
+        else
+        {
+            lowFuelSign.SetActive(false);
+        }
+
+        if (SceneManager.GetActiveScene().buildIndex == 3)
         {
             if (playerScript.currentTerritory != null)
             {

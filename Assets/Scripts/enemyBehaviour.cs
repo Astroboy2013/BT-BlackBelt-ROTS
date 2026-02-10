@@ -18,6 +18,7 @@ public class enemyBehaviour : MonoBehaviour
 
     private bool thinking = true;
     private bool closeToPlayer = false;
+    private int curTer;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,15 @@ public class enemyBehaviour : MonoBehaviour
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
         terDetec = GetComponentInChildren<enemyDetectTerrain>();
         territories = manager.territories;
+
+        if (Random.Range(0f, 1f) < 0.5f)
+        {
+            curTer = Random.Range(0, manager.territories.Length);
+        }
+        else
+        {
+            curTer = manager.foughtTerritory;
+        }
     }
 
     // Update is called once per frame
@@ -92,7 +102,6 @@ public class enemyBehaviour : MonoBehaviour
             {
                 if (hasAI)
                 {
-                    int curTer = manager.foughtTerritory;
 
                     Vector3 flyForce = transform.forward;
 

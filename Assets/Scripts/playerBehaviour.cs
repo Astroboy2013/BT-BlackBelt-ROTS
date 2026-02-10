@@ -160,7 +160,6 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (isMoving)
         {
-            sound.volume = 0.5f;
             rb.velocity = transform.forward * totalForce;
             if (currentTerritory == null)
             {
@@ -170,10 +169,6 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 fuel += fuelConsumption * -0.5f;
             }
-        }
-        else
-        {
-            sound.volume = 0;
         }
 
         if (isFueling)
@@ -225,7 +220,7 @@ public class PlayerBehaviour : MonoBehaviour
                 pitchBuffer = transform.rotation.x;
                 isMoving = true;
                 rb.useGravity = false;
-
+                StartCoroutine(FadeIn(1f));
             }
             else
             {
@@ -234,6 +229,7 @@ public class PlayerBehaviour : MonoBehaviour
                 fuelingButtonText.text = "Stop Fueling";
                 isMoving = false;
                 rb.useGravity = true;
+                StartCoroutine(FadeOut(1f));
             }
         }
     }
@@ -308,4 +304,44 @@ public class PlayerBehaviour : MonoBehaviour
             currentTerritory = null;
         }
     }
+    public IEnumerator FadeOut(float duration)
+    {
+        float start = sound.volume;
+        float end = 0f;
+        float t = 0f;
+
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            float normalized = t / duration;
+            float eased = normalized * normalized * (3f - 2f * normalized); // SmoothStep curve
+            float fadeValue = Mathf.Lerp(start, end, eased);
+            sound.volume = fadeValue;
+            sound.pitch = fadeValue * 5;
+            yield return null;
+        }
+
+        sound.volume = 0f;
+    }
+    public IEnumerator FadeIn(float duration)
+    {
+        float start = sound.volume;
+        float end = 0.2f;
+        float t = 0f;
+
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            float normalized = t / duration;
+            float eased = normalized * normalized * (3f - 2f * normalized); // SmoothStep curve
+            float fadeValue = Mathf.Lerp(start, end, eased);
+            sound.volume = fadeValue;
+            sound.pitch = fadeValue * 5;
+            yield return null;
+        }
+
+        sound.volume = 0.2f;
+        sound.pitch = 1f;
+    }
 }
+

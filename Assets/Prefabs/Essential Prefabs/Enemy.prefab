@@ -600,8 +600,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.6439743, y: 3.5861628, z: 19.05236}
-  m_Center: {x: 0, y: 1.19, z: 1.9709053}
+  m_Size: {x: 9.070644, y: 3.5861626, z: 19.829712}
+  m_Center: {x: 0, y: 1.19, z: 1.5822296}
 --- !u!114 &3367689335569424761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -631,7 +631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionManager: {fileID: 0}
   currentHealth: 0
-  maxHealth: 5
+  maxHealth: 2
   isEnemy: 1
   defaultColour: {r: 0, g: 0, b: 0, a: 0}
   damagedColour: {r: 1, g: 0, b: 0, a: 0}

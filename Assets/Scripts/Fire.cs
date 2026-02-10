@@ -94,8 +94,8 @@ public class Fire : MonoBehaviour
         Vector3 viewportCenter = new Vector3(0.5f, 0.5f, 0f);
         Vector3 origin = Camera.main.ScreenToWorldPoint(viewportCenter);
         Vector3 direction = Camera.main.transform.forward;
-        float radius = 50;
-        float maxDistance = 80000f;
+        float radius = 200;
+        float maxDistance = 999999f;
         RaycastHit hit;
 
         Transform targetTransform = null;
