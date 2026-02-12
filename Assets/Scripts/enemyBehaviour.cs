@@ -143,7 +143,7 @@ public class enemyBehaviour : MonoBehaviour
     {
         if (other.gameObject.tag == "territory")
         {
-            other.GetComponent<territoryCode>().enemyCapture += 0.005f;
+            other.GetComponent<territoryCode>().enemyCapture += 0.01f;
         }
     }
 }
