@@ -264,7 +264,7 @@ MonoBehaviour:
   - In this game, you can pilot a jet fighter, although it is a really simple simulation
   - Use WASD to move and use left mouse to shoot. You can also give yourself a boost
     by holding shift
-  - For this level, shoot the white cubes and spheres
+  - For this, level, it is simple. Shoot the enemy planes.
   - You can fuel up at the aircraft carrier. Press CTRL to land on it.
   - Goodbye and Good Luck!
   nextButton: {fileID: 2008358979}
@@ -738,8 +738,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Tutorial
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 357a2dc764923574685a5fd94142a806, type: 2}
-  m_sharedMaterial: {fileID: -1085828613158138377, guid: 357a2dc764923574685a5fd94142a806, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d49a12391856e5e489520a81f526232f, type: 2}
+  m_sharedMaterial: {fileID: 8664881880643521879, guid: d49a12391856e5e489520a81f526232f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

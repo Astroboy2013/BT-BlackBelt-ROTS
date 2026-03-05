@@ -211,6 +211,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void ToggleFueling()
     {
+        Debug.Log("toggle executed");
         if (currentFuelingBox != null)
         {
             if (isFueling == true)
@@ -269,13 +270,15 @@ public class PlayerBehaviour : MonoBehaviour
         if(other.gameObject.tag == "fueling")
         {
             currentFuelingBox = other.gameObject;
-            fuelingButton.gameObject.GetComponent<Button>().interactable = true;
-
         }
         if (other.gameObject.tag == "territory")
         {
             currentTerritory = other.gameObject.name;
             other.GetComponent<territoryCode>().playerCapture++;
+        }
+        if(other.gameObject.tag == "ground")
+        {
+            healthScript.DoDamage(999);
         }
     }
 
@@ -298,7 +301,6 @@ public class PlayerBehaviour : MonoBehaviour
         {
             isHealing = false;
             currentFuelingBox = null;
-            fuelingButton.gameObject.GetComponent<Button>().interactable = false;
         }
 
         if (other.gameObject.tag == "territory")
