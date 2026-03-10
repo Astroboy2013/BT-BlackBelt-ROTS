@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,11 +15,16 @@ public class enemyBehaviour : MonoBehaviour
     [Header("Dev Options")]
     public bool hasAI;
 
-    private bool thinking = true;
     private bool closeToPlayer = false;
     private int curTer;
 
-    // Start is called before the first frame update
+    // AI timing
+    private float aiTimer = 0f;
+    private float aiInterval = 0.3f; // AI updates 3 times per second
+
+    // LayerMask for OverlapSphere
+    private int detectionMask;
+
     void Start()
     {
         player = GameObject.Find("Player");
@@ -28,120 +32,120 @@ public class enemyBehaviour : MonoBehaviour
         terDetec = GetComponentInChildren<enemyDetectTerrain>();
         territories = manager.territories;
 
+        // Pick a territory
         if (Random.Range(0f, 1f) < 0.5f)
-        {
             curTer = Random.Range(0, manager.territories.Length);
+        else
+            curTer = manager.foughtTerritory;
+
+        // Only detect what we need
+        detectionMask = LayerMask.GetMask("Player", "Terrain", "Enemy");
+    }
+
+    void Update()
+    {
+        if (player == null)
+            return;
+
+        int scene = SceneManager.GetActiveScene().buildIndex;
+
+        // AI runs on a timer instead of every frame
+        aiTimer -= Time.deltaTime;
+        if (aiTimer <= 0f)
+        {
+            aiTimer = aiInterval;
+            RunAI(scene);
+        }
+    }
+
+    private void RunAI(int scene)
+    {
+        if (!hasAI)
+        {
+            rb.isKinematic = true;
+            return;
+        }
+
+        if (scene == 2)
+        {
+            WanderBehaviour();
+        }
+        else if (scene == 3)
+        {
+            TerritorialBehaviour();
+        }
+    }
+
+    private void TerritorialBehaviour()
+    {
+        Vector3 flyForce = transform.forward;
+
+        // Move toward territory unless close
+        if (Vector3.Distance(transform.position, territories[curTer].transform.position) > 200)
+        {
+            transform.LookAt(territories[curTer].transform);
         }
         else
         {
-            curTer = manager.foughtTerritory;
+            WanderBehaviour();
         }
+
+        // Terrain avoidance
+        if (terDetec.isTerrainDetected)
+            rb.velocity += Vector3.up * 10f;
+
+        rb.velocity = flyForce * speed;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void WanderBehaviour()
     {
-        if (player != null)
+        bool foundTerrain = false;
+        closeToPlayer = false;
+
+        // MUCH cheaper OverlapSphere
+        Collider[] hits = Physics.OverlapSphere(transform.position, 20f, detectionMask);
+
+        foreach (var hit in hits)
         {
-            if (SceneManager.GetActiveScene().buildIndex == 2)
-            {
-                Vector3 rawDistance = transform.forward;
+            if (hit == null) continue;
 
-                if (hasAI)
-                {
-                    if (thinking)
-                    {
-                        if (closeToPlayer)
-                        {
-                            rawDistance = transform.position - player.transform.position;
-                            rb.MoveRotation(Quaternion.LookRotation(rawDistance.normalized));
-                        }
-                        else
-                        {
-                            rawDistance = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
-                            rb.MoveRotation(Quaternion.LookRotation(rawDistance.normalized));
-                        }
-                        rb.velocity = rawDistance.normalized * 30f;
+            if (hit.CompareTag(gameObject.tag))
+                continue;
 
-                        thinking = false;
-                        Invoke("SetThinking", 1);
+            if (hit.CompareTag("player"))
+                closeToPlayer = true;
 
-                    }
-
-                    Collider[] hits = Physics.OverlapSphere(transform.position, 20f);
-                    
-                    for(int i = 1; i < hits.Length; i++)
-                    {
-                        if(hits[i].gameObject.tag == gameObject.tag)
-                        {
-                            continue;
-                        }
-
-                        if (hits[i].gameObject.tag == "player")
-                        {
-                            closeToPlayer = true;
-                        }
-                        else
-                        {
-                            closeToPlayer = false;
-                        }
-
-                        if (hits[i].gameObject.tag == "terrain")
-                        {
-                            rawDistance = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
-                        }
-                    }
-
-                }
-                else
-                {
-                    rb.isKinematic = true;
-                }
-            }
-            if (SceneManager.GetActiveScene().buildIndex == 3)
-            {
-                if (hasAI)
-                {
-
-                    Vector3 flyForce = transform.forward;
-
-                    if (Vector3.Distance(transform.position, territories[curTer].transform.position) > 200)
-                    {
-                        gameObject.transform.LookAt(territories[curTer].transform);
-                    }
-                    else
-                    {
-                        if (thinking)
-                        {
-                            Vector3 lookPosition;
-                            lookPosition = territories[curTer].transform.position + new Vector3(Random.Range(-100, 100), Random.Range(-100, 100), Random.Range(-100, 100));
-                            rb.MoveRotation(Quaternion.LookRotation((lookPosition - transform.position).normalized));
-                            thinking = false;
-                            Invoke("SetThinking", 1);
-                        }
-                    }
-
-                    if (terDetec.isTerrainDetected)
-                    {
-                        rb.velocity += Vector3.up * 10f;
-                    }
-
-                    rb.velocity = flyForce * speed;
-
-                }
-            }
-
+            if (hit.CompareTag("terrain"))
+                foundTerrain = true;
         }
-    }
 
-    private void SetThinking()
-    {
-        thinking = true;
+        Vector3 rawDistance;
+
+        if (closeToPlayer)
+        {
+            rawDistance = transform.position - player.transform.position;
+            rb.MoveRotation(Quaternion.LookRotation(rawDistance.normalized));
+            aiInterval = 0.5f; // Think faster near player
+        }
+        else
+        {
+            rawDistance = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
+            rb.MoveRotation(Quaternion.LookRotation(rawDistance.normalized));
+            aiInterval = 3f; // Think slower when wandering
+        }
+
+        // Terrain avoidance
+        if (foundTerrain)
+        {
+            rawDistance = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
+        }
+
+        rb.velocity = rawDistance.normalized * 30f;
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "territory")
+        if (other.CompareTag("territory"))
         {
             other.GetComponent<territoryCode>().enemyCapture += 0.01f;
         }

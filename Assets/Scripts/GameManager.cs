@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public int totalEnemyCount = 0;
     public int foughtTerritory;
     public int distanceThreshold;
+    public bool isPaused = false;
 
     [Header("Counters and Sliders")]
     public Slider fuelBar;

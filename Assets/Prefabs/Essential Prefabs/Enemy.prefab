@@ -659,7 +659,7 @@ MonoBehaviour:
   - {fileID: 0}
   speed: 20
   terDetec: {fileID: 0}
-  hasAI: 1
+  hasAI: 0
 --- !u!1 &8575034606213667808
 GameObject:
   m_ObjectHideFlags: 0

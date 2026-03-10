@@ -211,7 +211,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void ToggleFueling()
     {
-        Debug.Log("toggle executed");
         if (currentFuelingBox != null)
         {
             if (isFueling == true)
