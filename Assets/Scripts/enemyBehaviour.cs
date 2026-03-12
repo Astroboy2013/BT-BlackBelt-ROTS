@@ -32,12 +32,6 @@ public class enemyBehaviour : MonoBehaviour
         terDetec = GetComponentInChildren<enemyDetectTerrain>();
         territories = manager.territories;
 
-        // Pick a territory
-        if (Random.Range(0f, 1f) < 0.5f)
-            curTer = Random.Range(0, manager.territories.Length);
-        else
-            curTer = manager.foughtTerritory;
-
         // Only detect what we need
         detectionMask = LayerMask.GetMask("Player", "Terrain", "Enemy");
     }
@@ -80,6 +74,12 @@ public class enemyBehaviour : MonoBehaviour
     {
         Vector3 flyForce = transform.forward;
 
+        // Pick a territory
+        if (Random.Range(0f, 1f) < 0.5f)
+            curTer = Random.Range(0, manager.territories.Length);
+        else
+            curTer = manager.foughtTerritory;
+
         // Move toward territory unless close
         if (Vector3.Distance(transform.position, territories[curTer].transform.position) > 200)
         {
@@ -119,7 +119,8 @@ public class enemyBehaviour : MonoBehaviour
                 foundTerrain = true;
         }
 
-        Vector3 rawDistance;
+        Vector3 rawDistance = Vector3.zero;
+        float rotationRange = 0.1f;
 
         if (closeToPlayer)
         {
@@ -129,8 +130,8 @@ public class enemyBehaviour : MonoBehaviour
         }
         else
         {
-            rawDistance = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
-            rb.MoveRotation(Quaternion.LookRotation(rawDistance.normalized));
+            rawDistance = new Vector3(Random.Range(-rotationRange, rotationRange) + rawDistance.x, 0f, Random.Range(-rotationRange, rotationRange) + rawDistance.z);
+            rb.MoveRotation(Quaternion.LookRotation(rawDistance));
             aiInterval = 3f; // Think slower when wandering
         }
 
