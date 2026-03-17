@@ -37,11 +37,6 @@ public class health: MonoBehaviour
 
     }
 
-    private void Update()
-    {
-
-    }
-
     public void DoDamage(float damage)
     {
         currentHealth -= damage;

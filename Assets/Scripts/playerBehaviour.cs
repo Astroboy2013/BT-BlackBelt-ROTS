@@ -94,26 +94,6 @@ public class PlayerBehaviour : MonoBehaviour
 
         //Limit pitch rotation
         pitchBuffer = Math.Clamp(pitchBuffer, -pitchRotationLimit, pitchRotationLimit);
-        /*
-        REMAKE SOON
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            if (fuel > 0)
-            {
-                if (isMoving == true && isTouchingFuelBox == true)
-                {
-                    isMoving = false;
-                    rb.useGravity = true;
-                    pitchBuffer = 0;
-                }
-                else
-                {
-                    isMoving = true;
-                    rb.useGravity = false;
-                }
-            }
-        }
-        */
 
         if (isMoving)
         {
