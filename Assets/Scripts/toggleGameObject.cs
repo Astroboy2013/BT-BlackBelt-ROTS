@@ -26,7 +26,7 @@ public class toggleGameObject : MonoBehaviour
         }
         else
         {
-            background.color= offColor;
+            background.color = offColor;
         }
     }
 }

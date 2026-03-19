@@ -9408,6 +9408,7 @@ GameObject:
   - component: {fileID: 4645803605889379194}
   - component: {fileID: 7663665406304920220}
   - component: {fileID: 5277065440794804078}
+  - component: {fileID: 7663665406304920221}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -10772,6 +10773,7 @@ MonoBehaviour:
   winScreen: {fileID: 1697506188}
   gameModeText: {fileID: 1084504461924169560}
   lowFuelSign: {fileID: 268821650}
+  settingData: {fileID: 0}
   territorySign: {fileID: 0}
   territorySignObj: {fileID: 0}
   captureValues: []
@@ -12388,6 +12390,27 @@ MonoBehaviour:
   spawnLocations: []
   maxEnemyCount: 30
   minEnemyCount: 10
+--- !u!114 &7663665406304920221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066742935926480853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d72eea1d4a8aea458879794a68ff980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paramsBelowEnabled: 0
+  fdrText: {fileID: 0}
+  maxAmText: {fileID: 0}
+  eTuText: {fileID: 0}
+  eThText: {fileID: 0}
+  fdrDropdown: {fileID: 0}
+  maxAmSlider: {fileID: 0}
+  eTuSlider: {fileID: 0}
+  eThSlider: {fileID: 0}
 --- !u!1 &7686445411530413249
 GameObject:
   m_ObjectHideFlags: 0

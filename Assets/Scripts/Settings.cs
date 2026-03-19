@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 using System.Runtime.CompilerServices;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Settings : MonoBehaviour
 {
@@ -17,6 +19,10 @@ public class Settings : MonoBehaviour
     public TMP_Text maxAmText;
     public TMP_Text eTuText;
     public TMP_Text eThText;
+    public TMP_Dropdown fdrDropdown;
+    public Slider maxAmSlider;
+    public Slider eTuSlider;
+    public Slider eThSlider;
 
     // Start is called before the first frame update
     void Start()
@@ -27,34 +33,27 @@ public class Settings : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
+        if (paramsBelowEnabled)
+        {
+            float shownNumber;
 
-    public void EditFDR(int diff)
-    {
-        float shownNumber = diff * 5f;
-        if (paramsBelowEnabled)
-        {
-            fdrText.text = shownNumber.ToString();
+            shownNumber = fdrDropdown.value * 5f;
+            shownNumber = shownNumber * 0.1f;
+            shownNumber += 1;
+            fdrText.text = "Fuel Conspumtion Rate: " + shownNumber.ToString() + "/s";
+            fdr = shownNumber / 50;
+
+            shownNumber = (maxAmSlider.value / 2) * 50;
+            maxAmText.text = "Maxmimum Ammo: " + shownNumber.ToString();
+            maxAm = (int)shownNumber;
+
+            shownNumber = eTuSlider.value * 15;
+            eTuText.text = "Enemy Turn Angle: " + shownNumber.ToString() + "°";
+            eTu = (int)shownNumber;
+
+            shownNumber = (eThSlider.value / 2) * 50;
+            eThText.text = "Enemy Think Delay: " + shownNumber.ToString() + "s";
+            eTh = (int)shownNumber;
         }
-        fdr = shownNumber;
-    }
-    public void EditMaxAm(int coEff)
-    {
-        int shownNumber = (coEff / 2) * 50;
-        if (paramsBelowEnabled)
-        {
-            maxAmText.text = shownNumber.ToString();
-        }
-        maxAm = shownNumber;
-    }
-    public void EditETu(int coEff)
-    {
-        int shownNumber = (coEff / 2) * 50;
-        if (paramsBelowEnabled)
-        {
-            maxAmText.text = shownNumber.ToString();
-        }
-        eTu = shownNumber;
     }
 }

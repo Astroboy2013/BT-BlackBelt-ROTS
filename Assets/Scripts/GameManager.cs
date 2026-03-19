@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         healthBar.maxValue = playerHealth.maxHealth;
+        playerScript.fuelConsumption = Settings.fdr;
 
         Invoke("UpdateFirstEnemyCount", 0.5f);
 
