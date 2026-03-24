@@ -46,15 +46,12 @@ public class spawner : MonoBehaviour
             {
                 GameObject enemyClone;
                 GameObject indicator;
-                //GameObject dirInPre;
                 if (enemyCount < spawnLocations.Count)
                 {
                     selectedGameobject = enemy[Random.Range(0, enemy.Length)];
                     enemyClone = Instantiate(selectedGameobject, spawnLocations[enemies].position, Quaternion.identity);
                     indicator = Instantiate(indicatorPrefab);
                     indicator.GetComponent<mapFollowPlayer>().objTransform = enemyClone.transform;
-                    //dirInPre = Instantiate(dirIndicatorPrefab, spawnLocations[enemies].position, Quaternion.identity);
-                    //dirInPre.GetComponent<lookAtEnemy>().enemyTransform = enemyClone.transform;
                     debugCounter++;
                 }
                 else
@@ -63,8 +60,6 @@ public class spawner : MonoBehaviour
                     enemyClone = Instantiate(selectedGameobject, spawnLocations[Random.Range(0, spawnLocations.Count)].position + randomOffset, Quaternion.identity);
                     indicator = Instantiate(indicatorPrefab);
                     indicator.GetComponent<mapFollowPlayer>().objTransform = enemyClone.transform;
-                    //dirInPre = Instantiate(dirIndicatorPrefab);
-                    //dirInPre.GetComponent<lookAtEnemy>().enemyTransform = enemyClone.transform;
                     debugCounter++;
                 }
 
@@ -87,8 +82,6 @@ public class spawner : MonoBehaviour
             gm.totalEnemyCount = enemyCount;
         }
 
-        //Debug.Log(debugCounter.ToString() + " " + gm.totalEnemyCount.ToString());
-
     }
     void Update()
     {
@@ -100,14 +93,11 @@ public class spawner : MonoBehaviour
         Vector3 randomOffset = new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), Random.Range(20, 50));
         GameObject enemyClone;
         GameObject indicator;
-        //GameObject dirInPre;
 
         selectedGameobject = enemy[Random.Range(0, enemy.Length)];
         enemyClone = Instantiate(selectedGameobject, spawnLocations[Random.Range(0, spawnLocations.Count)].position + randomOffset, Quaternion.identity);
         indicator = Instantiate(indicatorPrefab);
         indicator.GetComponent<mapFollowPlayer>().objTransform = enemyClone.transform;
-        //dirInPre = Instantiate(dirIndicatorPrefab);
-        //dirInPre.GetComponent<lookAtEnemy>().enemyTransform = enemyClone.transform;
         debugCounter++;
     }
 

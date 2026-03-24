@@ -20,7 +20,9 @@ public class toggleGameObject : MonoBehaviour
 
     private void UpdateVisuals()
     {
-        if(isOn)
+        if (background == null) return;
+
+        if (isOn)
         {
             background.color = onColor;
         }

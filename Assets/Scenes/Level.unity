@@ -3532,7 +3532,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4692684538101351167}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: Reload
         m_Mode: 1
@@ -10773,7 +10773,6 @@ MonoBehaviour:
   winScreen: {fileID: 1697506188}
   gameModeText: {fileID: 1084504461924169560}
   lowFuelSign: {fileID: 268821650}
-  settingData: {fileID: 0}
   territorySign: {fileID: 0}
   territorySignObj: {fileID: 0}
   captureValues: []

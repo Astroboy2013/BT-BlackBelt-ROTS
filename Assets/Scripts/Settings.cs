@@ -37,21 +37,20 @@ public class Settings : MonoBehaviour
         {
             float shownNumber;
 
-            shownNumber = fdrDropdown.value * 5f;
-            shownNumber = shownNumber * 0.1f;
+            shownNumber = fdrDropdown.value * 0.5f;
             shownNumber += 1;
-            fdrText.text = "Fuel Conspumtion Rate: " + shownNumber.ToString() + "/s";
+            fdrText.text = "Fuel Consumption Rate: " + shownNumber.ToString() + "/s";
             fdr = shownNumber / 50;
 
             shownNumber = (maxAmSlider.value / 2) * 50;
-            maxAmText.text = "Maxmimum Ammo: " + shownNumber.ToString();
+            maxAmText.text = "Maximum Ammo: " + shownNumber.ToString();
             maxAm = (int)shownNumber;
 
             shownNumber = eTuSlider.value * 15;
             eTuText.text = "Enemy Turn Angle: " + shownNumber.ToString() + "°";
             eTu = (int)shownNumber;
 
-            shownNumber = (eThSlider.value / 2) * 50;
+            shownNumber = (eThSlider.value / 2) * 5;
             eThText.text = "Enemy Think Delay: " + shownNumber.ToString() + "s";
             eTh = (int)shownNumber;
         }

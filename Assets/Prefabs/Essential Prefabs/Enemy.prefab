@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3674407685705488291}
   m_Layer: 0
   m_Name: Terrain Detector
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -658,6 +658,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   speed: 20
+  percent: 0
   terDetec: {fileID: 0}
   hasAI: 1
 --- !u!1 &8575034606213667808

@@ -104,6 +104,7 @@ public class Fire : MonoBehaviour
 
         if (Physics.SphereCast(origin, radius, direction, out hit, maxDistance))
         {
+            Debug.Log(hit.collider.gameObject.tag);
             if (hit.collider.gameObject.tag == "enemy" || hit.collider.gameObject.tag == "dummy")
             {
                 targetTransform = hit.transform;

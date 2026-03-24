@@ -10,6 +10,7 @@ public class enemyBehaviour : MonoBehaviour
     public GameManager manager;
     public GameObject[] territories;
     public float speed;
+    public float percent;
     public enemyDetectTerrain terDetec;
 
     [Header("Dev Options")]
@@ -20,7 +21,10 @@ public class enemyBehaviour : MonoBehaviour
 
     // AI timing
     private float aiTimer = 0f;
-    private float aiInterval = 0.3f; // AI updates 3 times per second
+    private float aiInterval; // AI updates 3 times per second
+
+    private float enemyThinkTime;
+    private float enemyTurnAngle;
 
     // LayerMask for OverlapSphere
     private int detectionMask;
@@ -31,6 +35,12 @@ public class enemyBehaviour : MonoBehaviour
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
         terDetec = GetComponentInChildren<enemyDetectTerrain>();
         territories = manager.territories;
+
+        enemyThinkTime = Settings.eTh;
+        enemyTurnAngle = Settings.eTu;
+        aiInterval = enemyThinkTime;
+
+        percent = enemyTurnAngle / 360;
 
         // Only detect what we need
         detectionMask = LayerMask.GetMask("Player", "Terrain", "Enemy");
@@ -112,33 +122,33 @@ public class enemyBehaviour : MonoBehaviour
             if (hit.CompareTag(gameObject.tag))
                 continue;
 
-            if (hit.CompareTag("player"))
+            if (hit.CompareTag("Player"))
                 closeToPlayer = true;
 
-            if (hit.CompareTag("terrain"))
+            if (hit.CompareTag("ground"))
                 foundTerrain = true;
         }
 
         Vector3 rawDistance = Vector3.zero;
-        float rotationRange = 0.1f;
+        float rotationRange = percent;
 
         if (closeToPlayer)
         {
             rawDistance = transform.position - player.transform.position;
             rb.MoveRotation(Quaternion.LookRotation(rawDistance.normalized));
-            aiInterval = 0.5f; // Think faster near player
+            aiInterval = enemyThinkTime / 6;
         }
         else
         {
             rawDistance = new Vector3(Random.Range(-rotationRange, rotationRange) + rawDistance.x, 0f, Random.Range(-rotationRange, rotationRange) + rawDistance.z);
             rb.MoveRotation(Quaternion.LookRotation(rawDistance));
-            aiInterval = 3f; // Think slower when wandering
+            aiInterval = enemyThinkTime;
         }
 
         // Terrain avoidance
         if (foundTerrain)
         {
-            rawDistance = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
+            rawDistance = new Vector3(Random.Range(-1, 1), 0f, Random.Range(-1f, 1f));
         }
 
         rb.velocity = rawDistance.normalized * 30f;
