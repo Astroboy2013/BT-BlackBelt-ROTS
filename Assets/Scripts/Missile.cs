@@ -81,7 +81,7 @@ public class Missile : MonoBehaviour
                     DestroyMissile();
                 }
 
-                if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "player missile")
+                if (collision.gameObject.tag == "Player")
                 {
                     collision.gameObject.GetComponent<health>().DoDamage(1); //Damage amount
                 }

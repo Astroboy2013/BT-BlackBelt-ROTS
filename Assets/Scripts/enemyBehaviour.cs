@@ -102,7 +102,7 @@ public class enemyBehaviour : MonoBehaviour
 
         // Terrain avoidance
         if (terDetec.isTerrainDetected)
-            rb.velocity += Vector3.up * 10f;
+            rb.velocity += Vector3.up * 20f;
 
         rb.velocity = flyForce * speed;
     }

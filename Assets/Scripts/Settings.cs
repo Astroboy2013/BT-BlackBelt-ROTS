@@ -8,10 +8,10 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class Settings : MonoBehaviour
 {
-    public static float fdr;
-    public static int maxAm;
-    public static int eTu;
-    public static int eTh;
+    public static float fdr = 0.03f;
+    public static int maxAm = 50;
+    public static int eTu = 15;
+    public static int eTh = 3;
 
     [Header("For Settings Display")]
     public bool paramsBelowEnabled;
@@ -50,7 +50,7 @@ public class Settings : MonoBehaviour
             eTuText.text = "Enemy Turn Angle: " + shownNumber.ToString() + "°";
             eTu = (int)shownNumber;
 
-            shownNumber = (eThSlider.value / 2) * 5;
+            shownNumber = (eThSlider.value / 2) * 3;
             eThText.text = "Enemy Think Delay: " + shownNumber.ToString() + "s";
             eTh = (int)shownNumber;
         }
