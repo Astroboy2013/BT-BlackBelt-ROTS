@@ -70,11 +70,11 @@ public class enemyBehaviour : MonoBehaviour
             return;
         }
 
-        if (scene == 2)
+        if (scene == 3)
         {
             WanderBehaviour();
         }
-        else if (scene == 3)
+        else if (scene == 4)
         {
             TerritorialBehaviour();
         }

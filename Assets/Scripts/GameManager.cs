@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
             lowFuelSign.SetActive(false);
         }
 
-        if (SceneManager.GetActiveScene().buildIndex == 3)
+        if (SceneManager.GetActiveScene().buildIndex == 4)
         {
             if (playerScript.currentTerritory != null)
             {
@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
         fuelNumber.text = Mathf.Round(playerScript.fuel).ToString();
         ammoCounter.text = shootScript.currentAmmo.ToString();
 
-        if (SceneManager.GetActiveScene().buildIndex == 3)
+        if (SceneManager.GetActiveScene().buildIndex == 4)
         {
             CheckFoughtTerritories(captureValues);
         }

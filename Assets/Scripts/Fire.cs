@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using TMPro;
 using UnityEngine;
+using Unity.Mathematics;
+using Unity.Burst.CompilerServices;
 
 public class Fire : MonoBehaviour
 {
@@ -45,7 +47,7 @@ public class Fire : MonoBehaviour
             {
                 if (currentAmmo > 0)
                 {
-                    SphereRayTrace();
+                    ClickToAim();
                 }
             }
         }
@@ -87,6 +89,59 @@ public class Fire : MonoBehaviour
         }
 
         timer = time;
+    }
+
+    void ClickToAim()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        float radius = 10f;
+        float maxDistance = 500;
+
+        RaycastHit[] hits = Physics.SphereCastAll(ray, radius, maxDistance);
+
+        float largestDist = maxDistance;
+        GameObject chosenHit = null;
+
+        foreach (var hit in hits)
+        {
+            // Get the closest object to target
+            for (int i = 0; i < hits.Length; i++)
+            {
+                Vector3 distanceBetweenHit = hit.collider.gameObject.transform.position - Input.mousePosition;
+                if (distanceBetweenHit.magnitude < largestDist)
+                {
+                    largestDist = distanceBetweenHit.magnitude;
+                    chosenHit = hit.collider.gameObject;
+                }
+            }
+        }
+        if (chosenHit != null)
+        {
+            if (chosenHit.tag == "enemy" || chosenHit.tag == "dummy")
+            {
+                Quaternion targetRot = Quaternion.identity;
+                Vector3 unLookRotationed = Vector3.zero;
+
+                if (missileSpawnLocation != null)
+                {
+                    unLookRotationed = chosenHit.transform.position - missileSpawnLocation.position;
+                }
+                else
+                {
+                    unLookRotationed = chosenHit.transform.position - transform.position;
+                }
+                targetRot = Quaternion.LookRotation(unLookRotationed);
+
+                //Set homing target
+                newMissile = Instantiate(missilePrefab, transform.position, targetRot);
+                newMissile.SetTarget(chosenHit.transform);
+
+            }
+        else
+        {
+
+        }
     }
 
     void SphereRayTrace()
