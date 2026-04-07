@@ -42,11 +42,15 @@ public class Missile : MonoBehaviour
     {
         if (followTarget != null)
         {
+            flyDirection = (followTarget.transform.position - transform.position).normalized;
+        }
+        else
+        {
             flyDirection = transform.forward;
         }
-        
-        rb.velocity = (transform.forward * totalForce);
+
         transform.LookAt(followTarget);
+        rb.AddForce(flyDirection * totalForce);
     }
 
     private void Explode()

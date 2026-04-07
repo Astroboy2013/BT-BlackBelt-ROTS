@@ -77,6 +77,7 @@ public class enemyBehaviour : MonoBehaviour
         else if (scene == 4)
         {
             TerritorialBehaviour();
+            terDetec.gameObject.SetActive(true);
         }
     }
 

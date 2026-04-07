@@ -52,10 +52,35 @@ public class Fire : MonoBehaviour
             }
         }
 
-        if(currentAmmo > maxAmmo)
+        if (currentAmmo > maxAmmo)
         {
             currentAmmo = maxAmmo;
         }
+    }
+
+    bool AllowTags(string compTag)
+    {
+        bool canPass = true;
+
+        string[] ignoreTags =
+        {
+            "Player",
+            "player missile",
+            "ground"
+        };
+
+        foreach (string tag in ignoreTags)
+        {
+            if (tag == compTag)
+            {
+                canPass = false;
+            }
+            else
+            {
+                canPass = true;
+            }
+        }
+        return canPass;
     }
 
 
@@ -93,10 +118,14 @@ public class Fire : MonoBehaviour
 
     void ClickToAim()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        float radius = 10f;
+        float radius = 20f;
         float maxDistance = 500;
+
+        Vector3 origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 direction = Camera.main.transform.forward;
+
+        Ray ray = new Ray(origin, direction);
+
 
         RaycastHit[] hits = Physics.SphereCastAll(ray, radius, maxDistance);
 
@@ -108,102 +137,101 @@ public class Fire : MonoBehaviour
             // Get the closest object to target
             for (int i = 0; i < hits.Length; i++)
             {
-                Vector3 distanceBetweenHit = hit.collider.gameObject.transform.position - Input.mousePosition;
+                GameObject hitObj = hit.collider.gameObject;
+                Debug.Log(AllowTags(hitObj.tag));
+                if(!AllowTags(hitObj.tag))
+                {
+                    continue;
+                }
+                
+                
+                Vector3 distanceBetweenHit = hit.collider.gameObject.transform.position - origin;
                 if (distanceBetweenHit.magnitude < largestDist)
                 {
                     largestDist = distanceBetweenHit.magnitude;
-                    chosenHit = hit.collider.gameObject;
+                    chosenHit = hitObj;
+                    Debug.Log(hitObj.name);
                 }
             }
         }
         if (chosenHit != null)
         {
+            Quaternion targetRot = Quaternion.identity;
+            Vector3 unLookRotationed = Vector3.zero;
             if (chosenHit.tag == "enemy" || chosenHit.tag == "dummy")
             {
-                Quaternion targetRot = Quaternion.identity;
-                Vector3 unLookRotationed = Vector3.zero;
-
-                if (missileSpawnLocation != null)
-                {
-                    unLookRotationed = chosenHit.transform.position - missileSpawnLocation.position;
-                }
-                else
-                {
-                    unLookRotationed = chosenHit.transform.position - transform.position;
-                }
-                targetRot = Quaternion.LookRotation(unLookRotationed);
-
                 //Set homing target
-                newMissile = Instantiate(missilePrefab, transform.position, targetRot);
+                newMissile = Instantiate(missilePrefab, transform.position, Quaternion.identity);
                 newMissile.SetTarget(chosenHit.transform);
 
             }
-        else
-        {
-
-        }
-    }
-
-    void SphereRayTrace()
-    {
-        Vector3 viewportCenter = new Vector3(0.5f, 0.5f, 0f);
-        Vector3 origin = Camera.main.ScreenToWorldPoint(viewportCenter);
-        Vector3 direction = Camera.main.transform.forward;
-        float radius = 200;
-        float maxDistance = 999999f;
-        RaycastHit hit;
-
-        Transform targetTransform = null;
-        Quaternion targetRot = Quaternion.identity;
-        Vector3 unLookRotationed = Vector3.zero;
-
-        if (Physics.SphereCast(origin, radius, direction, out hit, maxDistance))
-        {
-            if (hit.collider.gameObject.tag == "enemy" || hit.collider.gameObject.tag == "dummy")
+            else
             {
-                targetTransform = hit.transform;
-
-                if (missileSpawnLocation != null)
-                {
-                    unLookRotationed = targetTransform.position - missileSpawnLocation.position; 
-                }
-                else
-                {
-                    unLookRotationed = targetTransform.position - transform.position;
-                }
-                targetRot = Quaternion.LookRotation(unLookRotationed);
+                newMissile = Instantiate(missilePrefab, transform.position, Quaternion.identity);
             }
         }
 
-        //For debugging
-        //Debug.DrawLine(origin, hit.point, Color.red, 3f);
-
-        Vector3 missileSpawnPos = transform.position;
-        if (missileSpawnLocation != null)
+        void SphereRayTrace()
         {
-            missileSpawnPos = missileSpawnLocation.position;
-        }
+            Vector3 viewportCenter = new Vector3(0.5f, 0.5f, 0f);
+            Vector3 origin = Camera.main.ScreenToWorldPoint(viewportCenter);
+            Vector3 direction = Camera.main.transform.forward;
+            float radius = 200;
+            float maxDistance = 999999f;
+            RaycastHit hit;
 
-        if (targetTransform != null)
-        {
-            if (hit.collider.gameObject.tag == "enemy" || hit.collider.gameObject.tag == "dummy")
+            Transform targetTransform = null;
+            Quaternion targetRot = Quaternion.identity;
+            Vector3 unLookRotationed = Vector3.zero;
+
+            if (Physics.SphereCast(origin, radius, direction, out hit, maxDistance))
             {
-                newMissile = Instantiate(missilePrefab, missileSpawnPos, targetRot);
+                if (hit.collider.gameObject.tag == "enemy" || hit.collider.gameObject.tag == "dummy")
+                {
+                    targetTransform = hit.transform;
 
-                //Set homing target
-                newMissile.SetTarget(targetTransform);
+                    if (missileSpawnLocation != null)
+                    {
+                        unLookRotationed = targetTransform.position - missileSpawnLocation.position;
+                    }
+                    else
+                    {
+                        unLookRotationed = targetTransform.position - transform.position;
+                    }
+                    targetRot = Quaternion.LookRotation(unLookRotationed);
+                }
+            }
+
+            //For debugging
+            //Debug.DrawLine(origin, hit.point, Color.red, 3f);
+
+            Vector3 missileSpawnPos = transform.position;
+            if (missileSpawnLocation != null)
+            {
+                missileSpawnPos = missileSpawnLocation.position;
+            }
+
+            if (targetTransform != null)
+            {
+                if (hit.collider.gameObject.tag == "enemy" || hit.collider.gameObject.tag == "dummy")
+                {
+                    newMissile = Instantiate(missilePrefab, missileSpawnPos, targetRot);
+
+                    //Set homing target
+                    newMissile.SetTarget(targetTransform);
+                }
+                else
+                {
+                    newMissile = Instantiate(missilePrefab, missileSpawnPos, transform.rotation);
+                }
             }
             else
             {
                 newMissile = Instantiate(missilePrefab, missileSpawnPos, transform.rotation);
             }
-        }
-        else
-        {
-            newMissile = Instantiate(missilePrefab, missileSpawnPos, transform.rotation);
-        }
 
-        newMissile.initialForce = GetComponent<Rigidbody>().velocity.magnitude;
-        currentAmmo--;
+            newMissile.initialForce = GetComponent<Rigidbody>().velocity.magnitude;
+            currentAmmo--;
+        }
     }
 }
