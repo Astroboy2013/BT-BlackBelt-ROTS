@@ -37,7 +37,7 @@ public class spawner : MonoBehaviour
 
         enemyCount = Random.Range(minEnemyCount, maxEnemyCount);
 
-        if (SceneManager.GetActiveScene().buildIndex == 2)
+        if (SceneManager.GetActiveScene().buildIndex == 3)
         {
 
             Vector3 randomOffset = new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), Random.Range(20, 50));

@@ -50,7 +50,7 @@ public class Missile : MonoBehaviour
         }
 
         transform.LookAt(followTarget);
-        rb.AddForce(flyDirection * totalForce);
+        rb.velocity = flyDirection * totalForce;
     }
 
     private void Explode()

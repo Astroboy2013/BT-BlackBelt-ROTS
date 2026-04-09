@@ -12,6 +12,7 @@ public class Settings : MonoBehaviour
     public static int maxAm = 50;
     public static int eTu = 15;
     public static int eTh = 3;
+    public static int pTu = 45;
 
     [Header("For Settings Display")]
     public bool paramsBelowEnabled;
@@ -23,6 +24,7 @@ public class Settings : MonoBehaviour
     public Slider maxAmSlider;
     public Slider eTuSlider;
     public Slider eThSlider;
+    public Slider pTuSlider;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +55,10 @@ public class Settings : MonoBehaviour
             shownNumber = (eThSlider.value / 2) * 3;
             eThText.text = "Enemy Think Delay: " + shownNumber.ToString() + "s";
             eTh = (int)shownNumber;
+
+            shownNumber = pTuSlider.value * 5;
+            eTuText.text = "Camera Tilt Limit: " + shownNumber.ToString() + "°";
+            eTu = (int)shownNumber;
         }
     }
 }

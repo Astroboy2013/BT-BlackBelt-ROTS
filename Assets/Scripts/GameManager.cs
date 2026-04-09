@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         // Ends the game when there are no enemies
         if (totalEnemyCount <= 0)
         {
-            if (SceneManager.GetActiveScene().buildIndex == 2)
+            if (SceneManager.GetActiveScene().buildIndex == 3)
             {
                 winScreen.SetActive(true);
             }
@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
 
     public void updateText(int rawInt, int mode)
     {
-        if (mode == 2)
+        if (mode == 3)
         {
             // Updates the enemy counter text
             enemyCountText.text = "Enemies Left: " + rawInt.ToString();

@@ -28,7 +28,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float yawForce;
     public float pitchForce;
     public float pitchRotationLimit = 35f;
-    public float rollRotationLimit = 30f;
+    public float rollRotationLimit = Settings.pTu;
     public float constantForwardForce = 30f;
     public float boostForce = 60f;
     public float angularAcceleration = 1f;
