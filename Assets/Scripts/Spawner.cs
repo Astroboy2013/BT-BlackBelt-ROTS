@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
 
 public class spawner : MonoBehaviour
 {
@@ -72,7 +69,7 @@ public class spawner : MonoBehaviour
                 }
             }
         }
-        if (SceneManager.GetActiveScene().buildIndex == 3)
+        if (SceneManager.GetActiveScene().buildIndex == 4)
         {
             InvokeRepeating("SpawnOneEnemy", 0f, 5f);
         }

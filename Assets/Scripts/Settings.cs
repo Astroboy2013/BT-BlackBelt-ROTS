@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System.Runtime.CompilerServices;
-using static UnityEngine.Rendering.DebugUI;
 
 public class Settings : MonoBehaviour
 {
@@ -20,6 +16,7 @@ public class Settings : MonoBehaviour
     public TMP_Text maxAmText;
     public TMP_Text eTuText;
     public TMP_Text eThText;
+    public TMP_Text pTuText;
     public TMP_Dropdown fdrDropdown;
     public Slider maxAmSlider;
     public Slider eTuSlider;
@@ -56,9 +53,9 @@ public class Settings : MonoBehaviour
             eThText.text = "Enemy Think Delay: " + shownNumber.ToString() + "s";
             eTh = (int)shownNumber;
 
-            shownNumber = pTuSlider.value * 5;
-            eTuText.text = "Camera Tilt Limit: " + shownNumber.ToString() + "°";
-            eTu = (int)shownNumber;
+            shownNumber = pTuSlider.value * 6;
+            pTuText.text = "Camera Tilt Limit: " + shownNumber.ToString() + "°";
+            pTu = (int)shownNumber;
         }
     }
 }

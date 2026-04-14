@@ -1,13 +1,9 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Cinemachine;
-using UnityEngine.Rendering;
-using Unity.VisualScripting;
-using UnityEditor.Build;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -28,12 +24,12 @@ public class PlayerBehaviour : MonoBehaviour
     public float yawForce;
     public float pitchForce;
     public float pitchRotationLimit = 35f;
-    public float rollRotationLimit = Settings.pTu;
+    public float rollRotationLimit = 30;
     public float constantForwardForce = 30f;
     public float boostForce = 60f;
     public float angularAcceleration = 1f;
     public float maxAngularAcceleration = 2f;
-    public float camOffsetUpperLimitY = 12f;
+    public float camOffsetUpperLimitY = 12;
     public float camOffsetLowerLimitY = -2.5f;
 
     [Header("Other")]
@@ -65,7 +61,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         transposer = cam.GetCinemachineComponent<CinemachineTransposer>();
         camOffsetBuffer = transposer.m_FollowOffset;
-
+        rollRotationLimit = Settings.pTu;
     }
 
     // Update is called once per frame

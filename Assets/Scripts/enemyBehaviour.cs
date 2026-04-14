@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,6 +23,7 @@ public class enemyBehaviour : MonoBehaviour
 
     private float enemyThinkTime;
     private float enemyTurnAngle;
+    private GameObject terDetecObj;
 
     // LayerMask for OverlapSphere
     private int detectionMask;
@@ -33,6 +32,7 @@ public class enemyBehaviour : MonoBehaviour
     {
         player = GameObject.Find("Player");
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        terDetecObj = GameObject.Find("Terrain Detector");
         terDetec = GetComponentInChildren<enemyDetectTerrain>();
         territories = manager.territories;
 
@@ -76,8 +76,8 @@ public class enemyBehaviour : MonoBehaviour
         }
         else if (scene == 4)
         {
+            terDetecObj.gameObject.SetActive(true);
             TerritorialBehaviour();
-            terDetec.gameObject.SetActive(true);
         }
     }
 
