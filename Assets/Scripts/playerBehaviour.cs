@@ -15,8 +15,6 @@ public class PlayerBehaviour : MonoBehaviour
     public AudioSource sound;
     public GameObject engineEffectPart;
     public GameObject[] damagedsmokeParts;
-    public Image fuelingButton;
-    public TMP_Text fuelingButtonText;
     public CinemachineVirtualCamera cam;
     public AnimationCurve camOffsetCurve;
 
@@ -41,8 +39,6 @@ public class PlayerBehaviour : MonoBehaviour
     public float fuelConsumption;
     public string currentTerritory;
     public GameObject currentFuelingBox;
-    public Color onColour;
-    public Color offColour;
 
     private float totalForce;
     private float horizontalInput;
@@ -135,6 +131,11 @@ public class PlayerBehaviour : MonoBehaviour
             sound.pitch = 1;
         }
 
+        if (Input.GetKey(KeyCode.Q))
+        {
+            ToggleFueling(false);
+        }
+
         if (isMoving)
         {
             rb.velocity = transform.forward * totalForce;
@@ -185,28 +186,28 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    public void ToggleFueling()
+    public void ToggleFueling(bool status)
     {
-        if (currentFuelingBox != null)
+        if (status == false)
         {
-            if (isFueling == true)
-            {
-                isFueling = false;
-                fuelingButton.color = offColour;
-                fuelingButtonText.text = "Start Fueling";
-                pitchBuffer = transform.rotation.x;
-                isMoving = true;
-                rb.useGravity = false;
-                StartCoroutine(FadeIn(0.5f));
-            }
-            else
+            isFueling = false;
+            pitchBuffer = transform.rotation.x;
+            isMoving = true;
+            rb.useGravity = false;
+            StartCoroutine(FadeIn(0.5f));
+            StartCoroutine(PitchDown(0.5f));
+        }
+        else
+        {
+            if (currentFuelingBox != null)
             {
                 isFueling = true;
-                fuelingButton.color = onColour;
-                fuelingButtonText.text = "Stop Fueling";
                 isMoving = false;
+                gameObject.transform.position = currentFuelingBox.transform.position;
+                rb.velocity = Vector3.zero;
                 rb.useGravity = true;
                 StartCoroutine(FadeOut(0.5f));
+                StartCoroutine(PitchUp(0.5f));
             }
         }
     }
@@ -245,6 +246,7 @@ public class PlayerBehaviour : MonoBehaviour
         if(other.gameObject.tag == "fueling")
         {
             currentFuelingBox = other.gameObject;
+            ToggleFueling(true);
         }
         if (other.gameObject.tag == "territory")
         {
@@ -276,6 +278,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             isHealing = false;
             currentFuelingBox = null;
+            ToggleFueling(false);
         }
 
         if (other.gameObject.tag == "territory")

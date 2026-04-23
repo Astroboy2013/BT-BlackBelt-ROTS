@@ -9,7 +9,6 @@ public class enemyBehaviour : MonoBehaviour
     public GameObject[] territories;
     public float speed;
     public float percent;
-    public enemyDetectTerrain terDetec;
 
     [Header("Dev Options")]
     public bool hasAI;
@@ -32,8 +31,6 @@ public class enemyBehaviour : MonoBehaviour
     {
         player = GameObject.Find("Player");
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        terDetecObj = GameObject.Find("Terrain Detector");
-        terDetec = GetComponentInChildren<enemyDetectTerrain>();
         territories = manager.territories;
 
         enemyThinkTime = Settings.eTh;
@@ -76,7 +73,6 @@ public class enemyBehaviour : MonoBehaviour
         }
         else if (scene == 4)
         {
-            terDetecObj.gameObject.SetActive(true);
             TerritorialBehaviour();
         }
     }
@@ -101,11 +97,16 @@ public class enemyBehaviour : MonoBehaviour
             WanderBehaviour();
         }
 
-        // Terrain avoidance
-        if (terDetec.isTerrainDetected)
-            rb.velocity += Vector3.up * 20f;
-
         rb.velocity = flyForce * speed;
+
+        // Terrain avoidance
+        int mask = LayerMask.GetMask("Player", "Enemy", "Territories");
+        bool somethingInfront = Physics.Raycast(transform.position, flyForce, 100f);
+
+        if (somethingInfront)
+        {
+            rb.velocity += Vector3.up * 10;
+        }
     }
 
     private void WanderBehaviour()

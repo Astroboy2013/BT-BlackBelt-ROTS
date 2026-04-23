@@ -141,7 +141,6 @@ public class Fire : MonoBehaviour
                 {
                     largestDist = distanceBetweenHit.magnitude;
                     chosenHit = hit.collider.gameObject;
-                    Debug.Log(chosenHit.tag);
                 }
             }
         }
@@ -157,6 +156,7 @@ public class Fire : MonoBehaviour
         {
             newMissile = Instantiate(missilePrefab, transform.position, transform.rotation);
         }
+        currentAmmo--;
     }
 
     void SphereRayTrace()
